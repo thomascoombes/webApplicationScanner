@@ -8,18 +8,6 @@ class Spider:
         self.scan_depth = scan_depth
         self.username = username
         self.password = password
-        
-            
+
     def start_spider(self):
-		
-		
         print("\nSpider started on target:", self.target)
-		
-	
-	
-	
-	
-		
-if __name__ == "__main__":
-    main()
-			
