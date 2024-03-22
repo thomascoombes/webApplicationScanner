@@ -24,14 +24,13 @@ class Nmap:
             port_status = (result['scan'][self.target]['tcp'][self.port]['state'])
             print(f"Port {self.port} is {port_status}")
 
-
-        except:
-            print(f"Cannot scan {self.target} on port {self.port}.")
+        except Exception as e:
+            print(f"Cannot scan {self.target} on port {self.port}: {e}")
             sys.exit()
 
 
 
-#scanner.scan(ip_addr,"1-1024",resp_dict[resp][0])
+
 
 
 

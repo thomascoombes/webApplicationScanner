@@ -27,5 +27,5 @@ class ApplicationVulnerabilityScanner:
             print("Provide a full username password combination")
             sys.exit(1)
 
-    def stop_scan(self):
-        sys.exit("Scan stopped")
+    #def stop_scan(self):
+    #    sys.exit("Scan stopped")

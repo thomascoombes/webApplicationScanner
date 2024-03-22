@@ -38,12 +38,12 @@ def main():
     scanner.start_scan()
 
     # Create an nmap object
-    nmap = Nmap(args.target, args.port)
-    nmap.nmap_web_app()
+    #nmap = Nmap(args.target, args.port)
+    #nmap.nmap_web_app()
 
     # Create a Spider object with the specified parameters
-    #spider = Spider(args.target, args.port, args.depth, args.Username, args.Password)
-    #spider.start_spider()
+    spider = Spider(args.target, args.port, args.depth, args.Username, args.Password)
+    spider.get_urls()
 
 
 if __name__ == "__main__":
