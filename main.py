@@ -5,10 +5,11 @@ import sys
 
 
 class ApplicationVulnerabilityScanner:
-    def __init__(self, target=None, port=None, scan_depth=1, aggression_level=1, username=None, password=None):
+    def __init__(self, target=None, port=None, scan_depth=1, exclusions=None, aggression_level=1, username=None, password=None):
         self.target = target
         self.port = port
         self.scan_depth = scan_depth
+        self.exclusions = exclusions
         self.aggression_level = aggression_level
         self.username = username
         self.password = password
@@ -35,8 +36,8 @@ class ApplicationVulnerabilityScanner:
         nmap.nmap_web_app()
 
         # Call Spider to perform URL crawling
-        # spider = Spider(self.target, self.port, self.scan_depth, [], self.username, self.password)
-        # spider.spider()
+        spider = Spider(self.target, self.port, self.scan_depth, self.exclusions, self.username, self.password)
+        spider.spider()
 
 
 if __name__ == "__main__":
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--exclude", nargs='+', default=[], help="URLs that are out of scope, to exclude from "
                                                                        "scanning",
                         required=False)
-    parser.add_argument("-a", "--aggression", type=int, default=4, choices=range(1, 6),
+    parser.add_argument("-a", "--aggression", type=int, default=4, choices=range(1, 7),
                         help="Set the aggression level (1-6, default: 4)", required=False)
     parser.add_argument("-U", "--Username", default=None, help="Set the username for authenticated attacks",
                         required=False)
@@ -62,6 +63,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Create an ApplicationVulnerabilityScanner object with the specified parameters
-    scanner = ApplicationVulnerabilityScanner(args.target, args.port, args.depth, args.aggression, args.Username,
+    scanner = ApplicationVulnerabilityScanner(args.target, args.port, args.depth, args.exclude, args.aggression, args.Username,
                                               args.Password)
     scanner.start_scan()

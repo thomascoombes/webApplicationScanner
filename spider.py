@@ -9,21 +9,22 @@ from urllib3 import Retry
 
 
 class Spider:
-    def __init__(self, targets=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, visited_file="visited_urls.txt"):
+    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, visited_file="visited_urls.txt"):
         self.port = port
         self.max_depth = scan_depth
         self.username = username
         self.password = password
         self.queued_urls = []
         self.visited_urls = set()
+        self.exclusions = exclusions
         self.out_of_scope_urls = set(exclusions) if exclusions else set()
         self.visited_file = visited_file
         self.session = self.create_session()
         self.clear_visited_file()
+        self.target = "http://" + target + ":" + str(self.port) + "/"
+        self.enqueue_url(self.target, depth=0)
 
-        for target in targets:
-            target = "http://" + target + "/"
-            self.enqueue_url(target, depth=0)
+
 
     def clear_visited_file(self):
         # Clear the contents of the visited URLs file
@@ -43,6 +44,8 @@ class Spider:
         return session
 
     def spider(self):
+        print("\nStarting spider from:", self.target)
+        print("Exclusions: (", len(self.out_of_scope_urls), ")", self.out_of_scope_urls)
         while self.queued_urls:
             url, depth = self.dequeue_url()
             if depth <= self.max_depth or self.max_depth == -1:

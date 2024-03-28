@@ -3,10 +3,9 @@ import sys
 
 
 class NmapScanner:
-    def __init__(self, target=None, port=None, aggression_level=None, version_intensity=None):
+    def __init__(self, target=None, port=None, aggression_level=None):
         self.port = port
         self.aggression_level = aggression_level
-        self.version_intensity = version_intensity
         self.target = target
 
     def nmap_web_app(self):
@@ -19,13 +18,18 @@ class NmapScanner:
             # Mapping aggression level to -T flag (0-5)
             aggression_flag = f"-T{self.aggression_level - 1}" if self.aggression_level in range(1, 7) else "-T5"
 
-            # Mapping version intensity to appropriate value (0-9)
-            version_intensity = self.map_version_intensity(self.version_intensity)
+            # Adding -O and -A flags for aggression levels 4 and 5
+            if self.aggression_level == 5 or self.aggression_level == 6:
+                aggression_flag = aggression_flag + " -O -A"
+                print("Aggression level 4 or 5 detected. Enabling aggressive scan (-O -A).")
 
-            result = nm.scan(self.target, str(self.port),
-                             f'-v -sV -sC --version-intensity {version_intensity} {aggression_flag}')
+            print(aggression_flag)
+            nmap_command = f"nmap {self.target} -p {self.port} -v -sV -sC {aggression_flag}"
+            # --version-intensity
 
-            print("\nScan results:")
+            print("Nmap Command:", nmap_command)
+            result = nm.scan(nmap_command)
+            print("nmap Scan results:")
             for host, scan_result in result['scan'].items():
                 print("Host:", host)
                 if 'hostnames' in scan_result:
@@ -39,19 +43,3 @@ class NmapScanner:
         except Exception as e:
             print(f"Cannot scan {self.target} on port {self.port}: {e}")
             sys.exit()
-
-    def map_version_intensity(self, intensity):
-        if intensity == 1:
-            return "0,1"
-        elif intensity == 2:
-            return "2,3"
-        elif intensity == 3:
-            return "4"
-        elif intensity == 4:
-            return "5,6"
-        elif intensity == 5:
-            return "7,8"
-        elif intensity == 6:
-            return "9"
-        else:
-            return "9"  # Default to the highest intensity
