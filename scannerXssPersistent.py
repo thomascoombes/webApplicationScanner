@@ -3,7 +3,7 @@ from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 
 
-class XSSPersistentScanner:
+class ScanPersXSS:
     def __init__(self):
         self.vulnerable_urls = []
 

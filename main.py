@@ -1,43 +1,11 @@
 import argparse
-from spider import Spider
+# from scannerMain import ApplicationVulnerabilityScanner
 from nmapScan import NmapScanner
-import sys
+from spider import Spider
+from scannerSQLi import ScanSQLInject
+from scannerXssPersistent import ScanPersXSS
 
 
-class ApplicationVulnerabilityScanner:
-    def __init__(self, target=None, port=None, scan_depth=1, exclusions=None, aggression_level=1, username=None, password=None):
-        self.target = target
-        self.port = port
-        self.scan_depth = scan_depth
-        self.exclusions = exclusions
-        self.aggression_level = aggression_level
-        self.username = username
-        self.password = password
-
-    def start_scan(self):
-        print("Scan started on target:", self.target, ":", self.port,
-              "using the following parameters:")
-        if self.scan_depth == -1:
-            print("Scan Depth: Full")
-        else:
-            print("Scan Depth", self.scan_depth)
-
-        print("Aggression Level:", self.aggression_level)
-        if self.username is not None and self.password is not None:
-            print("\nAuthentication")
-            print("Username:", self.username)
-            print("Password", self.password)
-        elif self.username is not None or self.password is not None:
-            print("Provide a full username password combination")
-            sys.exit(1)
-
-        # Call nmap to run rmap scan
-        nmap = NmapScanner(self.target, self.port, self.aggression_level)
-        nmap.nmap_web_app()
-
-        # Call Spider to perform URL crawling
-        spider = Spider(self.target, self.port, self.scan_depth, self.exclusions, self.username, self.password)
-        spider.spider()
 
 
 if __name__ == "__main__":
@@ -63,6 +31,38 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Create an ApplicationVulnerabilityScanner object with the specified parameters
-    scanner = ApplicationVulnerabilityScanner(args.target, args.port, args.depth, args.exclude, args.aggression, args.Username,
-                                              args.Password)
-    scanner.start_scan()
+    # scanner = ApplicationVulnerabilityScanner(args.target, args.port, args.depth, args.exclude, args.aggression, args.Username,
+    #                                           args.Password)
+    # scanner.start_scan()
+
+    print("Scan started on target:", args.target, ":", args.port,
+          "using the following parameters:")
+    if args.depth == -1:
+        print("Scan Depth: Full")
+    else:
+        print("Scan Depth", args.depth)
+
+    print("Aggression Level:", args.aggression)
+    if args.Username is not None and args.Password is not None:
+        print("\nAuthentication")
+        print("Username:", args.Username)
+        print("Password", args.Password)
+    elif args.Username is not None or args.Password is not None:
+        print("Provide a full username password combination")
+        args.exit(1)
+
+
+    # Call nmap to run rmap scan
+    # nmap = NmapScanner(args.target, args.port, args.aggression)
+    # nmap.nmap_web_app()
+
+    # Call Spider to perform URL crawling
+    # spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password)
+    # spider.spider()
+
+    # Call SQLiScanner to perform SQL injection scanning
+    sql_inject = ScanSQLInject()
+    sql_inject.start_sql_inject_scan()
+
+    xss = ScanPersXSS()
+    # xss.some_class()

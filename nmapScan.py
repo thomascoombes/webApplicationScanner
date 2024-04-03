@@ -1,7 +1,6 @@
 import nmap
 import sys
 
-
 class NmapScanner:
     def __init__(self, target=None, port=None, aggression_level=None):
         self.port = port
@@ -23,7 +22,6 @@ class NmapScanner:
                 aggression_flag = aggression_flag + " -O -A"
                 print("Aggression level 4 or 5 detected. Enabling aggressive scan (-O -A).")
 
-            print(aggression_flag)
             nmap_command = f"nmap {self.target} -p {self.port} -v -sV -sC {aggression_flag}"
             # --version-intensity
 

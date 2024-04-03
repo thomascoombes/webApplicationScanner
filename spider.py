@@ -9,7 +9,7 @@ from urllib3 import Retry
 
 
 class Spider:
-    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, visited_file="visited_urls.txt"):
+    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, visited_file="output/visited_urls.txt"):
         self.port = port
         self.max_depth = scan_depth
         self.username = username
@@ -58,7 +58,7 @@ class Spider:
             if not self.queued_urls:
                 break
         print("Finished crawling. Total number of visited URLs:", len(self.visited_urls),
-              "\nVisited URLs can be found in visited_urls.txt")
+              "\nVisited URLs can be found in output/visited_urls.txt")
 
     def add_to_visited(self, url):
         self.visited_urls.add(url)
