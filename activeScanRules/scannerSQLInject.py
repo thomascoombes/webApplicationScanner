@@ -59,8 +59,8 @@ class ScanSQLInject:
 
     def send_form_with_payloads(self, target_url, form_fields):
         # Define the directory containing payload files
-        payloads_dir = "payloads/sqliPayloads/detect"
-        payload_file = "payloads/sqliPayloads/detect/MySQL/MySQL.txt"
+        payloads_dir = "payloads/sqlInjectionPayloads/detect"
+        payload_file = "payloads/sqlInjectionPayloads/detect/MySQL/MySQL.txt"
 
         if self.send_form_with_payload(target_url, form_fields, payload_file):
             return True
