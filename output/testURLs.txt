@@ -1,0 +1,10 @@
+http://192.168.232.129:80/
+http://192.168.232.129:80/mutillidae/
+http://192.168.232.129:80/mutillidae/index.php?page=home.php
+http://192.168.232.129:80/mutillidae/index.php?page=login.php
+http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+http://192.168.232.129:80/mutillidae/index.php?page=register.php
+http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php
+http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php
+http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php

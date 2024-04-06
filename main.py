@@ -1,10 +1,10 @@
 import argparse
-# from scannerMain import ApplicationVulnerabilityScanner
+import time
 from nmapScan import NmapScanner
 from spider import Spider
-from scannerSQLi import ScanSQLInject
-from scannerXssPersistent import ScanPersXSS
-
+from activeScanRules.scannerSQLInject import ScanSQLInject
+from activeScanRules.scannerXssPersistent import ScanPersXSS
+from activeScanRules.scannerXXEInject import ScanXXEInject
 
 
 
@@ -51,18 +51,23 @@ if __name__ == "__main__":
         print("Provide a full username password combination")
         args.exit(1)
 
-
+    """"
     # Call nmap to run rmap scan
-    # nmap = NmapScanner(args.target, args.port, args.aggression)
-    # nmap.nmap_web_app()
-
+    nmap = NmapScanner(args.target, args.port, args.aggression)
+    nmap.nmap_web_app()
+    time.sleep(2)
     # Call Spider to perform URL crawling
-    # spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password)
-    # spider.spider()
-
+    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password)
+    spider.spider()
+    time.sleep(2)
+    """
     # Call SQLiScanner to perform SQL injection scanning
     sql_inject = ScanSQLInject()
     sql_inject.start_sql_inject_scan()
+    time.sleep(2)
 
     xss = ScanPersXSS()
     # xss.some_class()
+    time.sleep(2)
+    xxe = ScanXXEInject()
+    # xxe.some_class()

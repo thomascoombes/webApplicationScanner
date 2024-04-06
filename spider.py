@@ -1,10 +1,7 @@
-from bs4 import BeautifulSoup
 import requests
-import urllib.parse
 from urllib.parse import urlparse, urljoin
 from lxml import html
 from requests.adapters import HTTPAdapter
-import os
 from urllib3 import Retry
 
 
@@ -57,8 +54,7 @@ class Spider:
                         self.enqueue_urls(url, href, depth + 1)
             if not self.queued_urls:
                 break
-        print("Finished crawling. Total number of visited URLs:", len(self.visited_urls),
-              "\nVisited URLs can be found in output/visited_urls.txt")
+        print("Finished crawling. Total number of visited URLs:", len(self.visited_urls))
 
     def add_to_visited(self, url):
         self.visited_urls.add(url)
