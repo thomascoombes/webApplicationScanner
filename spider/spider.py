@@ -3,23 +3,33 @@ from urllib.parse import urlparse, urljoin
 from lxml import html
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
-
+import os
 
 class Spider:
-    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, visited_file="output/visited_urls.txt"):
+    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, output_directory=None):
         self.port = port
+        self.target = "http://" + target + ":" + str(self.port) + "/"
+
         self.max_depth = scan_depth
+
         self.username = username
         self.password = password
+
+        self.output_directory = output_directory
+        if output_directory:
+            self.visited_file = os.path.join(output_directory, "visited_urls.txt")
+        else:
+            self.visited_file = "output/visited_urls.txt"
+        self.clear_visited_file()
+
         self.queued_urls = []
         self.visited_urls = set()
+        self.enqueue_url(self.target, depth=0)
+
         self.exclusions = exclusions
         self.out_of_scope_urls = set(exclusions) if exclusions else set()
-        self.visited_file = visited_file
+
         self.session = self.create_session()
-        self.clear_visited_file()
-        self.target = "http://" + target + ":" + str(self.port) + "/"
-        self.enqueue_url(self.target, depth=0)
 
 
 

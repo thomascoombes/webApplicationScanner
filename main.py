@@ -1,11 +1,47 @@
 import argparse
 import time
+import os
 from nmapScan import NmapScanner
-from spider import Spider
+from spider.spider import Spider
 from activeScanRules.scannerSQLInject import ScanSQLInject
+from activeScanRules.scannerCommandInject import ScanCommandInject
 from activeScanRules.scannerXssPersistent import ScanPersXSS
 from activeScanRules.scannerXXEInject import ScanXXEInject
 
+def clear_output_directory(output_directory2):
+    if output_directory2 and os.path.exists(output_directory2):
+        for filename in os.listdir(output_directory2):
+            file_path = os.path.join(output_directory2, filename)
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                elif os.path.isdir(file_path):
+                    clear_output_directory(file_path)  # Recursively clear subdirectories
+            except Exception as e:
+                print(f"Failed to delete {file_path}: {e}")
+    else:
+        print("Output directory does not exist.")
+
+def make_test_file(output_directory2):
+    # Create the output directory if it doesn't exist
+    urls = ["http://192.168.232.129:80/",
+            "http://192.168.232.129:80/mutillidae/",
+            "http://192.168.232.129:80/mutillidae/index.php?page=home.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=register.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php",
+            "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php"]
+
+    # Define the path to the testURLs.txt file
+    file_path2 = os.path.join(output_directory2, "testURLs.txt")
+
+    # Write the URLs to the file
+    with open(file_path2, "a") as file:
+        for url in urls:
+            file.write(url + "\n")
 
 
 if __name__ == "__main__":
@@ -18,8 +54,10 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--depth", type=int, default=-1, help="Set the scan depth (default: None)",
                         required=False)
     parser.add_argument("-e", "--exclude", nargs='+', default=[], help="URLs that are out of scope, to exclude from "
-                                                                       "scanning",
-                        required=False)
+                                                                       "scanning", required=False)
+    parser.add_argument("-H", "--host-os", choices=["unix", "windows"], default="unix",
+                        help="Set the host operating system type (Unix or Windows)", required=False)
+
     parser.add_argument("-a", "--aggression", type=int, default=4, choices=range(1, 7),
                         help="Set the aggression level (1-6, default: 4)", required=False)
     parser.add_argument("-U", "--Username", default=None, help="Set the username for authenticated attacks",
@@ -30,10 +68,16 @@ if __name__ == "__main__":
     # Parse the command-line arguments
     args = parser.parse_args()
 
-    # Create an ApplicationVulnerabilityScanner object with the specified parameters
-    # scanner = ApplicationVulnerabilityScanner(args.target, args.port, args.depth, args.exclude, args.aggression, args.Username,
-    #                                           args.Password)
-    # scanner.start_scan()
+    # Create directory for the target if it doesn't exist
+    target_directory = os.path.join("output", args.target.replace("://", "_").replace("/", "_"))
+    os.makedirs(target_directory, exist_ok=True)
+    # Set output directory path
+    output_directory = target_directory
+    clear_output_directory(output_directory)
+    # make a test file with a smaller subset of urls
+    make_test_file(output_directory)
+
+
 
     print("Scan started on target:", args.target, ":", args.port,
           "using the following parameters:")
@@ -51,23 +95,28 @@ if __name__ == "__main__":
         print("Provide a full username password combination")
         args.exit(1)
 
-    """"
+
     # Call nmap to run rmap scan
     nmap = NmapScanner(args.target, args.port, args.aggression)
     nmap.nmap_web_app()
     time.sleep(2)
     # Call Spider to perform URL crawling
-    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password)
+    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
     spider.spider()
     time.sleep(2)
-    """
+
     # Call SQLiScanner to perform SQL injection scanning
-    sql_inject = ScanSQLInject()
-    sql_inject.start_sql_inject_scan()
+    sql_inject = ScanSQLInject(visited_urls= output_directory + "/testURLs.txt", potential_vulnerability_file=output_directory + "/potential_sqli_vulnerability.txt")
+    sql_inject.start_scan()
     time.sleep(2)
 
-    xss = ScanPersXSS()
-    # xss.some_class()
-    time.sleep(2)
-    xxe = ScanXXEInject()
-    # xxe.some_class()
+    # Call Command Injection Scanner
+    command_inject = ScanCommandInject(args.host_os, visited_urls=output_directory + "/testURLs.txt",
+                                       potential_vulnerability_file=output_directory + "/potential_command_inject_vulnerability.txt")
+    command_inject.start_scan()
+
+
+
+
+
+
