@@ -1,12 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+import logging
 
 class ActiveScanner:
     def __init__(self, visited_urls_file, potential_vulnerability_file):
         self.targets_file = visited_urls_file
         self.potential_vulnerability_file = potential_vulnerability_file
         self.clear_potential_vulns_file()
+        self.logger = logging.getLogger(__name__)
 
     def clear_potential_vulns_file(self):
         # Clear the contents of the potential vulnerability file
@@ -15,7 +17,7 @@ class ActiveScanner:
 
     def start_scan(self):
         # Open the file containing target URLs
-        print(f"\nStarting {self.__class__.__name__} Scan")
+        self.logger.info(f"\nStarting {self.__class__.__name__} scan")
         with open(self.targets_file, "r") as file:
             for target_url in file:
                 target_url = target_url.strip()  # Remove whitespace characters
@@ -27,12 +29,12 @@ class ActiveScanner:
 
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
-                    print(f"No forms found on {target_url}. Skipping...\n")
+                    self.logger.info(f"No forms found on {target_url}. Skipping...\n")
                     continue
 
                 # Send form with payloads
                 payload_file = self.initialise_payloads()
-                self.send_form_with_payloads(target_url, form_fields, payload_file)
+                self.test_payloads(target_url, form_fields, payload_file)
 
     def get_html_content(self, target_url):
         try:
@@ -40,10 +42,10 @@ class ActiveScanner:
             if response.status_code == 200:
                 return response.text
             else:
-                print(f"Failed to retrieve HTML content from {target_url}. Status code: {response.status_code}")
+                self.logger.error(f"Failed to retrieve HTML content from {target_url}. Status code: {response.status_code}")
                 return None
         except Exception as e:
-            print(f"An error occurred while retrieving HTML content from {target_url}: {e}")
+            self.logger.error(f"An error occurred while retrieving HTML content from {target_url}: {e}")
             return None
 
     def extract_form_fields(self, html_content):
@@ -61,8 +63,10 @@ class ActiveScanner:
     def initialise_payloads(self):
         raise NotImplementedError("Subclasses must implement initialise_payloads method")
 
-    def send_form_with_payloads(self, target_url, form_fields, payload_file):
-        raise NotImplementedError("Subclasses must implement send_form_with_payloads method")
+    def test_payloads(self, target_url, form_fields, payload_file):
+        raise NotImplementedError("Subclasses must implement test_payloads method")
 
-    def record_potential_vulnerability(self, target_url):
-        raise NotImplementedError("Subclasses must implement send_form_with_payloads method")
+    def record_potential_vulnerability(self, target_url, payload):
+        with open(self.potential_vulnerability_file, "a") as file:
+            file.write(target_url + "\n")
+            self.logger.warning(f"Potential vulnerability detected at {target_url} with payload: {payload}")

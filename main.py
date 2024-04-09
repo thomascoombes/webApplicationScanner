@@ -1,11 +1,14 @@
 import argparse
+import logging
 import time
 import os
+
 from nmapScan import NmapScanner
 from spider.spider import Spider
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
-from activeScanRules.scannerXssPersistent import ScanPersXSS
+from activeScanRules.scannerReflectedXSS import ScanReflectedXSS
+from activeScanRules.scannerStoredXSS import ScanStoredXSS
 from activeScanRules.scannerXXEInject import ScanXXEInject
 
 def clear_output_directory(output_directory2):
@@ -26,14 +29,21 @@ def make_test_file(output_directory2):
     # Create the output directory if it doesn't exist
     urls = ["http://192.168.232.129:80/",
             "http://192.168.232.129:80/mutillidae/",
-            "http://192.168.232.129:80/mutillidae/index.php?page=home.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
+            #"http://192.168.232.129:80/mutillidae/index.php?page=home.php",
+            #"http://192.168.232.129:80/mutillidae/index.php?page=login.php",
+            "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
+            "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
             "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=register.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php",
             "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php"]
+            "http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php",
+            "http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php",
+            "http://192.168.232.129/mutillidae/index.php?page=set-background-color.php",
+            "http://192.168.232.129/mutillidae/index.php?page=html5-storage.php",
+            "http://192.168.232.129/mutillidae/index.php?page=capture-data.php",
+            ]
 
     # Define the path to the testURLs.txt file
     file_path2 = os.path.join(output_directory2, "testURLs.txt")
@@ -77,7 +87,7 @@ if __name__ == "__main__":
     # make a test file with a smaller subset of urls
     make_test_file(output_directory)
 
-
+    logging.basicConfig(level=logging.INFO)
 
     print("Scan started on target:", args.target, ":", args.port,
           "using the following parameters:")
@@ -98,25 +108,29 @@ if __name__ == "__main__":
 
     # Call nmap to run rmap scan
     nmap = NmapScanner(args.target, args.port, args.aggression)
-    nmap.nmap_web_app()
-    time.sleep(2)
+    # nmap.nmap_web_app()
+
     # Call Spider to perform URL crawling
     spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
-    spider.spider()
-    time.sleep(2)
+    # spider.spider()
+
 
     # Call SQLiScanner to perform SQL injection scanning
     sql_inject = ScanSQLInject(visited_urls= output_directory + "/testURLs.txt", potential_vulnerability_file=output_directory + "/potential_sqli_vulnerability.txt")
-    sql_inject.start_scan()
-    time.sleep(2)
+    #sql_inject.start_scan()
+
 
     # Call Command Injection Scanner
     command_inject = ScanCommandInject(args.host_os, visited_urls=output_directory + "/testURLs.txt",
                                        potential_vulnerability_file=output_directory + "/potential_command_inject_vulnerability.txt")
-    command_inject.start_scan()
+    #command_inject.start_scan()
 
 
+    # Call  XSS Scanner
+    xss = ScanXSS(visited_urls=output_directory + "/testURLs.txt",
+                                       potential_vulnerability_file=output_directory + "/potential_xss_vulnerability.txt")
+    # xss.start_scan()
 
-
-
-
+    stored_xss_scanner = ScanStoredXSS(visited_urls=output_directory + "/testURLs.txt",
+                                          potential_vulnerability_file=output_directory + "/potential_stored_xss_vulnerability.txt")
+    stored_xss_scanner.start_scan()
