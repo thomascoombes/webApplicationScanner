@@ -5,15 +5,14 @@ from activeScanRules.activeScanner import ActiveScanner
 
 
 class ScanReflectedXSS(ActiveScanner):
-    def __init__(self, visited_urls="output/testURLs.txt", potential_vulnerability_file=None):
-        super().__init__(visited_urls, potential_vulnerability_file)
-        self.logger = logging.getLogger(__name__)
+    def __init__(self, visited_urls="output/testURLs.txt", log_file=None):
+        super().__init__(visited_urls, log_file)
 
     def initialise_payloads(self):
         return "payloads/xssPayloads/xss-payload-list-small.txt"
 
-    def test_payloads(self, target_url, form_fields, payload_file_path):
-        with open(payload_file_path, "r") as payload_file:
+    def test_payloads(self, target_url, form_fields):
+        with open(self.initialise_payloads(), "r") as payload_file:
             for payload in payload_file:
                 payload = payload.strip()
                 self.logger.info(f"Testing payload: {payload} on {target_url}")
@@ -36,15 +35,13 @@ class ScanReflectedXSS(ActiveScanner):
 
                     if response.status_code == 200:
                         if (self.check_content_length(response) or
-                                self.is_reflected_xss(response.text, payload)):
+                                self.check_reflections(response.text, payload)):
                             vulnerability_reason = ""
                             if self.check_content_length(response):
                                 vulnerability_reason = "Content length exceeded threshold"
-                            print("\n")
                             self.logger.warning(
-                                f"Potential XSS vulnerability found at: {target_url} with payload {payload}. Reason: {vulnerability_reason}")
-                            print("\n\n")
-                            self.record_potential_vulnerability(target_url, payload)
+                                f"Potential XSS vulnerability found at: {target_url} "
+                                f"with payload {payload}. Reason: {vulnerability_reason}")
                             break
                     else:
                         self.logger.error(f"Unexpected response code ({response.status_code}) for {target_url}")
@@ -53,20 +50,14 @@ class ScanReflectedXSS(ActiveScanner):
                 except Exception as e:
                     self.logger.exception(f"An unexpected error occurred: {e}")
             else:
-                print("\n")
                 self.logger.info(f"No XSS vulnerability found at: {target_url}")
-                print("\n\n")
 
     def check_content_length(self, response, threshold=10):
         original_length = len(response.text)
         response_with_injection_length = len(response.content)
         return response_with_injection_length > original_length + threshold
 
-    def record_potential_vulnerability(self, target_url, payload):
-        with open(self.potential_vulnerability_file, "a") as file:
-            file.write(f"{target_url} - Payload: {payload}\n")
-
-    def is_reflected_xss(self, response_text, payload):
+    def check_reflections(self, response_text, payload):
         if re.search(re.escape(payload), response_text, re.IGNORECASE):
             return True
         return False

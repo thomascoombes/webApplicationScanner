@@ -9,7 +9,11 @@ from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
 from activeScanRules.scannerReflectedXSS import ScanReflectedXSS
 from activeScanRules.scannerStoredXSS import ScanStoredXSS
+from activeScanRules.scannerLFI import ScanLocalFileInclusion
+from activeScanRules.scannerRFI import ScanRemoteFileInclusion
 from activeScanRules.scannerXXEInject import ScanXXEInject
+from activeScanRules.scannerVerbTampering import ScanVerbTampering
+
 
 def clear_output_directory(output_directory2):
     if output_directory2 and os.path.exists(output_directory2):
@@ -25,12 +29,13 @@ def clear_output_directory(output_directory2):
     else:
         print("Output directory does not exist.")
 
+
 def make_test_file(output_directory2):
     # Create the output directory if it doesn't exist
-    urls = ["http://192.168.232.129:80/",
+    mutillidae_test_urls = ["http://192.168.232.129:80/",
             "http://192.168.232.129:80/mutillidae/",
-            #"http://192.168.232.129:80/mutillidae/index.php?page=home.php",
-            #"http://192.168.232.129:80/mutillidae/index.php?page=login.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=home.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
             "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
             "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
             "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
@@ -44,13 +49,16 @@ def make_test_file(output_directory2):
             "http://192.168.232.129/mutillidae/index.php?page=html5-storage.php",
             "http://192.168.232.129/mutillidae/index.php?page=capture-data.php",
             ]
-
+    dvwa_test_urls = [
+                    "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
+                    "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
+                    "http://192.168.232.129/dvwa/vulnerabilities/sqli/"
+    ]
     # Define the path to the testURLs.txt file
     file_path2 = os.path.join(output_directory2, "testURLs.txt")
-
     # Write the URLs to the file
     with open(file_path2, "a") as file:
-        for url in urls:
+        for url in mutillidae_test_urls: #change depending on url subset required
             file.write(url + "\n")
 
 
@@ -78,17 +86,6 @@ if __name__ == "__main__":
     # Parse the command-line arguments
     args = parser.parse_args()
 
-    # Create directory for the target if it doesn't exist
-    target_directory = os.path.join("output", args.target.replace("://", "_").replace("/", "_"))
-    os.makedirs(target_directory, exist_ok=True)
-    # Set output directory path
-    output_directory = target_directory
-    clear_output_directory(output_directory)
-    # make a test file with a smaller subset of urls
-    make_test_file(output_directory)
-
-    logging.basicConfig(level=logging.INFO)
-
     print("Scan started on target:", args.target, ":", args.port,
           "using the following parameters:")
     if args.depth == -1:
@@ -106,31 +103,41 @@ if __name__ == "__main__":
         args.exit(1)
 
 
-    # Call nmap to run rmap scan
+
+
+
+
+    # Create directory for the target if it doesn't exist, clear it if it does exist
+    target_directory = os.path.join("output", args.target.replace("://", "_").replace("/", "_"))
+    os.makedirs(target_directory, exist_ok=True)
+    # Set output directory path
+    output_directory = target_directory
+    clear_output_directory(output_directory)
+    # make a test file with a smaller subset of urls
+    make_test_file(output_directory)
+
+    # Make objects
     nmap = NmapScanner(args.target, args.port, args.aggression)
-    # nmap.nmap_web_app()
-
-    # Call Spider to perform URL crawling
-    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
-    # spider.spider()
-
-
-    # Call SQLiScanner to perform SQL injection scanning
-    sql_inject = ScanSQLInject(visited_urls= output_directory + "/testURLs.txt", potential_vulnerability_file=output_directory + "/potential_sqli_vulnerability.txt")
-    #sql_inject.start_scan()
-
-
-    # Call Command Injection Scanner
+    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password,
+                    output_directory=output_directory)
+    sql_inject = ScanSQLInject(visited_urls=output_directory + "/testURLs.txt",
+                               log_file=output_directory + "/sql_inject.log")
     command_inject = ScanCommandInject(args.host_os, visited_urls=output_directory + "/testURLs.txt",
-                                       potential_vulnerability_file=output_directory + "/potential_command_inject_vulnerability.txt")
-    #command_inject.start_scan()
+                                       log_file=output_directory + "/command_inject.log")
+    reflected_xss = ScanReflectedXSS(visited_urls=output_directory + "/testURLs.txt",
+                                     log_file=output_directory + "/reflected_xss.log")
+    stored_xss = ScanStoredXSS(visited_urls=output_directory + "/testURLs.txt",
+                               log_file=output_directory + "/stored_xss.log")
+    verb_tampering = ScanVerbTampering(visited_urls=output_directory + "/testURLs.txt",
+                                       log_file=output_directory + "/verb_tampering.log")
+
+    # Start scans
+    sql_inject.start_scan()
+    command_inject.start_scan()
+    # reflected_xss.start_scan()
+    # stored_xss.start_scan()
+    verb_tampering.start_scan()
 
 
-    # Call  XSS Scanner
-    xss = ScanXSS(visited_urls=output_directory + "/testURLs.txt",
-                                       potential_vulnerability_file=output_directory + "/potential_xss_vulnerability.txt")
-    # xss.start_scan()
 
-    stored_xss_scanner = ScanStoredXSS(visited_urls=output_directory + "/testURLs.txt",
-                                          potential_vulnerability_file=output_directory + "/potential_stored_xss_vulnerability.txt")
-    stored_xss_scanner.start_scan()
+

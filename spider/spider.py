@@ -1,7 +1,8 @@
 import requests
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse, urljoin, parse_qs
 from lxml import html
 from requests.adapters import HTTPAdapter
+from requests.auth import HTTPBasicAuth
 from urllib3 import Retry
 import os
 
@@ -32,22 +33,33 @@ class Spider:
         self.session = self.create_session()
 
 
-
     def clear_visited_file(self):
         # Clear the contents of the visited URLs file
         with open(self.visited_file, "w") as file:
             file.write("")
 
     def create_session(self):
+        # Create a requests Session object
         session = requests.Session()
+
+        # Define retry strategy for handling retires on different HTTP codes
         retry_strategy = Retry(
-            total=3,
-            backoff_factor=1,
-            status_forcelist=[429, 500, 502, 503, 504],
-            method_whitelist=["GET"]
+            total=4, # Total number of retries
+            backoff_factor=1, #
+            status_forcelist=[429, 500, 502, 503, 504],  # List of status codes that trigger a retry
+            method_whitelist=["GET"] # # HTTP methods for which retries are allowed
         )
+
+        # Create an HTTP adapter with the defined retry strategy
         adapter = HTTPAdapter(max_retries=retry_strategy)
+        # Mount the adapter to the session, specifying the protocol (http://)
         session.mount('http://', adapter)
+
+        # Check if username and password are provided
+        if self.username and self.password:
+            # If provided, set HTTP basic authentication using the provided credentials
+            session.auth = HTTPBasicAuth(self.username, self.password)
+
         return session
 
     def spider(self):
@@ -59,6 +71,10 @@ class Spider:
                 if url not in self.out_of_scope_urls and url not in self.visited_urls:
                     response = self.send_request(url)
                     if response is not None:
+                        # If response is a tuple, unpack it
+                        if isinstance(response, tuple):
+                            final_url, response = response
+                            url = final_url  # Update URL to the final redirected URL
                         href = self.parse_response(response)
                         self.add_to_visited(url)
                         self.enqueue_urls(url, href, depth + 1)
@@ -73,8 +89,16 @@ class Spider:
 
     def send_request(self, url):
         try:
-            response = self.session.get(url)
-            return response
+            response = self.session.get(url, allow_redirects=True)  # Ensure redirects are allowed
+            # Check if the response is a redirect
+            if response.history:
+                # If there are redirections, get the final URL after all redirects
+                final_url = response.url
+                print("Redirected to:", final_url, "by", url)
+                return final_url, response
+            else:
+                # If no redirects, return the response object as usual
+                return response
         except Exception as e:
             print(f"Error occurred while fetching {url}: {str(e)}")
             return None
@@ -95,9 +119,23 @@ class Spider:
             relative_url = relative_url.strip()
             absolute_url = self.make_absolute(base_url, relative_url)
             if self.is_internal_url(base_url, absolute_url):
-                self.enqueue_url(absolute_url, depth)
+                if self.check_url_params(absolute_url):
+                    self.enqueue_url(absolute_url, depth)
             else:
                 self.out_of_scope_urls.add(absolute_url)
+
+    def check_url_params(self, url):
+        # Check if the URL has toggle parameters that have been encountered before
+        parsed_url = urlparse(url)
+        query_params = parse_qs(parsed_url.query)
+        if query_params:
+            for param, values in query_params.items():
+                # Check if the parameter value combination has been visited before
+                if (parsed_url.path, param, tuple(values)) in self.visited_urls:
+                    return False
+                # Add the parameter value combination to the visited set
+                self.visited_urls.add((parsed_url.path, param, tuple(values)))
+        return True
 
     def make_absolute(self, base_url, relative_url):
         return urljoin(base_url, relative_url)

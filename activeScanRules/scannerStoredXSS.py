@@ -4,9 +4,8 @@ import logging
 from activeScanRules.activeScanner import ActiveScanner
 
 class ScanStoredXSS(ActiveScanner):
-    def __init__(self, visited_urls="output/testURLs.txt", potential_vulnerability_file=None):
-        super().__init__(visited_urls, potential_vulnerability_file)
-        self.logger = logging.getLogger(__name__)
+    def __init__(self, visited_urls="output/testURLs.txt", log_file=None):
+        super().__init__(visited_urls, log_file)
 
     def initialise_payloads(self):
         return "payloads/xssPayloads/xss-payload-list-small.txt"
@@ -24,17 +23,16 @@ class ScanStoredXSS(ActiveScanner):
             self.logger.error(f"An error occurred while simulating stored XSS at {target_url}: {e}")
             return False
 
-    def test_stored_xss(self, target_url, payload_file_path):
-        with open(payload_file_path, "r") as payload_file:
+    def test_stored_xss(self, target_url):
+        with open(self.initialise_payloads(), "r") as payload_file:
             for payload in payload_file:
                 payload = payload.strip()
                 self.logger.setLevel(logging.INFO)
                 self.logger.info(f"Testing stored XSS with payload: {payload} on {target_url}")
                 if self.send_payload(target_url, payload):
                     stored_data = self.retrieve_stored_data(target_url)
-                    if self.analyse_response(stored_data):
+                    if self.check_reflections(stored_data, payload):
                         self.logger.warning(f"Potential Stored XSS vulnerability found at: {target_url} with payload: {payload}")
-                        self.record_potential_vulnerability(target_url, payload)
                         break
 
     def retrieve_stored_data(self, target_url):
@@ -48,3 +46,10 @@ class ScanStoredXSS(ActiveScanner):
         except requests.exceptions.RequestException as e:
             self.logger.error(f"An error occurred while retrieving stored data from {target_url}: {e}")
             return None
+
+    def check_reflections(self, response_text, payload):
+        if re.search(re.escape(payload), response_text, re.IGNORECASE):
+            return True
+        return False
+        # this function will probably call other functions in order to test the reflections
+

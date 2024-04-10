@@ -1,21 +1,32 @@
 import requests
 from bs4 import BeautifulSoup
-import os
 import logging
+from urllib.parse import urlparse, parse_qs, urlencode
+
 
 class ActiveScanner:
-    def __init__(self, visited_urls_file, potential_vulnerability_file):
+    def __init__(self, visited_urls_file, log_file=None):
         self.targets_file = visited_urls_file
-        self.potential_vulnerability_file = potential_vulnerability_file
-        self.clear_potential_vulns_file()
-        self.logger = logging.getLogger(__name__)
+        self.visited_base_urls = set()
+        self.log_file = log_file
+        self.logger = self.configure_logging()
 
-    def clear_potential_vulns_file(self):
-        # Clear the contents of the potential vulnerability file
-        with open(self.potential_vulnerability_file, "w") as file:
-            file.write("")
+    def configure_logging(self):
+        logger = logging.getLogger(self.__class__.__name__)
+        logger.setLevel(logging.INFO)
+
+        file_handler = logging.FileHandler(self.log_file)
+        file_handler.setLevel(logging.INFO)
+
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        file_handler.setFormatter(formatter)
+
+        logger.addHandler(file_handler)
+        return logger
 
     def start_scan(self):
+
+        self.logger = self.configure_logging()
         # Open the file containing target URLs
         self.logger.info(f"\nStarting {self.__class__.__name__} scan")
         with open(self.targets_file, "r") as file:
@@ -29,12 +40,11 @@ class ActiveScanner:
 
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
-                    self.logger.info(f"No forms found on {target_url}. Skipping...\n")
+                    self.logger.info(f"No forms found on {target_url}. Skipping...")
                     continue
 
                 # Send form with payloads
-                payload_file = self.initialise_payloads()
-                self.test_payloads(target_url, form_fields, payload_file)
+                self.test_payloads(target_url, form_fields)
 
     def get_html_content(self, target_url):
         try:
@@ -63,10 +73,32 @@ class ActiveScanner:
     def initialise_payloads(self):
         raise NotImplementedError("Subclasses must implement initialise_payloads method")
 
-    def test_payloads(self, target_url, form_fields, payload_file):
+    def test_payloads(self, target_url, form_fields):
         raise NotImplementedError("Subclasses must implement test_payloads method")
 
-    def record_potential_vulnerability(self, target_url, payload):
-        with open(self.potential_vulnerability_file, "a") as file:
-            file.write(target_url + "\n")
-            self.logger.warning(f"Potential vulnerability detected at {target_url} with payload: {payload}")
+    def test_payloads_in_url(self, target_url, url_params):
+        raise NotImplementedError("Subclasses must implement test_payloads_in_url method")
+
+    def test_payloads_in_forms(self, target_url, form_fields):
+        raise NotImplementedError("Subclasses must implement test_payloads_in_forms method")
+
+    def check_response(self, response, payload, url):
+        raise NotImplementedError("Subclasses must implement check_response method")
+
+    def extract_url_params(self, target_url):
+        parsed_url = urlparse(target_url)
+        return parse_qs(parsed_url.query)
+
+    def construct_modified_url(self, target_url, url_params, payload):
+        #extract possible url parameters to test payloads in
+        modified_params = {}
+        for key, value in url_params.items():
+            modified_params[key] = payload
+        modified_query = urlencode(modified_params)
+        modified_url = target_url.split('?')[0] + '?' + modified_query
+        return modified_url
+
+    def get_base_url(self, url):
+        parsed_url = urlparse(url)
+        return parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
+
