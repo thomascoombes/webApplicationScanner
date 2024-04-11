@@ -1,6 +1,4 @@
 import argparse
-import logging
-import time
 import os
 
 from nmapScan import NmapScanner
@@ -128,17 +126,20 @@ if __name__ == "__main__":
                                log_file=output_directory + "/stored_xss.log")
     verb_tampering = ScanVerbTampering(visited_urls=output_directory + "/testURLs.txt",
                                        log_file=output_directory + "/verb_tampering.log")
-    remote_file_inclusion = ScanRemoteFileInclusion(visited_urls=output_directory + "/testURLs.txt", log_file=output_directory + "/remote_file_include.log")
+    remote_file_inclusion = ScanRemoteFileInclusion(visited_urls=output_directory + "/testURLs.txt",
+                                                    log_file=output_directory + "/remote_file_include.log")
+    local_file_inclusion = ScanLocalFileInclusion(args.host_os, visited_urls=output_directory + "/testURLs.txt", log_file=output_directory + "/local_file_include.log")
 
     # Start scans
     #nmap.nmap_web_app()
     #spider.spider()
-    sql_inject.start_scan()
-    # command_inject.start_scan()
+    #sql_inject.start_scan()
+    #command_inject.start_scan()
     # reflected_xss.start_scan()
     # stored_xss.start_scan()
     # verb_tampering.start_scan()
-    remote_file_inclusion.start_scan()
+    #remote_file_inclusion.start_scan()
+    local_file_inclusion.start_scan()
 
 
 

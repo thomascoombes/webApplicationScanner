@@ -7,6 +7,7 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
     def __init__(self, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
 
+    # affix = %00 (null byte)
     def initialise_payload_prefixes(self):
         prefixes = [
             "",
@@ -46,8 +47,8 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
         prefixes = self.initialise_payload_prefixes()
         remote_file_targets = self.initialise_file_targets()
         payloads = []
-        for prefix in prefixes:
-            for target in remote_file_targets:
+        for target in remote_file_targets:
+            for prefix in prefixes:
                 payload = prefix + target
                 payloads.append(payload)
         return payloads
@@ -72,6 +73,21 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
                     break
             except Exception as e:
                 self.logger.error(f"\tAn error occurred while testing remote file inclusion in URL parameter: {e}")
+
+        if not potential_vulnerability_found: # retry with null byte
+            for payload in payload_combinations:
+                try:
+                    modified_url = self.construct_modified_url(base_url, url_params, payload + "%00")
+                    self.logger.info(
+                        f"\tTesting payload with null byte affixed: {payload} on {base_url} as {modified_url}")
+                    # Send HTTP request to the modified URL
+                    response = requests.get(modified_url)
+                    if self.check_response(response, payload, modified_url, html_content):
+                        potential_vulnerability_found = True
+                        break
+                except Exception as e:
+                    self.logger.error(
+                        f"\tAn error occurred while testing remote file inclusion in URL parameter with null byte affixed: {e}")
         if not potential_vulnerability_found:
             self.logger.info(
                 f"\tNo remote file inclusion vulnerability found in URL parameters at: {base_url}")
@@ -86,6 +102,3 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")
-
-
-

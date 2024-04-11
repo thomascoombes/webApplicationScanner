@@ -1,15 +1,12 @@
 import requests
-from bs4 import BeautifulSoup
 import logging
 from urllib.parse import urlparse, parse_qs, urlencode
-
 
 class FileInclusionScanner:
     def __init__(self, visited_urls_file, log_file=None):
         self.targets_file = visited_urls_file
         self.visited_base_urls = set()
         self.log_file = log_file
-        #self.logger = self.configure_logging()
 
     def configure_logging(self):
         logger = logging.getLogger(self.__class__.__name__)
@@ -71,10 +68,17 @@ class FileInclusionScanner:
             self.logger.error(f"\tAn error occurred while retrieving HTML content from {target_url}: {e}")
             return None
 
+    def initialise_payload_prefixes(self):
+        raise NotImplementedError("Subclasses must implement initialise_payload_prefixes method")
+
+    def initialise_file_targets(self):
+        raise NotImplementedError("Subclasses must implement initialise_file_targets method")
+
     def initialise_payloads(self):
         raise NotImplementedError("Subclasses must implement initialise_payloads method")
 
     def test_payloads(self, base_url, form_fields, html_content):
         raise NotImplementedError("Subclasses must implement test_payloads method")
 
-
+    def check_response(self, response, payload, url, html_content):
+        raise NotImplementedError("Subclasses must implement check_response method")

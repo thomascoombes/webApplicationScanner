@@ -17,39 +17,6 @@ class ScanSQLInject(ActiveScanner):
         return error_messages
 
     def test_payloads(self, target_url, form_fields):
-        if form_fields:
-            self.test_payloads_in_forms(target_url, form_fields)
-
-        url_params = self.extract_url_params(target_url)
-        base_url = self.get_base_url(target_url)
-        if url_params and base_url not in self.visited_base_urls:
-            self.test_payloads_in_url(target_url, url_params)
-            self.visited_base_urls.add(base_url)  # Mark the base URL as visited to prevent redundant testing
-
-    def test_payloads_in_url(self, target_url, url_params):
-        # Open the file containing SQL payloads
-        with open(self.initialise_payloads(), "r") as payload_file:
-            # Initialise a flag to track if any potential vulnerability is found
-            potential_vulnerability_found = False
-            for payload in payload_file:
-                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
-                try:
-                    # Construct the URL with the payload
-                    modified_url = self.construct_modified_url(target_url, url_params, payload)
-                    self.logger.info(f"\tModified URL: {modified_url}")
-                    # Send HTTP request to the modified URL
-                    response = requests.get(modified_url)
-                    # Call check response method to detect potential vulnerabilities
-                    if self.check_response(response, payload, target_url):
-                        potential_vulnerability_found = True
-                        break  # Break out of the loop if vulnerability found
-                except Exception as e:
-                    self.logger.info(f"\tAn error occurred while testing SQL injection in URL parameter: {e}")
-            # After testing all payloads, if no potential vulnerability is found, print the message
-            if not potential_vulnerability_found:
-                self.logger.info(f"\tNo SQL injection URL parameter vulnerability found in URL parameters at: {target_url}")
-
-    def test_payloads_in_forms(self, target_url, form_fields):
         # Open the file containing SQL payloads
         with open(self.initialise_payloads(), "r") as payload_file:
             # Initialise a flag to track if any potential vulnerability is found
