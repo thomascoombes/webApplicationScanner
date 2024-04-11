@@ -5,7 +5,7 @@ from activeScanRules.activeScanner import ActiveScanner
 
 
 class ScanSQLInject(ActiveScanner):
-    def __init__(self, visited_urls="output/testURLs.txt", log_file=None):
+    def __init__(self, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
 
     def initialise_payloads(self):
@@ -32,10 +32,11 @@ class ScanSQLInject(ActiveScanner):
             # Initialise a flag to track if any potential vulnerability is found
             potential_vulnerability_found = False
             for payload in payload_file:
-                self.logger.info(f"Testing payload: {payload} on {target_url}")
+                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 try:
                     # Construct the URL with the payload
                     modified_url = self.construct_modified_url(target_url, url_params, payload)
+                    self.logger.info(f"\tModified URL: {modified_url}")
                     # Send HTTP request to the modified URL
                     response = requests.get(modified_url)
                     # Call check response method to detect potential vulnerabilities
@@ -43,10 +44,10 @@ class ScanSQLInject(ActiveScanner):
                         potential_vulnerability_found = True
                         break  # Break out of the loop if vulnerability found
                 except Exception as e:
-                    self.logger.info(f"An error occurred while testing SQL injection in URL parameter: {e}")
+                    self.logger.info(f"\tAn error occurred while testing SQL injection in URL parameter: {e}")
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
-                self.logger.info(f"No SQL injection vulnerability found in URL parameters at: {target_url}")
+                self.logger.info(f"\tNo SQL injection URL parameter vulnerability found in URL parameters at: {target_url}")
 
     def test_payloads_in_forms(self, target_url, form_fields):
         # Open the file containing SQL payloads
@@ -54,7 +55,7 @@ class ScanSQLInject(ActiveScanner):
             # Initialise a flag to track if any potential vulnerability is found
             potential_vulnerability_found = False
             for payload in payload_file:
-                self.logger.info(f"Testing payload: {payload} on {target_url}")
+                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 # Prepare form data with SQL payload
                 form_data = {}
                 for field_name, _ in form_fields:
@@ -83,11 +84,11 @@ class ScanSQLInject(ActiveScanner):
                         break  # Break out of the loop if vulnerability found
 
                 except Exception as e:
-                    self.logger.error(f"An error occurred while sending form with SQL payload to {target_url}: {e}")
+                    self.logger.error(f"\tAn error occurred while sending form with SQL payload to {target_url}: {e}")
 
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
-                self.logger.info(f"No SQL injection vulnerability found at: {target_url}")
+                self.logger.info(f"\tNo SQL injection form vulnerability found at: {target_url}")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection
@@ -97,8 +98,8 @@ class ScanSQLInject(ActiveScanner):
                     re.search(r'(SQL|mysql_fetch_array|mysqli_fetch_array)', response.text) and
                     payload in response.text):
                 self.logger.warning(
-                    f"Potential SQL injection vulnerability found at: {url} with payload {payload}")
+                    f"\tPotential SQL injection vulnerability found at: {url} with payload {payload}")
                 return True
         else:
-            self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")
+            self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
 

@@ -5,7 +5,7 @@ from activeScanRules.activeScanner import ActiveScanner
 
 
 class ScanReflectedXSS(ActiveScanner):
-    def __init__(self, visited_urls="output/testURLs.txt", log_file=None):
+    def __init__(self, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
 
     def initialise_payloads(self):

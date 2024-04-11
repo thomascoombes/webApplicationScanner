@@ -3,7 +3,7 @@ import requests
 from activeScanRules.activeScanner import ActiveScanner
 
 class ScanVerbTampering(ActiveScanner):
-    def __init__(self, visited_urls="output/testURLs.txt", log_file=None):
+    def __init__(self, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
 
 
@@ -21,16 +21,16 @@ class ScanVerbTampering(ActiveScanner):
             tampered_response = self.send_request(target_url, method=payload)
 
             if tampered_response == original_response:
-                self.logger.warning(f"Potential verb tampering vulnerability found at: {target_url} with method {payload}")
+                self.logger.warning(f"\tPotential verb tampering vulnerability found at: {target_url} with method {payload}")
                 potential_vulnerability_found = True
                 break # Exit the loop if potential vulnerability is found
 
         if not potential_vulnerability_found:
-            self.logger.info(f"No verb tampering vulnerability found at: {target_url}")
+            self.logger.info(f"\tNo verb tampering vulnerability found at: {target_url}")
 
     def send_request(self, target_url, method):
         try:
             response = requests.request(method, target_url)
             return response.text
         except Exception as e:
-            self.logger.error(f"An error occurred while sending request to {target_url} with method {method}: {e}")
+            self.logger.error(f"\tAn error occurred while sending request to {target_url} with method {method}: {e}")

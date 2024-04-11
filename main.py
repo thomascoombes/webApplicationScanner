@@ -9,8 +9,8 @@ from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
 from activeScanRules.scannerReflectedXSS import ScanReflectedXSS
 from activeScanRules.scannerStoredXSS import ScanStoredXSS
-from activeScanRules.scannerLFI import ScanLocalFileInclusion
-from activeScanRules.scannerRFI import ScanRemoteFileInclusion
+from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
+from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
 from activeScanRules.scannerXXEInject import ScanXXEInject
 from activeScanRules.scannerVerbTampering import ScanVerbTampering
 
@@ -36,18 +36,16 @@ def make_test_file(output_directory2):
             "http://192.168.232.129:80/mutillidae/",
             "http://192.168.232.129:80/mutillidae/index.php?page=home.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
-            "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
-            "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
             "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=register.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php",
-            "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php",
-            "http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php",
-            "http://192.168.232.129/mutillidae/index.php?page=set-background-color.php",
-            "http://192.168.232.129/mutillidae/index.php?page=html5-storage.php",
-            "http://192.168.232.129/mutillidae/index.php?page=capture-data.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php",
+            "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
+            "http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php"
             ]
     dvwa_test_urls = [
                     "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
@@ -130,13 +128,17 @@ if __name__ == "__main__":
                                log_file=output_directory + "/stored_xss.log")
     verb_tampering = ScanVerbTampering(visited_urls=output_directory + "/testURLs.txt",
                                        log_file=output_directory + "/verb_tampering.log")
+    remote_file_inclusion = ScanRemoteFileInclusion(visited_urls=output_directory + "/testURLs.txt", log_file=output_directory + "/remote_file_include.log")
 
     # Start scans
+    #nmap.nmap_web_app()
+    #spider.spider()
     sql_inject.start_scan()
-    command_inject.start_scan()
+    # command_inject.start_scan()
     # reflected_xss.start_scan()
     # stored_xss.start_scan()
-    verb_tampering.start_scan()
+    # verb_tampering.start_scan()
+    remote_file_inclusion.start_scan()
 
 
 

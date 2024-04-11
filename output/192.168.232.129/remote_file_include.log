@@ -1,0 +1,14 @@
+2024-04-11 02:03:20,884 - INFO - 
+Starting ScanRemoteFileInclusion scan
+2024-04-11 02:03:20,910 - INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%2F
+2024-04-11 02:03:20,936 - INFO - 	Testing payload: www.google.com:80/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%3A80%2F
+2024-04-11 02:03:20,962 - INFO - 	Testing payload: www.google.com/search?q=github on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%2Fsearch%3Fq%3Dgithub
+2024-04-11 02:03:20,988 - INFO - 	Testing payload: www.google.com:80/search?q=github on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%3A80%2Fsearch%3Fq%3Dgithub
+2024-04-11 02:03:21,014 - INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F
+2024-04-11 02:03:21,279 - WARNING - 	Potential remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F with payload: http://www.google.com/
+2024-04-11 02:03:21,305 - INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%2F
+2024-04-11 02:03:21,331 - INFO - 	Testing payload: www.google.com:80/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%3A80%2F
+2024-04-11 02:03:21,357 - INFO - 	Testing payload: www.google.com/search?q=github on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%2Fsearch%3Fq%3Dgithub
+2024-04-11 02:03:21,383 - INFO - 	Testing payload: www.google.com:80/search?q=github on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%3A80%2Fsearch%3Fq%3Dgithub
+2024-04-11 02:03:21,408 - INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F
+2024-04-11 02:03:21,622 - WARNING - 	Potential remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F with payload: http://www.google.com/

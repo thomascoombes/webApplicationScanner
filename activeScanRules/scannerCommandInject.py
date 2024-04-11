@@ -4,7 +4,7 @@ import re
 from activeScanRules.activeScanner import ActiveScanner
 
 class ScanCommandInject(ActiveScanner):
-    def __init__(self, host_os=None, visited_urls="output/testURLs.txt", log_file=None):
+    def __init__(self, host_os=None, visited_urls=None, log_file=None):
         self.host_os = host_os
         super().__init__(visited_urls, log_file)
 
@@ -15,7 +15,7 @@ class ScanCommandInject(ActiveScanner):
         elif self.host_os == "windows":
             return "payloads/commandInjectionPayloads/windowsPayloads.txt"
         else:
-            self.logger.info("Invalid or unspecified host operating system. Defaulting to Unix payloads.")
+            self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
             return "payloads/commandInjectionPayloads/unix_payloads.txt"
 
     def test_payloads(self, target_url, form_fields):
@@ -34,10 +34,11 @@ class ScanCommandInject(ActiveScanner):
             # Initialise a flag to track if any potential vulnerability is found
             potential_vulnerability_found = False
             for payload in payload_file:
-                self.logger.info(f"Testing payload: {payload} on {target_url}")
+                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 try:
                     # Construct the URL with the payload
                     modified_url = self.construct_modified_url(target_url, url_params, payload)
+                    self.logger.info(f"\tModified URL: {modified_url}")
                     # Send HTTP request to the modified URL
                     response = requests.get(modified_url)
                     # Call check response method to detect potential vulnerabilities
@@ -45,10 +46,10 @@ class ScanCommandInject(ActiveScanner):
                         potential_vulnerability_found = True
                         break  # Break out of the loop if vulnerability found
                 except Exception as e:
-                    self.logger.error(f"An error occurred while testing command injection in URL parameter: {e}")
+                    self.logger.error(f"\tAn error occurred while testing command injection in URL parameter: {e}")
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
-                self.logger.info(f"No command injection vulnerability found in URL parameters at: {target_url}")
+                self.logger.info(f"\tNo command injection URL parameter vulnerability found in URL parameters at: {target_url}")
 
     def test_payloads_in_forms(self, target_url, form_fields):
         # Open the file containing command injection payloads
@@ -56,7 +57,7 @@ class ScanCommandInject(ActiveScanner):
             # Initialise a flag to track if any potential vulnerability is found
             potential_vulnerability_found = False
             for payload in payload_file:
-                self.logger.info(f"Testing payload: {payload} on {target_url}")
+                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 # Prepare form data with command injection payload
                 form_data = {}
                 for field_name, _ in form_fields:
@@ -83,11 +84,11 @@ class ScanCommandInject(ActiveScanner):
                         potential_vulnerability_found = True
                         break  # Break out of the loop if vulnerability found
                 except Exception as e:
-                    self.logger.error(f"An error occurred while sending form with command injection payload to {target_url}: {e}")
+                    self.logger.error(f"\tAn error occurred while sending form with command injection payload to {target_url}: {e}")
 
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
-                self.logger.info(f"No command injection vulnerability found at: {target_url}")
+                self.logger.info(f"\tNo command injection form vulnerability found at: {target_url}")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection
@@ -95,9 +96,9 @@ class ScanCommandInject(ActiveScanner):
             # Check if the response contains common command injection error messages or patterns
             if re.search(r'(uid|gid|groups)', response.text, re.IGNORECASE):
                 self.logger.warning(
-                    f"Potential command injection vulnerability found at: {url} with payload {payload}")
+                    f"\tPotential command injection vulnerability found at: {url} with payload {payload} ")
                 return True
         else:
-            self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")
+            self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
         return False
 

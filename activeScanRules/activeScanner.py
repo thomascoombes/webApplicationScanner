@@ -9,7 +9,7 @@ class ActiveScanner:
         self.targets_file = visited_urls_file
         self.visited_base_urls = set()
         self.log_file = log_file
-        self.logger = self.configure_logging()
+        #self.logger = self.configure_logging()
 
     def configure_logging(self):
         logger = logging.getLogger(self.__class__.__name__)
@@ -40,7 +40,7 @@ class ActiveScanner:
 
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
-                    self.logger.info(f"No forms found on {target_url}. Skipping...")
+                    self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
                     continue
 
                 # Send form with payloads
@@ -52,10 +52,10 @@ class ActiveScanner:
             if response.status_code == 200:
                 return response.text
             else:
-                self.logger.error(f"Failed to retrieve HTML content from {target_url}. Status code: {response.status_code}")
+                self.logger.error(f"\tFailed to retrieve HTML content from {target_url}. Status code: {response.status_code}")
                 return None
         except Exception as e:
-            self.logger.error(f"An error occurred while retrieving HTML content from {target_url}: {e}")
+            self.logger.error(f"\tAn error occurred while retrieving HTML content from {target_url}: {e}")
             return None
 
     def extract_form_fields(self, html_content):
