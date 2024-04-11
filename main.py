@@ -133,13 +133,13 @@ if __name__ == "__main__":
     # Start scans
     #nmap.nmap_web_app()
     #spider.spider()
-    #sql_inject.start_scan()
+    sql_inject.start_scan()
     command_inject.start_scan()
+    remote_file_inclusion.start_scan()
+    local_file_inclusion.start_scan()
     # reflected_xss.start_scan()
     # stored_xss.start_scan()
-    # verb_tampering.start_scan()
-    #remote_file_inclusion.start_scan()
-    #local_file_inclusion.start_scan()
+    verb_tampering.start_scan()
 
 
 

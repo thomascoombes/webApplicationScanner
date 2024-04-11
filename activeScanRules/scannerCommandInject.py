@@ -131,6 +131,7 @@ class ScanCommandInject(ActiveScanner):
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
         return False
+
     def test_blind_command_injection(self, target_url, form_fields):
         self.logger.info("\tTesting blind command injection")
         try:

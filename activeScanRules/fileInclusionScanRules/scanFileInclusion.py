@@ -7,6 +7,7 @@ class FileInclusionScanner:
         self.targets_file = visited_urls_file
         self.visited_base_urls = set()
         self.log_file = log_file
+        self.logger = self.configure_logging()
 
     def configure_logging(self):
         logger = logging.getLogger(self.__class__.__name__)
@@ -23,10 +24,7 @@ class FileInclusionScanner:
 
 
     def start_scan(self):
-        # set up logger
-        self.logger = self.configure_logging()
         self.logger.info(f"\nStarting {self.__class__.__name__} scan")
-        #
         base_urls = []
         with open(self.targets_file, "r") as file:
             for target_url in file:

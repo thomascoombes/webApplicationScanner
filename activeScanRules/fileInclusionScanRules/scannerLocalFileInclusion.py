@@ -126,7 +126,6 @@ class ScanLocalFileInclusion(FileInclusionScanner):
         for payload in payload_combinations:
             try:
                 modified_url = self.construct_modified_url(base_url, url_params, payload)
-                print(modified_url)
                 self.logger.info(f"\tTesting payload: {payload} on {base_url} as {modified_url}")
                 # Send HTTP request to the modified URL
                 response = requests.get(modified_url)

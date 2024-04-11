@@ -7,6 +7,7 @@ class ActiveScanner:
         self.targets_file = visited_urls_file
         self.visited_base_urls = set()
         self.log_file = log_file
+        self.logger = self.configure_logging()
 
     def configure_logging(self):
         logger = logging.getLogger(self.__class__.__name__)
@@ -22,8 +23,6 @@ class ActiveScanner:
         return logger
 
     def start_scan(self):
-
-        self.logger = self.configure_logging()
         # Open the file containing target URLs
         self.logger.info(f"\nStarting {self.__class__.__name__} scan")
         with open(self.targets_file, "r") as file:
