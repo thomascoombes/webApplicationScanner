@@ -5,8 +5,8 @@ from nmapScan import NmapScanner
 from spider.spider import Spider
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
-from activeScanRules.scannerReflectedXSS import ScanReflectedXSS
-from activeScanRules.scannerStoredXSS import ScanStoredXSS
+from activeScanRules.xssScanRules.scannerReflectedXSS import ScanReflectedXSS
+from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
 from activeScanRules.scannerXXEInject import ScanXXEInject
@@ -134,12 +134,12 @@ if __name__ == "__main__":
     #nmap.nmap_web_app()
     #spider.spider()
     #sql_inject.start_scan()
-    #command_inject.start_scan()
+    command_inject.start_scan()
     # reflected_xss.start_scan()
     # stored_xss.start_scan()
     # verb_tampering.start_scan()
     #remote_file_inclusion.start_scan()
-    local_file_inclusion.start_scan()
+    #local_file_inclusion.start_scan()
 
 
 
