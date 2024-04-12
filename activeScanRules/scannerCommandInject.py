@@ -6,6 +6,7 @@ from activeScanRules.activeScanner import ActiveScanner
 
 class ScanCommandInject(ActiveScanner):
     def __init__(self, host_os=None, visited_urls=None, log_file=None):
+        self.injection_characters = None
         self.host_os = host_os
         super().__init__(visited_urls, log_file)
 
@@ -38,12 +39,12 @@ class ScanCommandInject(ActiveScanner):
             return linux_payloads
 
     def initialise_injection_characters(self):
-        injection_characters = [r";", r"\n", r"&", r"|", r"&&", r"||", r")"
+        self.injection_characters = [r";", r"\n", r"&", r"|", r"&&", r"||", r")"
         ]
-        return injection_characters
+        return self.injection_characters
 
 # use tabs to pass waf %09 or  ${IFS}
-    def initialise_payload_response_patterns(self):
+    def initialise_response_patterns(self):
         linux_command_patterns = [
             re.compile(r"uid=[0-9]+.*gid=[0-9]+.*groups=.*"), # id
             re.compile(r"root:.*:0:0:.*"), # cat passwd
@@ -69,7 +70,7 @@ class ScanCommandInject(ActiveScanner):
             self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
             return linux_command_patterns
 
-    def initialise_payloads(self):
+    def construct_payloads(self):
         injection_characters = self.initialise_injection_characters()
         commands = self.initialise_commands()
         payloads = []
@@ -81,7 +82,7 @@ class ScanCommandInject(ActiveScanner):
 
     def test_payloads(self, target_url, form_fields):
         # Open the file containing command injection payloads
-        payloads = self.initialise_payloads()
+        payloads = self.construct_payloads()
         # Initialise a flag to track if any potential vulnerability is found
         potential_vulnerability_found = False
         for payload in payloads:
@@ -123,7 +124,7 @@ class ScanCommandInject(ActiveScanner):
         # Check if response indicates successful injection
         if response.status_code == 200:
             # Check if the response contains common command injection error messages or patterns
-            for pattern in self.initialise_payload_response_patterns():
+            for pattern in self.initialise_response_patterns():
                 if pattern.search(response.text):
                     self.logger.warning(
                         f"\tPotential command injection vulnerability found at: {url} with payload {payload}")

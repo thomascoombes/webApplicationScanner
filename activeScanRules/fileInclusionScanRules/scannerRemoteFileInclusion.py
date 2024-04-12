@@ -33,7 +33,7 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
         ]
         return remote_file_targets
 
-    def initialise_remote_file_patterns(self):
+    def initialise_file_patterns(self):
         remote_file_patterns = [
             re.compile("<title>Google</title>"),
             re.compile("<title>Google</title>"),
@@ -43,7 +43,7 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
         ]
         return remote_file_patterns
 
-    def initialise_payloads(self):
+    def construct_payloads(self):
         prefixes = self.initialise_payload_prefixes()
         remote_file_targets = self.initialise_file_targets()
         payloads = []
@@ -53,13 +53,12 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
                 payloads.append(payload)
         return payloads
 
-
     def test_payloads(self, base_url, url_params, html_content):
         if html_content is None:
             self.logger.error(f"\tFailed to retrieve HTML content from {base_url}. Skipping...")
             return
         potential_vulnerability_found = False
-        payload_combinations = self.initialise_payloads()
+        payload_combinations = self.construct_payloads()
         for payload in payload_combinations:
             try:
                 modified_url = self.construct_modified_url(base_url, url_params, payload)
@@ -95,7 +94,7 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
     def check_response(self, response, payload, url, html_content):
         if response.status_code == 200:
             if response.text != html_content:
-                for pattern in self.initialise_remote_file_patterns():
+                for pattern in self.initialise_file_patterns():
                     if pattern.search(response.text):
                         self.logger.warning(f"\tPotential remote file inclusion vulnerability "
                                          f"found at: {url} with payload: {payload}")

@@ -20,11 +20,11 @@ class ScanVerbTampering(ActiveScanner):
                 continue
             tampered_response = self.send_request(target_url, method=payload)
 
-            if tampered_response == original_response:
-                self.logger.warning(f"\tPotential verb tampering vulnerability found at: {target_url} with method {payload}")
+            if self.check_response(tampered_response, original_response):
+                self.logger.warning(
+                    f"\tPotential verb tampering vulnerability found at: {target_url} with method {payload}")
                 potential_vulnerability_found = True
-                break # Exit the loop if potential vulnerability is found
-
+                break  # Exit the loop if potential vulnerability is found
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo verb tampering vulnerability found at: {target_url}")
 
@@ -34,3 +34,7 @@ class ScanVerbTampering(ActiveScanner):
             return response.text
         except Exception as e:
             self.logger.error(f"\tAn error occurred while sending request to {target_url} with method {method}: {e}")
+
+    def check_response(self, tampered_response, original_response):
+        if tampered_response == original_response:
+            return True

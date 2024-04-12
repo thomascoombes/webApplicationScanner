@@ -66,8 +66,8 @@ class ActiveScanner:
     def initialise_payloads(self):
         raise NotImplementedError("Subclasses must implement initialise_payloads method")
 
-    def test_payloads(self, target_url, form_fields):
+    def test_payloads(self, *args, **kwargs): # Liskov Substitution Principle
         raise NotImplementedError("Subclasses must implement test_payloads method")
 
-    def check_response(self, response, payload, url):
+    def check_response(self, *args, **kwargs):
         raise NotImplementedError("Subclasses must implement check_response method")

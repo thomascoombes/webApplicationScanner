@@ -1,6 +1,5 @@
 import requests
 import re
-import logging
 from activeScanRules.fileInclusionScanRules.scanFileInclusion import FileInclusionScanner
 
 class ScanLocalFileInclusion(FileInclusionScanner):
@@ -88,7 +87,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
             self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
             return linux_local_file_targets
 
-    def initialise_local_file_patterns(self):
+    def initialise_file_patterns(self):
         linux_local_file_patterns = [
             re.compile(r"root:.:0:0"),
             re.compile(r"^[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+$"),
@@ -107,7 +106,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
             self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
             return linux_local_file_patterns
 
-    def initialise_payloads(self):
+    def construct_payloads(self):
         prefixes = self.initialise_payload_prefixes()
         local_file_targets = self.initialise_file_targets()
         payloads = []
@@ -122,7 +121,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
             self.logger.error(f"\tFailed to retrieve HTML content from {base_url}. Skipping...")
             return
         potential_vulnerability_found = False
-        payload_combinations = self.initialise_payloads()
+        payload_combinations = self.construct_payloads()
         for payload in payload_combinations:
             try:
                 modified_url = self.construct_modified_url(base_url, url_params, payload)
@@ -157,7 +156,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
     def check_response(self, response, payload, url, html_content):
         if response.status_code == 200:
             if response.text != html_content:
-                for pattern in self.initialise_local_file_patterns():
+                for pattern in self.initialise_file_patterns():
                     if pattern.search(response.text):
                         self.logger.warning(f"\tPotential local file inclusion vulnerability "
                                          f"found at: {url} with payload: {payload}")

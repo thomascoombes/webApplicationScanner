@@ -47,7 +47,7 @@ class Spider:
             total=4, # Total number of retries
             backoff_factor=1, #
             status_forcelist=[429, 500, 502, 503, 504],  # List of status codes that trigger a retry
-            method_whitelist=["GET"] # # HTTP methods for which retries are allowed
+            # method_whitelist=["GET"] # # HTTP methods for which retries are allowed
         )
 
         # Create an HTTP adapter with the defined retry strategy

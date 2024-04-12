@@ -5,12 +5,19 @@ from nmapScan import NmapScanner
 from spider.spider import Spider
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
+from activeScanRules.scannerVerbTampering import ScanVerbTampering
+from activeScanRules.scannerXXEInject import ScanXXEInject
+from activeScanRules.scannerServerSideTemplateInject import ServerSideTemplateInjectionScanner
+
 from activeScanRules.xssScanRules.scannerReflectedXSS import ScanReflectedXSS
 from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
+from activeScanRules.xssScanRules.scannerXSS import XSSScanner
+
+
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
-from activeScanRules.scannerXXEInject import ScanXXEInject
-from activeScanRules.scannerVerbTampering import ScanVerbTampering
+
+
 
 
 def clear_output_directory(output_directory2):
@@ -45,6 +52,8 @@ def make_test_file(output_directory2):
             "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php"
             ]
+    single_url = "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php"
+
     dvwa_test_urls = [
                     "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
                     "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
@@ -99,10 +108,6 @@ if __name__ == "__main__":
         args.exit(1)
 
 
-
-
-
-
     # Create directory for the target if it doesn't exist, clear it if it does exist
     target_directory = os.path.join("output", args.target.replace("://", "_").replace("/", "_"))
     os.makedirs(target_directory, exist_ok=True)
@@ -128,19 +133,20 @@ if __name__ == "__main__":
                                        log_file=output_directory + "/verb_tampering.log")
     remote_file_inclusion = ScanRemoteFileInclusion(visited_urls=output_directory + "/testURLs.txt",
                                                     log_file=output_directory + "/remote_file_include.log")
-    local_file_inclusion = ScanLocalFileInclusion(args.host_os, visited_urls=output_directory + "/testURLs.txt", log_file=output_directory + "/local_file_include.log")
+    local_file_inclusion = ScanLocalFileInclusion(args.host_os, visited_urls=output_directory + "/testURLs.txt",
+                                                  log_file=output_directory + "/local_file_include.log")
+    xss = XSSScanner(visited_urls=output_directory + "/testURLs.txt",
+                                       log_file=output_directory + "/verb_tampering.log")
 
     # Start scans
     #nmap.nmap_web_app()
     #spider.spider()
-    sql_inject.start_scan()
+    #sql_inject.start_scan()
     command_inject.start_scan()
     remote_file_inclusion.start_scan()
     local_file_inclusion.start_scan()
-    # reflected_xss.start_scan()
-    # stored_xss.start_scan()
-    verb_tampering.start_scan()
+    #verb_tampering.start_scan()
 
+    #xss.start_scan()
 
-
-
+    print("finished")

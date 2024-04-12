@@ -1,27 +1,12 @@
-import requests
-import logging
 from urllib.parse import urlparse, parse_qs, urlencode
 
-class FileInclusionScanner:
+from activeScanRules.activeScanner import ActiveScanner
+
+class FileInclusionScanner(ActiveScanner):
     def __init__(self, visited_urls_file, log_file=None):
-        self.targets_file = visited_urls_file
-        self.visited_base_urls = set()
-        self.log_file = log_file
-        self.logger = self.configure_logging()
-
-    def configure_logging(self):
-        logger = logging.getLogger(self.__class__.__name__)
-        logger.setLevel(logging.INFO)
-
-        file_handler = logging.FileHandler(self.log_file)
-        file_handler.setLevel(logging.INFO)
-
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-        file_handler.setFormatter(formatter)
-
-        logger.addHandler(file_handler)
-        return logger
-
+        super().__init__(visited_urls_file, log_file)
+        self.modified_params = None
+        self.parsed_url = None
 
     def start_scan(self):
         self.logger.info(f"\nStarting {self.__class__.__name__} scan")
@@ -37,34 +22,22 @@ class FileInclusionScanner:
                     base_urls.append(base_url)
 
     def get_base_url(self, url):
-        parsed_url = urlparse(url)
-        return parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
+        self.parsed_url = urlparse(url)
+        return self.parsed_url.scheme + "://" + self.parsed_url.netloc + self.parsed_url.path
 
     def extract_url_params(self, target_url):
-        parsed_url = urlparse(target_url)
-        return parse_qs(parsed_url.query)
+        self.parsed_url = urlparse(target_url)
+        return parse_qs(self.parsed_url.query)
 
     def construct_modified_url(self, target_url, url_params, payload):
         # extract possible url parameters to test payloads in
-        modified_params = {}
+        self.modified_params = {}
         for key, value in url_params.items():
-            modified_params[key] = payload
-        modified_query = urlencode(modified_params)
+            self.modified_params[key] = payload
+        modified_query = urlencode(self.modified_params)
         modified_url = target_url.split('?')[0] + '?' + modified_query
         return modified_url
 
-    def get_html_content(self, target_url):
-        try:
-            response = requests.get(target_url)
-            if response.status_code == 200:
-                return response.text
-            else:
-                self.logger.error(
-                    f"\tFailed to retrieve HTML content from {target_url}. Status code: {response.status_code}")
-                return None
-        except Exception as e:
-            self.logger.error(f"\tAn error occurred while retrieving HTML content from {target_url}: {e}")
-            return None
 
     def initialise_payload_prefixes(self):
         raise NotImplementedError("Subclasses must implement initialise_payload_prefixes method")
@@ -72,10 +45,13 @@ class FileInclusionScanner:
     def initialise_file_targets(self):
         raise NotImplementedError("Subclasses must implement initialise_file_targets method")
 
-    def initialise_payloads(self):
+    def construct_payloads(self):
         raise NotImplementedError("Subclasses must implement initialise_payloads method")
 
-    def test_payloads(self, base_url, form_fields, html_content):
+    def initialise_file_patterns(self):
+        raise NotImplementedError("Subclasses must implement initialise_local_file_patterns method")
+
+    def test_payloads(self, base_url, url_params, html_content):
         raise NotImplementedError("Subclasses must implement test_payloads method")
 
     def check_response(self, response, payload, url, html_content):
