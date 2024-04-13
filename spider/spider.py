@@ -88,6 +88,7 @@ class Spider:
             file.write(url + "\n")
 
     def send_request(self, url):
+        proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
         try:
             response = self.session.get(url, allow_redirects=True)  # Ensure redirects are allowed
             # Check if the response is a redirect

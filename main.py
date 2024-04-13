@@ -17,9 +17,6 @@ from activeScanRules.xssScanRules.scannerXSS import XSSScanner
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
 
-
-
-
 def clear_output_directory(output_directory2):
     if output_directory2 and os.path.exists(output_directory2):
         for filename in os.listdir(output_directory2):
@@ -117,36 +114,45 @@ if __name__ == "__main__":
     # make a test file with a smaller subset of urls
     make_test_file(output_directory)
 
+
+    #change depending on how testing is happening
+    #visited_urls = output_directory + "/testURLs.txt"
+    visited_urls = output_directory + "/visited_urls.txt"
+
+
     # Make objects
     nmap = NmapScanner(args.target, args.port, args.aggression)
-    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password,
-                    output_directory=output_directory)
-    sql_inject = ScanSQLInject(visited_urls=output_directory + "/testURLs.txt",
-                               log_file=output_directory + "/sql_inject.log")
-    command_inject = ScanCommandInject(args.host_os, visited_urls=output_directory + "/testURLs.txt",
-                                       log_file=output_directory + "/command_inject.log")
-    reflected_xss = ScanReflectedXSS(visited_urls=output_directory + "/testURLs.txt",
-                                     log_file=output_directory + "/reflected_xss.log")
-    stored_xss = ScanStoredXSS(visited_urls=output_directory + "/testURLs.txt",
-                               log_file=output_directory + "/stored_xss.log")
-    verb_tampering = ScanVerbTampering(visited_urls=output_directory + "/testURLs.txt",
-                                       log_file=output_directory + "/verb_tampering.log")
-    remote_file_inclusion = ScanRemoteFileInclusion(visited_urls=output_directory + "/testURLs.txt",
-                                                    log_file=output_directory + "/remote_file_include.log")
-    local_file_inclusion = ScanLocalFileInclusion(args.host_os, visited_urls=output_directory + "/testURLs.txt",
-                                                  log_file=output_directory + "/local_file_include.log")
-    xss = XSSScanner(visited_urls=output_directory + "/testURLs.txt",
-                                       log_file=output_directory + "/verb_tampering.log")
+    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
+    sql_inject = ScanSQLInject(visited_urls=visited_urls, log_file=output_directory + "/sql_inject.log")
+
+    command_inject = ScanCommandInject(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/command_inject.log")
+
+    verb_tampering = ScanVerbTampering(visited_urls=visited_urls, log_file=output_directory + "/verb_tampering.log")
+
+    rfi = ScanRemoteFileInclusion(visited_urls=visited_urls, log_file=output_directory + "/remote_file_include.log")
+
+    lfi = ScanLocalFileInclusion(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/local_file_include.log")
+
+    xxe = ScanXXEInject(visited_urls=visited_urls, log_file=output_directory + "/xxe_injection.log")
+
+    ssti = ServerSideTemplateInjectionScanner(visited_urls=visited_urls, log_file=output_directory + "/ssti.log")
+
+    xss = XSSScanner(visited_urls=visited_urls, log_file=output_directory + "/xss.log")
+    reflected_xss = ScanReflectedXSS(visited_urls=visited_urls, log_file=output_directory + "/reflected_xss.log")
+    stored_xss = ScanStoredXSS(visited_urls=visited_urls, log_file=output_directory + "/stored_xss.log")
 
     # Start scans
     #nmap.nmap_web_app()
-    #spider.spider()
+    spider.spider()
     #sql_inject.start_scan()
-    command_inject.start_scan()
-    remote_file_inclusion.start_scan()
-    local_file_inclusion.start_scan()
+    #command_inject.start_scan()
+    #rfi.start_scan()
+    #lfi.start_scan()
     #verb_tampering.start_scan()
+    xxe.start_scan()
+    #ssti.start_scan()
 
-    #xss.start_scan()
+
+    # xss.start_scan()
 
     print("finished")

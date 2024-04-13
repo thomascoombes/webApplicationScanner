@@ -153,7 +153,7 @@ class ScanSQLInject(ActiveScanner):
 
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
-                self.logger.info(f"\tNo SQL injection form vulnerability found at: {target_url}")
+                self.logger.info(f"\tNo SQL injection vulnerability found at: {target_url}")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection

@@ -117,7 +117,7 @@ class ScanCommandInject(ActiveScanner):
 
         # After testing all payloads, if no potential vulnerability is found, print the message
         if not potential_vulnerability_found:
-            self.logger.info(f"\tNo command injection form vulnerability found at: {target_url}")
+            self.logger.info(f"\tNo command injection vulnerability found at: {target_url}")
             self.test_blind_command_injection(target_url, form_fields)
 
     def check_response(self, response, payload, url):
