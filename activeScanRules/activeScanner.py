@@ -56,7 +56,7 @@ class ActiveScanner:
         soup = BeautifulSoup(html_content, 'html.parser')
         forms = soup.find_all('form')
         for form in forms:
-            fields = form.find_all(['input', 'textarea'])
+            fields = form.find_all(['input', 'textarea', 'select'])
             for field in fields:
                 field_name = field.get('name')
                 field_type = field.get('type') or 'text'

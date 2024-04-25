@@ -51,16 +51,17 @@ def make_test_file(output_directory2):
             ]
     single_url = "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php"
 
-    dvwa_test_urls = [
-                    "http://192.168.232.129/dvwa/vulnerabilities/xss_r/",
-                    "http://192.168.232.129/dvwa/vulnerabilities/xss_s/",
-                    "http://192.168.232.129/dvwa/vulnerabilities/sqli/"
-    ]
+    less_mutillidae_urls = [
+                            "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
+                            "http://192.168.232.129/mutillidae/index.php?page=pen-test-tool-lookup.php",
+                            "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
+                            ]
+
     # Define the path to the testURLs.txt file
     file_path2 = os.path.join(output_directory2, "testURLs.txt")
     # Write the URLs to the file
     with open(file_path2, "a") as file:
-        for url in mutillidae_test_urls: #change depending on url subset required
+        for url in less_mutillidae_urls: #change depending on url subset required
             file.write(url + "\n")
 
 
@@ -116,8 +117,9 @@ if __name__ == "__main__":
 
 
     #change depending on how testing is happening
-    #visited_urls = output_directory + "/testURLs.txt"
-    visited_urls = output_directory + "/visited_urls.txt"
+    visited_urls = output_directory + "/testURLs.txt"
+    #visited_urls = output_directory + "/visited_urls.txt"
+
 
 
     # Make objects
@@ -141,18 +143,24 @@ if __name__ == "__main__":
     reflected_xss = ScanReflectedXSS(visited_urls=visited_urls, log_file=output_directory + "/reflected_xss.log")
     stored_xss = ScanStoredXSS(visited_urls=visited_urls, log_file=output_directory + "/stored_xss.log")
 
+
     # Start scans
     #nmap.nmap_web_app()
-    spider.spider()
+    #spider.spider()
+    print("Starting SQL Injection scan")
     #sql_inject.start_scan()
+    print("Starting Command Injection scan")
     #command_inject.start_scan()
+    print("Starting Remote File Inclusion scan")
     #rfi.start_scan()
+    print("Starting Local File Inclusion scan")
     #lfi.start_scan()
+    print("Starting Verb Tampering scan")
     #verb_tampering.start_scan()
-    xxe.start_scan()
+    print("Starting XXE Injection scan")
+    #xxe.start_scan()
+    print("Starting SSTI scan")
     #ssti.start_scan()
-
-
-    # xss.start_scan()
-
-    print("finished")
+    print("Starting XSS scan")
+    xss.start_scan()
+    xss.close_browser()

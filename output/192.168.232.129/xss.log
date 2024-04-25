@@ -1,0 +1,6 @@
+2024-04-24 16:03:56,894 - INFO - 
+Starting XSSScanner scan
+2024-04-24 16:04:02,218 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-24 16:04:04,092 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-24 16:04:05,157 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-24 16:04:07,649 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
