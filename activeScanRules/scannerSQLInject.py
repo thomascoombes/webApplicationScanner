@@ -1,5 +1,6 @@
 import requests
 import re
+import time
 
 from activeScanRules.activeScanner import ActiveScanner
 
@@ -84,29 +85,31 @@ def initialise_generic_sql_error_messages():
     return generic_sql_error_messages
 
 def identify_dbms(response_text):
+    dbms = ""
     # Check for MySQL error messages
     if any(msg.search(response_text) for msg in initialise_mysql_error_messages()):
-        return "MySQL"
+        dbms = "MySQL"
     # Check for MS SQL Server error messages
     elif any(msg.search(response_text) for msg in initialise_mssql_error_messages()):
-        return "MS SQL Server"
+        dbms = "MS SQL Server"
     # Check for Oracle error messages
     elif any(msg.search(response_text) for msg in initialise_oracle_error_messages()):
-        return "Oracle"
+        dbms = "Oracle"
     # Check for PostgreSQL error messages
     elif any(msg.search(response_text) for msg in initialise_postgre_error_messages()):
-        return "PostgreSQL"
+        dbms = "PostgreSQL"
     # Check for Sybase error messages
     elif any(msg.search(response_text) for msg in initialise_sybase_error_messages()):
-        return "Sybase"
+        dbms = "Sybase"
     # Check for SQLite error messages
     elif any(msg.search(response_text) for msg in initialise_sqlite_error_messages()):
-        return "SQLite"
+        dbms = "SQLite"
     # Check for generic SQL error messages
     elif any(msg.search(response_text) for msg in initialise_generic_sql_error_messages()):
-        return "Generic SQL"
+        dbms = "Generic SQL"
     else:
         return None
+    return dbms
 
 class ScanSQLInject(ActiveScanner):
     def __init__(self, visited_urls=None, log_file=None):
@@ -116,6 +119,7 @@ class ScanSQLInject(ActiveScanner):
         return "payloads/sqlInjectionPayloads/sqliInjectionPayloads.txt"
 
     def test_payloads(self, target_url, form_fields):
+        # start_time = time.time()
         # Open the file containing SQL payloads
         with open(self.initialise_payloads(), "r") as payload_file:
             # Initialise a flag to track if any potential vulnerability is found
@@ -154,6 +158,10 @@ class ScanSQLInject(ActiveScanner):
             # After testing all payloads, if no potential vulnerability is found, print the message
             if not potential_vulnerability_found:
                 self.logger.info(f"\tNo SQL injection vulnerability found at: {target_url}")
+                print(f"\033[32m[+] No SQL injection vulnerability found at: {target_url}\033[0m")
+        #end_time = time.time()
+        #elapsed_time = end_time - start_time
+        #print(f"\033[36mFinished SQLi scan in {elapsed_time:.2f} seconds\033[0m")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection
@@ -161,11 +169,13 @@ class ScanSQLInject(ActiveScanner):
             # Determine the DBMS based on the error messages
             dbms = identify_dbms(response.text)
             if dbms:
-                self.logger.warning(
-                    f"\tPotential SQL injection vulnerability found at: {url} with payload {payload} for {dbms}")
+                self.logger.warning(f"Potential SQL injection vulnerability found at: {url} with payload {payload} for {dbms}")
+                print(
+                    f"\033[31m[+] Potential SQL injection vulnerability found at: {url} with payload {payload.strip()} for {dbms}\033[0m")
             else:
                 self.logger.warning(
-                    f"\tPotential SQL injection vulnerability found at: {url} with payload {payload} (DBMS unknown)")
+                    f"Potential SQL injection vulnerability found at: {url} with payload {payload} (DBMS unknown)")
+                print(f"\033[31m[+] Potential SQL injection vulnerability found at: {url} with payload {payload.strip()} (DBMS unknown)\033[0m")
             return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")

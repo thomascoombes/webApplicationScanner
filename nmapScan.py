@@ -1,17 +1,22 @@
 import nmap
 import sys
+import logging
 
 class NmapScanner:
-    def __init__(self, target=None, port=None, aggression_level=None):
+    def __init__(self, target=None, port=None, aggression_level=None, log_file=None):
         self.port = port
         self.aggression_level = aggression_level
         self.target = target
+        self.log_file = log_file
+        logging.basicConfig(filename=self.log_file, level=logging.INFO,
+                            format='%(asctime)s - %(levelname)s - %(message)s')
 
     def nmap_web_app(self):
         try:
             nm = nmap.PortScanner()
 
-            print("\nNmap Version:", nm.nmap_version())
+            print(f"\033[36mNmap Version: {nm.nmap_version()}")
+            logging.info(f"Nmap Version: {nm.nmap_version()}")
             print("Starting Nmap scan")
 
             # Mapping aggression level to -T flag (0-5)
@@ -26,17 +31,24 @@ class NmapScanner:
             # --version-intensity
 
             print("Nmap Command:", nmap_command)
+            logging.info("Nmap Command: %s", nmap_command)
             result = nm.scan(nmap_command)
-            print("nmap Scan results:")
+            print("Nmap Scan results:")
             for host, scan_result in result['scan'].items():
                 print("Host:", host)
+                logging.info("Host: %s", host)
                 if 'hostnames' in scan_result:
                     print("Hostnames:", ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
+                    logging.info("Hostnames: %s",
+                                 ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
                 for port, port_data in scan_result['tcp'].items():
                     print(f"Port {port}:", port_data['state'], "-", port_data['name'], "-",
                           port_data.get('product', ''), port_data.get('version', ''))
+                    logging.info("Port %s: %s - %s - %s %s", port, port_data['state'], port_data['name'],
+                                 port_data.get('product', ''), port_data.get('version', ''))
                     if 'http-title' in port_data:
                         print("HTTP Title:", port_data['http-title'])
+                        logging.info("HTTP Title: %s", port_data['http-title'])
 
         except Exception as e:
             print(f"Cannot scan {self.target} on port {self.port}: {e}")

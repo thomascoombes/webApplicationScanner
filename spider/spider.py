@@ -5,6 +5,7 @@ from requests.adapters import HTTPAdapter
 from requests.auth import HTTPBasicAuth
 from urllib3 import Retry
 import os
+import time
 
 class Spider:
     def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, output_directory=None):
@@ -63,8 +64,7 @@ class Spider:
         return session
 
     def spider(self):
-        print("\nStarting spider from:", self.target)
-        print("Exclusions: (", len(self.out_of_scope_urls), ")", self.out_of_scope_urls)
+        start_time = time.time()
         while self.queued_urls:
             url, depth = self.dequeue_url()
             if depth <= self.max_depth or self.max_depth == -1:
@@ -80,15 +80,23 @@ class Spider:
                         self.enqueue_urls(url, href, depth + 1)
             if not self.queued_urls:
                 break
-        print("Finished crawling. Total number of visited URLs:", len(self.visited_urls))
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        with open(self.visited_file, "r") as file:
+            line_count = sum(1 for line in file)
+        print(f"\033[36mFinished crawling in {elapsed_time:.2f} seconds. Total number of visited URLs: "
+              f"{line_count}\033[0m")
 
     def add_to_visited(self, url):
+        if isinstance(url, tuple):
+            # Convert tuple to string representation
+            url = self.convert_tuple_to_string(url)
         self.visited_urls.add(url)
         with open(self.visited_file, "a") as file:
             file.write(url + "\n")
 
     def send_request(self, url):
-        proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
+        proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'} # burp testing
         try:
             response = self.session.get(url, allow_redirects=True)  # Ensure redirects are allowed
             # Check if the response is a redirect
@@ -120,8 +128,9 @@ class Spider:
             relative_url = relative_url.strip()
             absolute_url = self.make_absolute(base_url, relative_url)
             if self.is_internal_url(base_url, absolute_url):
-                if self.check_url_params(absolute_url):
-                    self.enqueue_url(absolute_url, depth)
+                if absolute_url not in self.visited_urls:  # Check if URL is not visited yet
+                    if self.check_url_params(absolute_url):
+                        self.enqueue_url(absolute_url, depth)
             else:
                 self.out_of_scope_urls.add(absolute_url)
 
@@ -145,3 +154,8 @@ class Spider:
         base_netloc = urlparse(base_url).netloc
         absolute_netloc = urlparse(absolute_url).netloc
         return base_netloc == absolute_netloc
+
+    def convert_tuple_to_string(self, url_tuple):
+        # Convert tuple to string representation
+        url_string = "/".join(url_tuple)
+        return url_string

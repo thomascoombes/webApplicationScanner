@@ -2,7 +2,6 @@ from urllib.parse import urlparse, parse_qs, urlencode
 import requests
 import re
 from bs4 import BeautifulSoup
-
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium import webdriver
 from selenium.common import TimeoutException
@@ -65,16 +64,15 @@ class XSSScanner(ActiveScanner):
                 html_content = self.get_html_content(target_url)
                 # Extract form fields from HTML content
                 form_fields = self.extract_form_fields(html_content)
-                print(form_fields)
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
                     self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
+                    print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
                     continue
                 #self.test_test_payload()
                 self.test_payloads(target_url, form_fields)
 
     def test_payloads(self, target_url, form_fields):
-        print(form_fields)
         payloads = self.initialise_payloads()
         potential_vulnerability_found = False
         for payload in payloads:
@@ -86,7 +84,6 @@ class XSSScanner(ActiveScanner):
             try:
                 # Get the form method (post or get)
                 form_method = form_data.get('method', 'post').lower()
-                print("url + form method 1", target_url, form_method)
                 # Get the action URL or set it to the target URL if not found
                 action = form_data.get('action', target_url)
                 # Extract input fields from the form_data
@@ -101,7 +98,7 @@ class XSSScanner(ActiveScanner):
 
 
                 # print(f"form data {form_data}\n post data {post_data}")
-                vulnerability_found = self.check_xss(action, form_method, post_data, payload)
+                vulnerability_found = self.check_reflections(action, form_method, post_data, payload)
                 if vulnerability_found:
                     potential_vulnerability_found = True
                     break
@@ -114,10 +111,9 @@ class XSSScanner(ActiveScanner):
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo XSS vulnerability found at: {target_url}")
 
-    def check_xss(self, action, form_method, post_data, payload):
+    def check_reflections(self, action, form_method, post_data, payload):
         # Navigate to the target URL
         self.driver.get(action)
-        print("form method", form_method)
         # Submit the form with the payload
         if form_method == 'post':
             script = """
@@ -136,7 +132,7 @@ class XSSScanner(ActiveScanner):
         else:
             # Construct URL with payload
             url_with_payload = action + '?' + '&'.join([f'{name}={value}' for name, value in post_data.items()])
-            print("payloaded url", url_with_payload)
+            # print("payloaded url", url_with_payload)
             self.driver.get(url_with_payload)
 
         # Check for JavaScript pop-up
@@ -144,13 +140,18 @@ class XSSScanner(ActiveScanner):
             WebDriverWait(self.driver, 2).until(EC.alert_is_present())
             alert = self.driver.switch_to.alert
             alert.accept()
-            print(f"\033[31m[+] XSS Triggered {action} with {payload}\033[0m")
+            self.logger.warning(
+                f"\tPotential XSS vulnerability found at: {action} with {payload}")
+            print(f"\033[31m[+] Potential XSS vulnerability found at: {action} with {payload}\033[0m")
             return True
         except TimeoutException:
-            print(f"\033[36m[+] XSS not Triggered {action} with {payload}\033[0m")
+            self.logger.info(f"No XSS vulnerability found at: {action}")
+            print(f"\033[32m[+] No XSS vulnerability found at: {action}\033[0m")
             return False
 
     def close_browser(self):
         if self.driver:
             self.driver.quit()
+        else:
+            return
 

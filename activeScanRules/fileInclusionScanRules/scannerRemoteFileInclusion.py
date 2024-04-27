@@ -90,14 +90,17 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
         if not potential_vulnerability_found:
             self.logger.info(
                 f"\tNo remote file inclusion vulnerability found in URL parameters at: {base_url}")
+            print(f"\033[32m[+] No remote file inclusion vulnerability found at: {base_url}\033[0m")
 
     def check_response(self, response, payload, url, html_content):
         if response.status_code == 200:
             if response.text != html_content:
                 for pattern in self.initialise_file_patterns():
                     if pattern.search(response.text):
-                        self.logger.warning(f"\tPotential remote file inclusion vulnerability "
-                                         f"found at: {url} with payload: {payload}")
+                        self.logger.warning(f"Potential remote file inclusion vulnerability "
+                                         f"found at: {url} (payload: {payload})")
+                        print(f"\033[31m[+] Potential remote file inclusion vulnerability "
+                                         f"found at: {url}  (payload: {payload})\033[0m")
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")

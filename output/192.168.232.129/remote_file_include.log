@@ -1,0 +1,8 @@
+2024-04-27 15:45:32,110 - INFO - 
+Starting ScanRemoteFileInclusion scan
+2024-04-27 15:45:32,140 - INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%2F
+2024-04-27 15:45:32,168 - INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F
+2024-04-27 15:45:32,466 - WARNING - Potential remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F (payload: http://www.google.com/)
+2024-04-27 15:45:32,495 - INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%2F
+2024-04-27 15:45:32,525 - INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F
+2024-04-27 15:45:32,742 - WARNING - Potential remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F (payload: http://www.google.com/)

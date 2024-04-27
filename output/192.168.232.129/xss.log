@@ -1,6 +1,105 @@
-2024-04-24 16:03:56,894 - INFO - 
+2024-04-27 15:44:51,905 - INFO - 
 Starting XSSScanner scan
-2024-04-24 16:04:02,218 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
-2024-04-24 16:04:04,092 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=pen-test-tool-lookup.php
-2024-04-24 16:04:05,157 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
-2024-04-24 16:04:07,649 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:44:56,984 - INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-27 15:44:57,027 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+2024-04-27 15:44:57,067 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+2024-04-27 15:44:57,110 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:44:58,500 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:44:58,563 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/set-up-database.php. Skipping...
+2024-04-27 15:44:58,612 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=show-log.php. Skipping...
+2024-04-27 15:44:58,659 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php. Skipping...
+2024-04-27 15:44:58,711 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=credits.php. Skipping...
+2024-04-27 15:44:58,757 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:44:58,827 - ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=user-info.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+2024-04-27 15:44:58,827 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:44:58,869 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:44:58,968 - ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=register.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+2024-04-27 15:44:58,968 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:44:59,023 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:00,085 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:00,129 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:01,187 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:01,232 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php. Skipping...
+2024-04-27 15:45:01,279 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:03,777 - INFO - No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:03,778 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:03,821 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...
+2024-04-27 15:45:03,861 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:45:04,823 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:04,867 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php. Skipping...
+2024-04-27 15:45:04,909 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:07,386 - INFO - No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:07,386 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:45:07,427 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:09,866 - INFO - No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:09,866 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:45:09,907 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:45:11,378 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:11,429 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:45:12,446 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:12,491 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:45:13,495 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:13,540 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:45:14,561 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:14,613 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=show-log.php. Skipping...
+2024-04-27 15:45:14,657 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:45:15,797 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:15,841 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:18,310 - INFO - No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:18,311 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:45:18,715 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=browser-info.php. Skipping...
+2024-04-27 15:45:18,756 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:45:19,741 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=login.php with <scrIpt>alert('XSS')</sCriPt>
+2024-04-27 15:45:19,822 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:19,940 - ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+2024-04-27 15:45:19,940 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:45:19,981 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+2024-04-27 15:45:20,023 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:20,123 - ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+2024-04-27 15:45:20,124 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:45:20,167 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php. Skipping...
+2024-04-27 15:45:20,211 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=credits.php. Skipping...
+2024-04-27 15:45:20,253 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:23,180 - INFO - No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:23,181 - INFO - 	No XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:45:23,221 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=framing.php. Skipping...
+2024-04-27 15:45:23,225 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/framer.html. Skipping...
+2024-04-27 15:45:23,282 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm. Skipping...
+2024-04-27 15:45:23,323 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=installation.php. Skipping...
+2024-04-27 15:45:28,613 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf. Skipping...
+2024-04-27 15:45:28,670 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php. Skipping...
+2024-04-27 15:45:28,711 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php. Skipping...
+2024-04-27 15:45:28,753 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php. Skipping...
+2024-04-27 15:45:28,794 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php. Skipping...
+2024-04-27 15:45:28,836 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=notes.php. Skipping...
+2024-04-27 15:45:28,880 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/. Skipping...
+2024-04-27 15:45:28,922 - INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:45:30,738 - WARNING - 	Potential XSS vulnerability found at: http://192.168.232.129:80/mutillidae/?page=register.php with <scrIpt>alert('XSS')</sCriPt>

@@ -3,19 +3,18 @@ import os
 
 from nmapScan import NmapScanner
 from spider.spider import Spider
+from reportGenerator import ReportGenerator
+
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
 from activeScanRules.scannerVerbTampering import ScanVerbTampering
 from activeScanRules.scannerXXEInject import ScanXXEInject
 from activeScanRules.scannerServerSideTemplateInject import ServerSideTemplateInjectionScanner
-
-from activeScanRules.xssScanRules.scannerReflectedXSS import ScanReflectedXSS
-from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
-from activeScanRules.xssScanRules.scannerXSS import XSSScanner
-
+from activeScanRules.scannerXSS import XSSScanner
 
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
+
 
 def clear_output_directory(output_directory2):
     if output_directory2 and os.path.exists(output_directory2):
@@ -49,8 +48,6 @@ def make_test_file(output_directory2):
             "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
             "http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php"
             ]
-    single_url = "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php"
-
     less_mutillidae_urls = [
                             "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
                             "http://192.168.232.129/mutillidae/index.php?page=pen-test-tool-lookup.php",
@@ -63,6 +60,7 @@ def make_test_file(output_directory2):
     with open(file_path2, "a") as file:
         for url in less_mutillidae_urls: #change depending on url subset required
             file.write(url + "\n")
+
 
 
 if __name__ == "__main__":
@@ -85,25 +83,51 @@ if __name__ == "__main__":
                         required=False)
     parser.add_argument("-P", "--Password", default=None, help="Set the password for authenticated attacks",
                         required=False)
+    # maybe add support for .pdf .md .yaml .xlsx .db if there is time
+    parser.add_argument("-of", "--output-format", choices=["txt", "html", "xml", "json", "csv"], default="txt",
+                        help="Set the output format (txt, html, xml, json, csv)", required=False)
+
 
     # Parse the command-line arguments
     args = parser.parse_args()
-
-    print("Scan started on target:", args.target, ":", args.port,
-          "using the following parameters:")
+    print("\nStarting Dynamic Application Security Testing\n")
+    print("\033[93m     (()__(()")
+    print("     /       \\")
+    print("    ( /    \\  \\")
+    print("     \\ o o    /")
+    print("     (_()_)__/ \\")
+    print("    / _,==.____ \\")
+    print("   (   |--|      )")
+    print("   /\\_.|__|'-.__/\\_")
+    print("  / (        /     \\")
+    print("  \\  \\      (      /")
+    print("   )  '._____)    /")
+    print("(((____.--(((____/\033[0m")
+    print("Gizmo the Application Security Testing Bear\nPlease bear with Gizmo as he conducts his scan")
+    print("")
+    print(f"\033[33mScan started on target using the following parameters:\033[0m")
+    print(f"\033[33m[+] Target: {args.target}\033[0m")
+    print(f"\033[33m[+] Port: {args.port}\033[0m")
     if args.depth == -1:
-        print("Scan Depth: Full")
+        print(f"\033[33m[+] Scan Depth: Full")
     else:
-        print("Scan Depth", args.depth)
+        print(f"\033[33m[+] Scan Depth: {args.depth}\033[0m")
 
-    print("Aggression Level:", args.aggression)
+    print(f"\033[33m[+] Aggression Level: {args.aggression}\033[0m")
+    print("\033[33m[+] Exclusions: \033[0m")
+    for exclusion in args.exclude:
+        print(f"\t\033[33m{exclusion}\033[0m")
+    print(f"\033[33m[+] Host OS: {args.host_os}\033[0m")
+
     if args.Username is not None and args.Password is not None:
-        print("\nAuthentication")
+        print("Authentication")
         print("Username:", args.Username)
         print("Password", args.Password)
     elif args.Username is not None or args.Password is not None:
         print("Provide a full username password combination")
         args.exit(1)
+
+    print(f"\033[33m[+] Output Format: {args.output_format}\033[0m")
 
 
     # Create directory for the target if it doesn't exist, clear it if it does exist
@@ -116,51 +140,67 @@ if __name__ == "__main__":
     make_test_file(output_directory)
 
 
-    #change depending on how testing is happening
-    visited_urls = output_directory + "/testURLs.txt"
-    #visited_urls = output_directory + "/visited_urls.txt"
 
+    #CHANGE depending on how testing is happening
+
+    #visited_urls = output_directory + "/testURLs.txt"
+    visited_urls = output_directory + "/visited_urls.txt"
 
 
     # Make objects
-    nmap = NmapScanner(args.target, args.port, args.aggression)
+    nmap = NmapScanner(args.target, args.port, args.aggression, log_file=output_directory + "/nmap.log")
     spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
+    RG = ReportGenerator(args.output_format)
     sql_inject = ScanSQLInject(visited_urls=visited_urls, log_file=output_directory + "/sql_inject.log")
-
     command_inject = ScanCommandInject(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/command_inject.log")
-
     verb_tampering = ScanVerbTampering(visited_urls=visited_urls, log_file=output_directory + "/verb_tampering.log")
-
     rfi = ScanRemoteFileInclusion(visited_urls=visited_urls, log_file=output_directory + "/remote_file_include.log")
-
     lfi = ScanLocalFileInclusion(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/local_file_include.log")
-
     xxe = ScanXXEInject(visited_urls=visited_urls, log_file=output_directory + "/xxe_injection.log")
-
     ssti = ServerSideTemplateInjectionScanner(visited_urls=visited_urls, log_file=output_directory + "/ssti.log")
-
     xss = XSSScanner(visited_urls=visited_urls, log_file=output_directory + "/xss.log")
-    reflected_xss = ScanReflectedXSS(visited_urls=visited_urls, log_file=output_directory + "/reflected_xss.log")
-    stored_xss = ScanStoredXSS(visited_urls=visited_urls, log_file=output_directory + "/stored_xss.log")
 
-
+    print("")
     # Start scans
-    #nmap.nmap_web_app()
-    #spider.spider()
-    print("Starting SQL Injection scan")
-    #sql_inject.start_scan()
-    print("Starting Command Injection scan")
-    #command_inject.start_scan()
-    print("Starting Remote File Inclusion scan")
-    #rfi.start_scan()
-    print("Starting Local File Inclusion scan")
-    #lfi.start_scan()
-    print("Starting Verb Tampering scan")
-    #verb_tampering.start_scan()
-    print("Starting XXE Injection scan")
-    #xxe.start_scan()
-    print("Starting SSTI scan")
-    #ssti.start_scan()
-    print("Starting XSS scan")
+
+    print("\033[1;34m> Starting Nmap Scan\033[0m")
+    nmap.nmap_web_app()
+
+    print("\n\033[1;34m> Starting Spider\033[0m")
+    spider.spider()
+
+    print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
+    sql_inject.start_scan()
+    print(f"\033[36m Finished SQL Injection scan\033[0m")
+
+    print("\n\033[1;34m> Starting Command Injection scan\033[0m")
+    command_inject.start_scan()
+    print(f"\033[36m Finished Command Injection scan\033[0m")
+
+    print("\n\033[1;34m> Starting XSS scan\033[0m")
     xss.start_scan()
     xss.close_browser()
+    print(f"\033[36m Finished XSS scan\033[0m")
+
+    print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
+    rfi.start_scan()
+    print(f"\033[36m Finished Remote File Inclusion scan\033[0m")
+
+    print("\n\033[1;34m> Starting Local File Inclusion scan\033[0m")
+    lfi.start_scan()
+    print(f"\033[36m Finished Local File Inclusion scan\033[0m")
+
+    print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
+    verb_tampering.start_scan()
+    print(f"\033[36m Finished Verb Tampering scan\033[0m")
+
+    print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
+    xxe.start_scan()
+    print(f"\033[36m Finished XXE Injection scan\033[0m")
+
+    print("\n\033[1;34m> Starting SSTI scan\033[0m")
+    ssti.start_scan()
+    print(f"\033[36m Finished SSTI scan\033[0m")
+
+    print(f"\n\033[1;34m> Compiling Report\033[0m")
+    #RG.start_report_compilation()

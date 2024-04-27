@@ -152,6 +152,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
         if not potential_vulnerability_found:
             self.logger.info(
                 f"\tNo local file inclusion vulnerability found in URL parameters at: {base_url}")
+            print(f"\033[32m[+] No local file inclusion vulnerability found at: {base_url}\033[0m")
 
     def check_response(self, response, payload, url, html_content):
         if response.status_code == 200:
@@ -159,7 +160,9 @@ class ScanLocalFileInclusion(FileInclusionScanner):
                 for pattern in self.initialise_file_patterns():
                     if pattern.search(response.text):
                         self.logger.warning(f"\tPotential local file inclusion vulnerability "
-                                         f"found at: {url} with payload: {payload}")
+                                         f"found at: {url} (payload: {payload})")
+                        print(f"\033[31m[+] Potential local file inclusion vulnerability "
+                              f"found at: {url}  (payload: {payload})\033[0m")
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")

@@ -1,0 +1,174 @@
+2024-04-27 15:45:58,436 - INFO - 
+Starting ServerSideTemplateInjectionScanner scan
+2024-04-27 15:45:58,446 - INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-27 15:45:58,487 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+2024-04-27 15:45:58,530 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+2024-04-27 15:45:58,574 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,608 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,639 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,670 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,699 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,729 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,757 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,786 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:45:58,823 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/set-up-database.php. Skipping...
+2024-04-27 15:45:58,864 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=show-log.php. Skipping...
+2024-04-27 15:45:58,906 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php. Skipping...
+2024-04-27 15:45:58,945 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=credits.php. Skipping...
+2024-04-27 15:45:58,988 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,017 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,047 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,076 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,105 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,134 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,164 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,194 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:45:59,235 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,265 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,297 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,326 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,355 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,384 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,413 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,441 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:45:59,481 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:45:59,589 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,620 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,650 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,681 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,714 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,744 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,775 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,804 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:45:59,844 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php. Skipping...
+2024-04-27 15:45:59,886 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:59,916 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:59,946 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:45:59,976 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:46:00,007 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:46:00,036 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:46:00,067 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:46:00,097 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:46:00,138 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...
+2024-04-27 15:46:00,178 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,212 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,242 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,275 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,306 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,338 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,370 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,401 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:46:00,441 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php. Skipping...
+2024-04-27 15:46:00,481 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,511 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,539 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,567 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,596 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,625 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,653 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,682 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:46:00,727 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,758 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,789 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,818 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,847 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,877 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,907 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,936 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:46:00,977 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,012 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,050 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,090 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,124 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,156 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,186 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,215 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:46:01,258 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,289 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,319 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,349 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,379 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,409 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,439 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,475 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:46:01,527 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,561 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,594 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,629 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,664 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,696 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,726 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,757 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:46:01,806 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:46:01,940 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=show-log.php. Skipping...
+2024-04-27 15:46:01,989 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,022 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,052 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,084 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,115 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,146 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,176 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,205 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:46:02,246 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,276 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,307 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,336 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,365 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,394 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,422 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,451 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:46:02,838 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=browser-info.php. Skipping...
+2024-04-27 15:46:02,881 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:02,946 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:02,977 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,008 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,076 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,137 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,166 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,196 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:46:03,253 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,282 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,312 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,341 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,369 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,398 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,428 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,455 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:46:03,494 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+2024-04-27 15:46:03,535 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,566 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,597 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,626 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,656 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,687 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,717 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,746 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:46:03,786 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php. Skipping...
+2024-04-27 15:46:03,825 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=credits.php. Skipping...
+2024-04-27 15:46:03,867 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:03,897 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:03,926 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:03,956 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:03,985 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:04,014 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:04,043 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:04,074 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:46:04,115 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=framing.php. Skipping...
+2024-04-27 15:46:04,120 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/framer.html. Skipping...
+2024-04-27 15:46:04,178 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm. Skipping...
+2024-04-27 15:46:04,220 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=installation.php. Skipping...
+2024-04-27 15:46:09,389 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf. Skipping...
+2024-04-27 15:46:09,435 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php. Skipping...
+2024-04-27 15:46:09,476 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php. Skipping...
+2024-04-27 15:46:09,518 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php. Skipping...
+2024-04-27 15:46:09,558 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php. Skipping...
+2024-04-27 15:46:09,599 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=notes.php. Skipping...
+2024-04-27 15:46:09,639 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/. Skipping...
+2024-04-27 15:46:09,681 - INFO - 	Testing payload: {7*7} on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,712 - INFO - 	Testing payload:  ${7*7} on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,742 - INFO - 	Testing payload:  {{7*7}} on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,773 - INFO - 	Testing payload: ${{7*7}} on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,804 - INFO - 	Testing payload: #{3*3} on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,834 - INFO - 	Testing payload: #{ 7 * 7 } on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,864 - INFO - 	Testing payload: <%= 7 * 7 %> on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:46:09,894 - INFO - 	No ssti vulnerability found at: http://192.168.232.129:80/mutillidae/?page=register.php

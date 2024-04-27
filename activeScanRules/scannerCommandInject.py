@@ -13,22 +13,22 @@ class ScanCommandInject(ActiveScanner):
     def initialise_commands(self):
         # all payloads working with matching regex
         linux_payloads = [
+            r"cat /etc/passwd",
             r"mkdir abcdefghijkl && ls",
             r"touch abcdefghijkl.txt && ls",
             r"mkdir abcdefghijkl; ls",
             r"touch abcdefghijkl.txt; ls",
             r"ls /",
             r"id",
-            r"cat /etc/passwd",
             r"uname -a"
         ]
         windows_payloads = [
+            r"type C:\Windows\system.ini",
             r"mkdir abcdefghijkl && dir",
             r"echo. > abcdefghijkl.txt && dir",
             r"dir C:\\",
             r"whoami",
-            r"systeminfo",
-            r"type C:\Windows\system.ini"
+            r"systeminfo"
         ]
         if self.host_os == "unix":
             return linux_payloads
@@ -46,20 +46,20 @@ class ScanCommandInject(ActiveScanner):
 # use tabs to pass waf %09 or  ${IFS}
     def initialise_response_patterns(self):
         linux_command_patterns = [
+            re.compile(r"root:.*:0:0:.*"),  # cat passwd
             re.compile(r"uid=[0-9]+.*gid=[0-9]+.*groups=.*"), # id
-            re.compile(r"root:.*:0:0:.*"), # cat passwd
             re.compile(r"abcdefghijlk"), #touch and mkdir
             re.compile(r"bin.*"), # ls /
             re.compile(r"Linux .+ \d+\.\d+\.\d+[-\w]* .*"),  # Pattern for 'uname -a'
         ]
         windows_command_patterns = [
+            re.compile(r"^\[drivers]$"),
             re.compile(r"abcdefghijlk.*"),
             re.compile(r"abcdefghijlk.txt.*"),
             re.compile(r"Volume in drive C has no label."),
             re.compile(r"User Name"),
             re.compile(r"Host Name"),
-            re.compile(r"Directory of C:\\Windows"),
-            re.compile(r"^\[drivers]$"),
+            re.compile(r"Directory of C:\\Windows")
         ]
 
         if self.host_os == "unix":
@@ -118,6 +118,7 @@ class ScanCommandInject(ActiveScanner):
         # After testing all payloads, if no potential vulnerability is found, print the message
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo command injection vulnerability found at: {target_url}")
+            print(f"\033[32m[+] No command injection vulnerability found at: {target_url}\033[0m")
             self.test_blind_command_injection(target_url, form_fields)
 
     def check_response(self, response, payload, url):
@@ -127,7 +128,9 @@ class ScanCommandInject(ActiveScanner):
             for pattern in self.initialise_response_patterns():
                 if pattern.search(response.text):
                     self.logger.warning(
-                        f"\tPotential command injection vulnerability found at: {url} with payload {payload}")
+                        f"Potential command injection vulnerability found at: {url} with payload {payload}")
+                    print(
+                        f"\033[31m[+] Potential command injection vulnerability found at: {url} with payload {payload}\033[0m")
                     return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
@@ -168,9 +171,11 @@ class ScanCommandInject(ActiveScanner):
 
             # Compare execution time with baseline
             if execution_time > baseline_time + 4:  # Adjust the threshold as needed
-                self.logger.warning(f"\tPotential blind command injection vulnerability found at: {target_url} with payload {payload}")
+                self.logger.warning(f"Potential blind command injection vulnerability found at: {target_url} with payload {payload}")
+                print(f"\033[31m[+] Potential blind command injection vulnerability found at: {target_url} with payload {payload}\033[0m")
             else:
                 self.logger.info(f"\tNo potential blind command injection vulnerability found at: {target_url}")
+                print(f"\033[32m[+] No blind command injection vulnerability found at: {target_url}\033[0m")
 
         except Exception as e:
             self.logger.error(f"\tAn error occurred during blind command injection test: {e}")

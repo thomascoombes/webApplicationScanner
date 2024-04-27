@@ -35,9 +35,11 @@ class ActiveScanner:
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
                     self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
+                    print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
                     continue
                 # Send form with payloads
                 self.test_payloads(target_url, form_fields)
+
 
     def get_html_content(self, target_url):
         try:

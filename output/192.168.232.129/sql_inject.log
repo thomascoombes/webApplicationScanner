@@ -1,0 +1,108 @@
+2024-04-27 15:44:06,893 - INFO - 
+Starting ScanSQLInject scan
+2024-04-27 15:44:06,902 - INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+2024-04-27 15:44:06,945 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+2024-04-27 15:44:06,988 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+2024-04-27 15:44:07,028 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+2024-04-27 15:44:07,057 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:07,092 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/set-up-database.php. Skipping...
+2024-04-27 15:44:07,132 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=show-log.php. Skipping...
+2024-04-27 15:44:07,177 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php. Skipping...
+2024-04-27 15:44:07,216 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=credits.php. Skipping...
+2024-04-27 15:44:07,257 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+2024-04-27 15:44:07,287 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:07,335 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+2024-04-27 15:44:07,363 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:07,403 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+2024-04-27 15:44:07,432 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:07,475 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+2024-04-27 15:44:07,506 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:07,547 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php. Skipping...
+2024-04-27 15:44:07,589 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+2024-04-27 15:44:07,620 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:07,661 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...
+2024-04-27 15:44:07,701 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+2024-04-27 15:44:07,732 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:07,777 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php. Skipping...
+2024-04-27 15:44:07,822 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+2024-04-27 15:44:07,851 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:07,892 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+2024-04-27 15:44:07,921 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:07,962 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+2024-04-27 15:44:07,991 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:08,036 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+2024-04-27 15:44:08,065 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:08,105 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+2024-04-27 15:44:08,134 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:08,178 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+2024-04-27 15:44:08,206 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:08,251 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=show-log.php. Skipping...
+2024-04-27 15:44:08,294 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+2024-04-27 15:44:08,323 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:08,366 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=user-info.php
+2024-04-27 15:44:08,396 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:08,794 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=browser-info.php. Skipping...
+2024-04-27 15:44:08,839 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=login.php
+2024-04-27 15:44:08,870 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=login.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:08,914 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+2024-04-27 15:44:08,943 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:08,983 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+2024-04-27 15:44:09,027 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+2024-04-27 15:44:09,057 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php with payload )%20or%20('x'='x
+ for MySQL
+2024-04-27 15:44:09,096 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php. Skipping...
+2024-04-27 15:44:09,137 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=credits.php. Skipping...
+2024-04-27 15:44:09,181 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+2024-04-27 15:44:09,210 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php with payload )%20or%20('x'='x
+ (DBMS unknown)
+2024-04-27 15:44:09,248 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=framing.php. Skipping...
+2024-04-27 15:44:09,254 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/framer.html. Skipping...
+2024-04-27 15:44:09,315 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm. Skipping...
+2024-04-27 15:44:09,362 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=installation.php. Skipping...
+2024-04-27 15:44:14,970 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf. Skipping...
+2024-04-27 15:44:15,033 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php. Skipping...
+2024-04-27 15:44:15,073 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php. Skipping...
+2024-04-27 15:44:15,112 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php. Skipping...
+2024-04-27 15:44:15,150 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php. Skipping...
+2024-04-27 15:44:15,190 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=notes.php. Skipping...
+2024-04-27 15:44:15,228 - INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/. Skipping...
+2024-04-27 15:44:15,269 - INFO - 	Testing payload: )%20or%20('x'='x
+ on http://192.168.232.129:80/mutillidae/?page=register.php
+2024-04-27 15:44:15,299 - WARNING - Potential SQL injection vulnerability found at: http://192.168.232.129:80/mutillidae/?page=register.php with payload )%20or%20('x'='x
+ for MySQL

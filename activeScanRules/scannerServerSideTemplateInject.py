@@ -55,6 +55,7 @@ class ServerSideTemplateInjectionScanner(ActiveScanner):
 
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo ssti vulnerability found at: {target_url}")
+            print(f"\033[32m[+] No SSTI vulnerability found at: {target_url}\033[0m")
 
     def check_response(self, response, payload, pattern, url, action, form_fields, inputs):
         if response.status_code == 200:
@@ -63,20 +64,24 @@ class ServerSideTemplateInjectionScanner(ActiveScanner):
                     self.logger.warning(
                         f"\tPotential ssti vulnerability found at: {url} with payload {payload}"
                     )
-                    print("vuln found", payload)
+                    print(f"\033[31m[+] Potential ssti vulnerability found at: {url} with payload {payload}\033[0m")
                 return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
         return False
 
     def verify_ssti(self, url, payload, action, form_fields, inputs):
+        proxies = {'http': 'http://127.0.0.1:8080',
+                   'https': 'http://127.0.0.1:8080'}  # for burp testing purposes
+
+
         # Test different mathematical expression to remove false positives
         verification_payload = payload.replace("7*7", "9*9")
         pattern = re.compile("81")
         form_data = self.make_form_data(form_fields, verification_payload)
         post_data = self.make_post_data(inputs, form_data)
         try:
-            response = requests.post(action, data=post_data)
+            response = requests.post(action, data=post_data, proxies=proxies)
             if pattern.search(response.text):
                 return True
         except Exception as e:
