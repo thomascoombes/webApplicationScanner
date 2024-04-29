@@ -1,0 +1,6 @@
+INFO - 
+Starting ReflectedXSSScanner scan
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>

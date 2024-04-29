@@ -1,0 +1,14 @@
+INFO - 
+Starting StoredXSSScanner scan
+INFO - No Stored Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php
+ERROR - Error sending dummy data to form field 'csrf-token': Message: Element <input name="csrf-token" type="hidden"> is not reachable by keyboard
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+ElementNotInteractableError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:347:5
+webdriverSendKeysToElement@chrome://remote/content/marionette/interaction.sys.mjs:631:13
+interaction.sendKeysToElement@chrome://remote/content/marionette/interaction.sys.mjs:605:11
+sendKeysToElement@chrome://remote/content/marionette/actors/MarionetteCommandsChild.sys.mjs:548:29
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteCommandsChild.sys.mjs:163:31
+
+INFO - No Stored Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php

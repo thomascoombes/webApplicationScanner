@@ -37,13 +37,13 @@ class ScanXXEInject(ActiveScanner):
                 response = self.send_request_with_payload(payload, target_url)
                 if self.check_response(response, payload, target_url, pattern):
                     self.logger.warning(
-                        f"\tPotential XXE injection vulnerability found at: {target_url} with payload {payload}")
-                    print(f"\033[31m[+] Potential XXE injection vulnerability found at: {target_url} with payload {payload}")
+                        f"\tXXE injection vulnerability found at: {target_url} with payload: {payload}")
+                    print(f"\033[31m[+] XXE injection vulnerability found at: {target_url} with payload: {payload}")
                     potential_vulnerability_found = True
                     break
                     # After testing all payloads, if no potential vulnerability is found, print the message
             except Exception as e:
-                self.logger.error(f"\tAn error occurred while sending form with ssti payload to {target_url}: {e}")
+                self.logger.error(f"\tAn error occurred while sending form with XXE injection payload to {target_url}: {e}")
 
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo XXE injection vulnerability found at: {target_url}")
@@ -60,7 +60,7 @@ class ScanXXEInject(ActiveScanner):
             'Content-Type': 'application/xml'
         }
         try:
-            response = requests.post(target_url, data=payload, headers=headers, proxies=proxies) #
+            response = requests.post(target_url, data=payload, headers=headers) #, proxies=proxies
             return response
         except requests.RequestException as e:
             self.logger.error(f"\tAn error occurred while sending request: {e}")

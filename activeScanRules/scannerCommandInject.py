@@ -128,9 +128,9 @@ class ScanCommandInject(ActiveScanner):
             for pattern in self.initialise_response_patterns():
                 if pattern.search(response.text):
                     self.logger.warning(
-                        f"Potential command injection vulnerability found at: {url} with payload {payload}")
+                        f"Command injection vulnerability found at: {url} with payload: {payload}")
                     print(
-                        f"\033[31m[+] Potential command injection vulnerability found at: {url} with payload {payload}\033[0m")
+                        f"\033[31m[+] Command injection vulnerability found at: {url} with payload: {payload}\033[0m")
                     return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
@@ -171,10 +171,10 @@ class ScanCommandInject(ActiveScanner):
 
             # Compare execution time with baseline
             if execution_time > baseline_time + 4:  # Adjust the threshold as needed
-                self.logger.warning(f"Potential blind command injection vulnerability found at: {target_url} with payload {payload}")
-                print(f"\033[31m[+] Potential blind command injection vulnerability found at: {target_url} with payload {payload}\033[0m")
+                self.logger.warning(f"Blind command injection vulnerability found at: {target_url} with payload: {payload}")
+                print(f"\033[31m[+] Blind command injection vulnerability found at: {target_url} with payload: {payload}\033[0m")
             else:
-                self.logger.info(f"\tNo potential blind command injection vulnerability found at: {target_url}")
+                self.logger.info(f"\tNo blind command injection vulnerability found at: {target_url}")
                 print(f"\033[32m[+] No blind command injection vulnerability found at: {target_url}\033[0m")
 
         except Exception as e:

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vulnerability Report</title>
+</head>
+<body>
+<h2>Total URLs Visited: 2</h2>
+
+<h3>SQL Injection - 0 vulnerabilities found</h3>
+<br>
+<h3>Command Injection - 0 vulnerabilities found</h3>
+<br>
+<h3>Reflected Cross Site Scripting - 2 vulnerabilities found</h3>
+<p>Description: Cross-site scripting (XSS) is a security vulnerability typically found in web applications. It allows attackers to inject malicious scripts into web pages viewed by other users.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Encode user input to prevent malicious scripts from executing.
+2. Implement Content Security Policy (CSP) headers to restrict the sources of executable scripts.</p>
+<br>
+<h3>Stored Cross Site Scripting - 0 vulnerabilities found</h3>
+<br>
+<h3>Remote File Inclusion - 0 vulnerabilities found</h3>
+<br>
+<h3>Local File Inclusion - 0 vulnerabilities found</h3>
+<br>
+<h3>Verb Tampering - 0 vulnerabilities found</h3>
+<br>
+<h3>XML External Entity Injection - 0 vulnerabilities found</h3>
+<br>
+<h3>Server Side Template Injection - 0 vulnerabilities found</h3>
+<br>
+</body>
+</html>

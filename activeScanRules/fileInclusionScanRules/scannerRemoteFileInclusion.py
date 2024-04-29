@@ -97,10 +97,10 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
             if response.text != html_content:
                 for pattern in self.initialise_file_patterns():
                     if pattern.search(response.text):
-                        self.logger.warning(f"Potential remote file inclusion vulnerability "
-                                         f"found at: {url} (payload: {payload})")
-                        print(f"\033[31m[+] Potential remote file inclusion vulnerability "
-                                         f"found at: {url}  (payload: {payload})\033[0m")
+                        self.logger.warning(f"Remote file inclusion vulnerability "
+                                         f"found at: {url} with payload: {payload}")
+                        print(f"\033[31m[+] Remote file inclusion vulnerability "
+                                         f"found at: {url}  with payload: {payload}\033[0m")
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")

@@ -31,8 +31,8 @@ class ScanVerbTampering(ActiveScanner):
 
             if self.check_response(tampered_response, original_response):
                 self.logger.warning(
-                    f"\tPotential verb tampering vulnerability found at: {target_url} with method {payload}")
-                print(f"\033[31m[+] Potential verb tampering vulnerability found at: {target_url} with method {payload}\033[0m")
+                    f"Verb tampering vulnerability found at: {target_url} with payload: {payload}")
+                print(f"\033[31m[+] Verb tampering vulnerability found at: {target_url} with payload: {payload}\033[0m")
                 potential_vulnerability_found = True
                 break  # Exit the loop if potential vulnerability is found
         if not potential_vulnerability_found:

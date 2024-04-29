@@ -169,13 +169,13 @@ class ScanSQLInject(ActiveScanner):
             # Determine the DBMS based on the error messages
             dbms = identify_dbms(response.text)
             if dbms:
-                self.logger.warning(f"Potential SQL injection vulnerability found at: {url} with payload {payload} for {dbms}")
+                self.logger.warning(f"SQL injection vulnerability found at: {url} with payload: {payload} for {dbms}")
                 print(
-                    f"\033[31m[+] Potential SQL injection vulnerability found at: {url} with payload {payload.strip()} for {dbms}\033[0m")
+                    f"\033[31m[+] SQL injection vulnerability found at: {url} with payload: {payload.strip()} for {dbms}\033[0m")
             else:
                 self.logger.warning(
-                    f"Potential SQL injection vulnerability found at: {url} with payload {payload} (DBMS unknown)")
-                print(f"\033[31m[+] Potential SQL injection vulnerability found at: {url} with payload {payload.strip()} (DBMS unknown)\033[0m")
+                    f"SQL injection vulnerability found at: {url} with payload: {payload} (DBMS unknown)")
+                print(f"\033[31m[+] SQL injection vulnerability found at: {url} with payload: {payload.strip()} (DBMS unknown)\033[0m")
             return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")

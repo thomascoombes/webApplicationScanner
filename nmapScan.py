@@ -8,10 +8,11 @@ class NmapScanner:
         self.aggression_level = aggression_level
         self.target = target
         self.log_file = log_file
-        logging.basicConfig(filename=self.log_file, level=logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(message)s')
+        #logging.basicConfig(filename=self.log_file, level=logging.INFO,
+        #                    format='%(levelname)s - %(message)s')
 
     def nmap_web_app(self):
+        print(self.log_file)
         try:
             nm = nmap.PortScanner()
 
@@ -53,3 +54,5 @@ class NmapScanner:
         except Exception as e:
             print(f"Cannot scan {self.target} on port {self.port}: {e}")
             sys.exit()
+
+
