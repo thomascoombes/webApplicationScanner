@@ -3,9 +3,9 @@ from OTXv2 import OTXv2, IndicatorTypes
 
 class AlienvaultIntelligence:
 
-    def __init__(self):
+    def __init__(self, api_key=None):
 
-        api_key = 'b270ae7b2b5af3839a71b1896abe7f5a857385b90a061469c706e207e7277e37'
+        self.api_key=api_key
         otx_server = 'https://otx.alienvault.com/'
         self.otx = OTXv2(api_key, server=otx_server)
 

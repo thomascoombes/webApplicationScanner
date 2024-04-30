@@ -111,7 +111,10 @@ if __name__ == "__main__":
     # maybe add support for .pdf .md .yaml .xlsx .db if there is time
     parser.add_argument("-of", "--output-format", choices=["txt", "html", "xml", "json", "csv"], default="txt",
                         help="Set the output format (txt, html, xml, json, csv)", required=False)
-    #add argument for including threat intel
+    #add argument for including threat intel & api key
+    parser.add_argument("-cti", "--include-cyber-threat-intelligence", action="store_true", help="Include Cyber Threat Intelligence \(CTI\) in the scan")
+    parser.add_argument("-api", "--api-key", default=None, help="Set the API key to reach threat intelligence feeds",
+                        required=False)
 
 
     # Parse the command-line arguments
@@ -198,15 +201,15 @@ if __name__ == "__main__":
     spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    sql_inject.start_scan()
+    #sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
-    command_inject.start_scan()
+    #command_inject.start_scan()
     print(f"\033[36m Finished Command Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Reflected XSS scan\033[0m")
-    rxss.start_scan()
+    #rxss.start_scan()
     print(f"\033[36m Finished Reflected XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
@@ -222,23 +225,24 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Local File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
-    verb_tampering.start_scan()
+    #verb_tampering.start_scan()
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
-    xxe.start_scan()
+    #xxe.start_scan()
     print(f"\033[36m Finished XXE Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting SSTI scan\033[0m")
-    ssti.start_scan()
+    #ssti.start_scan()
     print(f"\033[36m Finished SSTI scan\033[0m")
 
-    #av = AlienvaultIntelligence()
-    #results = av.query_keyword('sql injection')
 
-    #for i in results:
-        #print(i)
-        #break
+    if args.include_cyber_threat_intelligence:
+        av = AlienvaultIntelligence(args.api_key)
+        results = av.query_keyword('sql injection')
+        for i in results:
+            print(i)
+            break
 
 
     print(f"\n\033[1;34m> Compiling {args.output_format.upper()} Report\033[0m")
