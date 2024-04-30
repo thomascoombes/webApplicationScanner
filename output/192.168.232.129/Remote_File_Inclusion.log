@@ -1,0 +1,8 @@
+INFO - 
+Starting ScanRemoteFileInclusion scan
+INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=www.google.com%2F
+INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F
+WARNING - Remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F with payload: http://www.google.com/
+INFO - 	Testing payload: www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=www.google.com%2F
+INFO - 	Testing payload: http://www.google.com/ on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F
+WARNING - Remote file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F with payload: http://www.google.com/

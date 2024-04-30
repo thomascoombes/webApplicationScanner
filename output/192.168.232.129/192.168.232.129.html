@@ -4,21 +4,165 @@
 <title>Vulnerability Report</title>
 </head>
 <body>
-<h2>Total URLs Visited: 2</h2>
+<h2>Total URLs Visited: 46</h2>
 
-<h3>SQL Injection - 0 vulnerabilities found</h3>
+<h3>SQL Injection - 20 vulnerabilities found</h3>
+<p>Description: SQL injection is a code injection technique that attackers use to manipulate databases. It allows attackers to execute malicious SQL statements that can extract sensitive data or modify database contents.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=login.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=register.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=user-info.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=login.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=source-viewer.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=register.php</p>
+<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use parameterized queries or prepared statements to prevent SQL injection attacks.
+2. Validate and sanitize user input to prevent malicious input from reaching the database.</p>
 <br>
-<h3>Command Injection - 0 vulnerabilities found</h3>
+<h3>Command Injection - 3 vulnerabilities found</h3>
+<p>Description: Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: ;cat /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
+<p>&emsp;Payload: ;cat /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: ;cat /etc/passwd</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use whitelisting to restrict the set of allowed commands and parameters.
+2. Implement proper input validation and sanitization to prevent command injection vulnerabilities.</p>
 <br>
-<h3>Reflected Cross Site Scripting - 2 vulnerabilities found</h3>
+<h3>Reflected Cross Site Scripting - 12 vulnerabilities found</h3>
 <p>Description: Cross-site scripting (XSS) is a security vulnerability typically found in web applications. It allows attackers to inject malicious scripts into web pages viewed by other users.</p>
 <ul>
 <li>
-<p>URL: http://192.168.232.129/mutillidae/index.php?page=view-someones-blog.php</p>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=login.php</p>
 <p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
 </li>
 <li>
-<p>URL: http://192.168.232.129/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=register.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=login.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=register.php</p>
 <p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
 </li>
 </ul>
@@ -28,11 +172,217 @@
 <br>
 <h3>Stored Cross Site Scripting - 0 vulnerabilities found</h3>
 <br>
-<h3>Remote File Inclusion - 0 vulnerabilities found</h3>
+<h3>Remote File Inclusion - 2 vulnerabilities found</h3>
+<p>Description: Remote file inclusion (RFI) is an attack that allows an attacker to include remote files on a website. This can lead to the execution of arbitrary code and unauthorized access to server resources.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F</p>
+<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F</p>
+<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Avoid dynamically including remote files in web applications.
+2. Use allow list-based input validation to restrict the inclusion of files.</p>
 <br>
-<h3>Local File Inclusion - 0 vulnerabilities found</h3>
+<h3>Local File Inclusion - 2 vulnerabilities found</h3>
+<p>Description: Local file inclusion (LFI) is a type of vulnerability that allows an attacker to include files on a server through the web browser. This can lead to information disclosure and remote code execution.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd</p>
+<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=%2Fetc%2Fpasswd</p>
+<p>&emsp;Payload: /etc/passwd</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Avoid passing user-controlled input directly to file inclusion functions.
+2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities.</p>
 <br>
-<h3>Verb Tampering - 0 vulnerabilities found</h3>
+<h3>Verb Tampering - 43 vulnerabilities found</h3>
+<p>Description: Verb tampering is a type of attack that involves modifying HTTP request methods (verbs) to bypass security controls or access unauthorized resources.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129:80/</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=home.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=login.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/set-up-database.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=captured-data.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=credits.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=register.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=site-footer-xss-discussion.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=password-generator.php&username=anonymous</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=user-poll.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=pen-test-tool-lookup.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=view-someones-blog.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=text-file-viewer.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=user-info.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=login.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=source-viewer.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=add-to-your-blog.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=secret-administrative-pages.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=credits.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=source-viewer.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=framing.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/framer.html</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=change-log.htm</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=installation.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=documentation/vulnerabilities.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=usage-instructions.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=php-errors.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=notes.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/</p>
+<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129:80/mutillidae/?page=register.php</p>
+<p>&emsp;Payload: POST</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use secure HTTP methods (e.g., GET, POST) and avoid using less common methods.
+2. Implement access controls and proper authorization mechanisms to restrict access to sensitive resources.</p>
 <br>
 <h3>XML External Entity Injection - 0 vulnerabilities found</h3>
 <br>

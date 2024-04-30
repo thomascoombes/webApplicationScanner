@@ -1,17 +1,13 @@
 from OTXv2 import OTXv2, IndicatorTypes
-import hashlib
-import pprint
-import time
-from pandas import json_normalize
-import json
 
-class alienvault_intelligence:
+
+class AlienvaultIntelligence:
 
     def __init__(self):
 
-        API_KEY = ''
-        OTX_SERVER = 'https://otx.alienvault.com/'
-        self.otx = OTXv2(API_KEY, server=OTX_SERVER)
+        api_key = 'b270ae7b2b5af3839a71b1896abe7f5a857385b90a061469c706e207e7277e37'
+        otx_server = 'https://otx.alienvault.com/'
+        self.otx = OTXv2(api_key, server=otx_server)
 
     def query_keyword(self, keyword):
         pulses = self.otx.search_pulses(keyword)
@@ -20,7 +16,7 @@ class alienvault_intelligence:
 
     def query_hash(self, hash):
         result, alerts =  self.file( hash)
-        return (result, alerts)
+        return result, alerts
 
 
     def query_url(self, url):

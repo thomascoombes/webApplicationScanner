@@ -12,11 +12,13 @@ from activeScanRules.scannerCommandInject import ScanCommandInject
 from activeScanRules.scannerVerbTampering import ScanVerbTampering
 from activeScanRules.scannerXXEInject import ScanXXEInject
 from activeScanRules.scannerServerSideTemplateInject import ServerSideTemplateInjectionScanner
-from activeScanRules.scannerXSS import ReflectedXSSScanner
-from activeScanRules.scannerXSS import StoredXSSScanner
+from activeScanRules.xssScanRules.scannerReflectedXSS import ScanReflectedXSS
+from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
 
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
+
+from cti.alienvault_interface import AlienvaultIntelligence
 
 #paused = False  # Define a global variable to track the pause state
 
@@ -109,6 +111,7 @@ if __name__ == "__main__":
     # maybe add support for .pdf .md .yaml .xlsx .db if there is time
     parser.add_argument("-of", "--output-format", choices=["txt", "html", "xml", "json", "csv"], default="txt",
                         help="Set the output format (txt, html, xml, json, csv)", required=False)
+    #add argument for including threat intel
 
 
     # Parse the command-line arguments
@@ -167,8 +170,8 @@ if __name__ == "__main__":
 
     #CHANGE depending on how testing is happening
 
-    visited_urls = output_directory + "/testURLs.txt"
-    #visited_urls = output_directory + "/visited_urls.txt"
+    #visited_urls = output_directory + "/testURLs.txt"
+    visited_urls = output_directory + "/visited_urls.txt"
 
 
     # Make objects
@@ -182,8 +185,8 @@ if __name__ == "__main__":
     lfi = ScanLocalFileInclusion(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/Local_File_Inclusion.log")
     xxe = ScanXXEInject(visited_urls=visited_urls, log_file=output_directory + "/XML_External_Entity_Injection.log")
     ssti = ServerSideTemplateInjectionScanner(visited_urls=visited_urls, log_file=output_directory + "/Server_Side_Template_Injection.log")
-    rxss = ReflectedXSSScanner(visited_urls=visited_urls, log_file=output_directory + "/Reflected_Cross_Site_Scripting.log")
-    sxss = StoredXSSScanner(visited_urls=visited_urls, log_file=output_directory + "/Stored_Cross_Site_Scripting.log")
+    rxss = ScanReflectedXSS(visited_urls=visited_urls, log_file=output_directory + "/Reflected_Cross_Site_Scripting.log")
+    sxss = ScanStoredXSS(visited_urls=visited_urls, log_file=output_directory + "/Stored_Cross_Site_Scripting.log")
 
     print("")
     # Start scans
@@ -192,14 +195,14 @@ if __name__ == "__main__":
     #nmap.nmap_web_app()
 
     print("\n\033[1;34m> Starting Spider\033[0m")
-    #spider.spider()
+    spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    #sql_inject.start_scan()
+    sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
-    #command_inject.start_scan()
+    command_inject.start_scan()
     print(f"\033[36m Finished Command Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Reflected XSS scan\033[0m")
@@ -207,40 +210,38 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Reflected XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
-    sxss.start_scan()
+    #sxss.start_scan()
     print(f"\033[36m Finished Stored XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
-    #rfi.start_scan()
+    rfi.start_scan()
     print(f"\033[36m Finished Remote File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Local File Inclusion scan\033[0m")
-    #lfi.start_scan()
+    lfi.start_scan()
     print(f"\033[36m Finished Local File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
-    #verb_tampering.start_scan()
+    verb_tampering.start_scan()
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
-    #xxe.start_scan()
+    xxe.start_scan()
     print(f"\033[36m Finished XXE Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting SSTI scan\033[0m")
-    #ssti.start_scan()
+    ssti.start_scan()
     print(f"\033[36m Finished SSTI scan\033[0m")
+
+    #av = AlienvaultIntelligence()
+    #results = av.query_keyword('sql injection')
+
+    #for i in results:
+        #print(i)
+        #break
+
 
     print(f"\n\033[1;34m> Compiling {args.output_format.upper()} Report\033[0m")
     RG.start_report_compilation()
     print(f"\033[36m {args.output_format.upper()} Report Compiled. Can be found at {report}\033[0m")
 
-    """
-    try:
-        with open(report, "r") as file:
-            for line in file:
-                print(line, end="")
-    except FileNotFoundError:
-        print(f"File '{report}' not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-"""

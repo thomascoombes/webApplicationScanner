@@ -5,7 +5,7 @@ import re
 import xml.etree.ElementTree as ET
 import html
 
-#maybe add support for .pdf .md .yaml .xlsx .db if there is time
+#maybe add support for .pdf .md .yaml .xlsx .db
 class ReportGenerator:
     def __init__(self, output_format=None, log_file_location=None, report_file=None, visited_urls=None):
         self.output_format = output_format
@@ -42,8 +42,10 @@ class ReportGenerator:
             return "SQL injection is a code injection technique that attackers use to manipulate databases. It allows attackers to execute malicious SQL statements that can extract sensitive data or modify database contents."
         elif cleaned_name == "command injection":
             return "Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise."
-        elif cleaned_name == "reflected cross site scripting" or cleaned_name == "stored cross site scripting":
-            return "Cross-site scripting (XSS) is a security vulnerability typically found in web applications. It allows attackers to inject malicious scripts into web pages viewed by other users."
+        elif cleaned_name == "reflected cross site scripting":
+            return "Reflected Cross-Site Scripting (XSS) occurs when an attacker injects malicious scripts into a web application, which are then reflected back to the user's browser. This can lead to client-side code execution and various security risks."
+        elif cleaned_name == "stored cross site scripting":
+            return "Stored Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject malicious scripts into a web application, which are then stored and executed when other users access the affected pages. This can lead to client-side code execution and various security risks."
         elif cleaned_name == "remote file inclusion":
             return "Remote file inclusion (RFI) is an attack that allows an attacker to include remote files on a website. This can lead to the execution of arbitrary code and unauthorized access to server resources."
         elif cleaned_name == "local file inclusion":
@@ -62,22 +64,24 @@ class ReportGenerator:
         # Define remediation steps for each vulnerability name
         if cleaned_name == ("SQL Injection".lower()):
             return "1. Use parameterized queries or prepared statements to prevent SQL injection attacks.\n2. Validate and sanitize user input to prevent malicious input from reaching the database."
-        if cleaned_name == ("Command Injection".lower()):
+        elif cleaned_name == ("Command Injection".lower()):
             return "1. Use whitelisting to restrict the set of allowed commands and parameters.\n2. Implement proper input validation and sanitization to prevent command injection vulnerabilities."
-        elif cleaned_name == "reflected cross site scripting" or cleaned_name == "stored cross site scripting":
+        elif cleaned_name == "reflected cross site scripting":
             return "1. Encode user input to prevent malicious scripts from executing.\n2. Implement Content Security Policy (CSP) headers to restrict the sources of executable scripts."
-        if cleaned_name == ("Remote File Inclusion".lower()):
+        elif cleaned_name == "stored cross site scripting":
+            return "1. Validate and sanitize user input to prevent the storage of malicious scripts in the application.\n2. Implement proper output encoding when displaying user-generated content to mitigate XSS vulnerabilities."
+        elif cleaned_name == ("Remote File Inclusion".lower()):
             return "1. Avoid dynamically including remote files in web applications.\n2. Use allow list-based input validation to restrict the inclusion of files."
-        if cleaned_name == ("Local File Inclusion".lower()):
+        elif cleaned_name == ("Local File Inclusion".lower()):
             return "1. Avoid passing user-controlled input directly to file inclusion functions.\n2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities."
-        if cleaned_name == ("Verb Tampering".lower()):
+        elif cleaned_name == ("Verb Tampering".lower()):
             return "1. Use secure HTTP methods (e.g., GET, POST) and avoid using less common methods.\n2. Implement access controls and proper authorization mechanisms to restrict access to sensitive resources."
-        if cleaned_name == ("XML External Entity Injection".lower()):
+        elif cleaned_name == ("XML External Entity Injection".lower()):
             return "1. Disable external entity processing in XML parsers.\n2. Use XML libraries and parsers that mitigate XXE vulnerabilities by default."
-        if cleaned_name == ("Server Side Template Injection".lower()):
+        elif cleaned_name == ("Server Side Template Injection".lower()):
             return "1. Avoid passing user-controlled data directly into server-side templates.\n2. Implement template sandboxing and secure templating engines to mitigate SSTI vulnerabilities."
         else:
-            return None
+            return "No remediation available"
 
     def extract_number_of_visited_urls(self):
         num_lines = sum(1 for line in open(self.visited_urls))
