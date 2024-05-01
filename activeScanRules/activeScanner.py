@@ -40,7 +40,6 @@ class ActiveScanner:
                 # Send form with payloads
                 self.test_payloads(target_url, form_fields)
 
-
     def get_html_content(self, target_url):
         try:
             response = requests.get(target_url)

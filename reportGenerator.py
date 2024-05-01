@@ -5,20 +5,24 @@ import re
 import xml.etree.ElementTree as ET
 import html
 
+from cti.nvdInterface import NvdIntelligence
+
 #maybe add support for .pdf .md .yaml .xlsx .db
 class ReportGenerator:
-    def __init__(self, output_format=None, log_file_location=None, report_file=None, visited_urls=None):
+    def __init__(self, output_format=None, api_key=None, include_cyber_threat_intelligence=None, log_file_location=None, report_file=None, visited_urls=None):
         self.output_format = output_format
+        self.api_key = api_key
+        self.include_cyber_threat_intelligence = include_cyber_threat_intelligence
         self.log_file_locations = log_file_location + "/"
         self.report_file = report_file
         self.visited_urls = visited_urls
         self.log_files = ["SQL_Injection.log", "Command_Injection.log", "Reflected_Cross_Site_Scripting.log",
                           "Stored_Cross_Site_Scripting.log", "Remote_File_Inclusion.log", "Local_File_Inclusion.log", "Verb_Tampering.log",
                           "XML_External_Entity_Injection.log", "Server_Side_Template_Injection.log"]
+        self.nvd = NvdIntelligence(self.api_key)
 
     def start_report_compilation(self):
         vulns = self.extract_vulnerabilities()
-
         if self.output_format == "txt":
             self.write_txt_output(vulns)
 
@@ -34,6 +38,262 @@ class ReportGenerator:
         if self.output_format == "csv":
             self.write_csv_output(vulns)
         return
+
+    def extract_number_of_visited_urls(self):
+        num_lines = sum(1 for line in open(self.visited_urls))
+        return num_lines
+
+    def extract_vulnerabilities(self):
+        vulns_dict = {}
+        for filename in self.log_files:
+            vulns_dict[self.clean_filename(filename)] = []
+            if os.path.isfile(os.path.join(self.log_file_locations, filename)):
+                with open(os.path.join(self.log_file_locations, filename), 'r') as file:
+                    for line in file:
+                        match = re.search(r'WARNING - (.*?) found at: (.*?) with payload: (.*)', line)
+                        if match:
+                            name = match.group(1)
+                            url = match.group(2)
+                            payload = match.group(3)
+                            vulns_dict[self.clean_filename(filename)].append({'name': name, 'url': url, 'payload': payload})
+        return vulns_dict
+
+    def clean_filename(self, filename):
+        filename = filename.replace('_', ' ').replace('.log', '')
+        return filename
+
+    # Function to write data to a text file
+    def write_txt_output(self, vulns_dict):
+        with open(self.report_file, 'w') as f:
+            f.write(f"Total URLs Visited: {self.extract_number_of_visited_urls()}\n\n")
+            for log_file, vulnerabilities in vulns_dict.items():
+                f.write(f"{log_file} - {len(vulnerabilities)} vulnerabilities found\n")
+
+                if vulnerabilities:
+                    f.write(f"Description: {self.get_vulnerability_description(vulnerabilities[0]['name'])}\n")
+                    for entry in vulnerabilities:
+                        if entry:
+                            f.write(f"URL: {entry['url']}\n")
+                            f.write(f"Payload: {entry['payload']}\n")
+                    f.write(f"Remediation Steps:\n{self.get_remediation_steps(vulnerabilities[0]['name'])}\n\n")
+                    if self.include_cyber_threat_intelligence:
+                        cwe_id = None
+                        keyword = vulnerabilities[0]['name']
+                        cves = self.nvd.search_cve(keyword)
+                        if cves:
+                            f.write(f"Recent {log_file} CVE's:\n")
+                            for cve in cves:
+                                f.write(f"CVE ID: {cve.id}\n")
+                                for description in cve.descriptions:
+                                    if description.lang == 'en':
+                                        f.write(f"Description: {description.value}\n\n")
+                            for cwe in cve.cwe:
+                                if cwe.lang == 'en':
+                                    cwe_id = cwe.value.replace('CWE-', '')
+                                    cwe_url = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html"
+                                    f.write(f"Common Weakness Enumeration: {cwe_url}\n\n\n")
+                                    break
+
+                        else:
+                            f.write(f"No {log_file} CVE's in the last 4 months\n\n\n")
+                else:
+                    f.write("\n\n")#No vulnerabilities found.
+            #f.write("\n\n")
+
+    def write_html_output(self, vulns_dict):
+        with open(self.report_file, 'w') as f:
+            f.write('<!DOCTYPE html>\n')
+            f.write('<html>\n')
+            f.write('<head>\n')
+            f.write('<title>Vulnerability Report</title>\n')
+            f.write('</head>\n')
+            f.write('<body>\n')
+            f.write(f"<h2>Total URLs Visited: {self.extract_number_of_visited_urls()}</h2>\n\n")
+            for log_file, vulnerabilities in vulns_dict.items():
+                f.write(f"<h3>{log_file} - {len(vulnerabilities)} vulnerabilities found</h3>\n")
+                if vulnerabilities:
+                    f.write(f"<p>Description: {self.get_vulnerability_description(vulnerabilities[0]['name'])}</p>\n")
+                    f.write('<ul>\n')
+                    for entry in vulnerabilities:
+                        f.write('<li>\n')
+                        f.write(f"<p>URL: {entry['url']}</p>\n")
+                        escaped_payload = html.escape(entry['payload'])
+                        f.write(f"<p>&emsp;Payload: {escaped_payload}</p>\n")
+                        f.write('</li>\n')
+                    f.write('</ul>\n')
+                    f.write(f"<p>Remediation Steps:\n{self.get_remediation_steps(vulnerabilities[0]['name'])}</p>\n")
+                    if self.include_cyber_threat_intelligence:
+                        keyword = vulnerabilities[0]['name']
+                        cves = self.nvd.search_cve(keyword)
+                        cwe_id = None
+                        if cves:
+                            f.write(f"<p>Recent {log_file} CVE's:</p>\n")
+                            for cve in cves:
+                                f.write(f"<p>CVE ID: {cve.id}</p>\n")
+                                for description in cve.descriptions:
+                                    if description.lang == 'en':
+                                        f.write(f"<p>Description: {description.value}</p>\n")
+                            for cwe in cve.cwe:
+                                if cwe.lang == 'en':
+                                    cwe_id = cwe.value.replace('CWE-', '')
+                            cwe_url = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html"
+                            f.write(f"<p>Common Weakness Enumeration: <a href='{cwe_url}'>{cwe_url}</a></p>\n\n")
+
+                        else:
+                            f.write(f"<p>No {log_file} CVE's in the last 4 months</p>\n\n")
+                f.write("<br>\n")
+            f.write('</body>\n')
+            f.write('</html>\n')
+
+    def write_xml_output(self, vulns_dict):
+        root = ET.Element("report")
+        total_urls = ET.SubElement(root, "total_urls_visited")
+        total_urls.text = str(self.extract_number_of_visited_urls())
+        for log_file, vulnerabilities in vulns_dict.items():
+            log_element = ET.SubElement(root, "log")
+            log_element.set("name", log_file)
+            num_vulnerabilities = ET.SubElement(log_element, "num_vulnerabilities")
+            num_vulnerabilities.text = str(len(vulnerabilities))
+            if vulnerabilities:
+                # Add description element before iterating over vulnerabilities
+                description = ET.SubElement(log_element, "description")
+                description.text = self.get_vulnerability_description(vulnerabilities[0]['name'])
+                for entry in vulnerabilities:
+                    vuln = ET.SubElement(log_element, "vulnerability")
+                    name = ET.SubElement(vuln, "name")
+                    name.text = entry['name']
+                    url = ET.SubElement(vuln, "url")
+                    url.text = entry['url']
+                    payload = ET.SubElement(vuln, "payload")
+                    payload.text = entry['payload']
+                # Add remediation steps element after iterating over vulnerabilities
+                remediation_steps = ET.SubElement(log_element, "remediation_steps")
+                remediation_steps.text = self.get_remediation_steps(vulnerabilities[0]['name'])
+                if self.include_cyber_threat_intelligence:
+                    keyword = vulnerabilities[0]['name']
+                    cves = self.nvd.search_cve(keyword)
+                    cwe_id=None
+                    if cves:
+                        cve_element = ET.SubElement(log_element, "recent_cves")
+                        for cve in cves:
+                            cve_id = ET.SubElement(cve_element, "cve_id")
+                            cve_id.text = cve.id
+                            for description in cve.descriptions:
+                                if description.lang == 'en':
+                                    description_element = ET.SubElement(cve_element, "description")
+                                    description_element.text = description.value
+                        for cwe in cve.cwe:
+                            if cwe.lang == 'en':
+                                cwe_id = cwe.value.replace('CWE-', '')
+                                cwe_url = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html"
+                                cwe_element = ET.SubElement(cve_element, "cwe")
+                                cwe_element.text = cwe_url
+                    else:
+                        no_cve_element = ET.SubElement(log_element, "no_cves")
+                        no_cve_element.text = f"No {log_file} CVE's in the last 4 months"
+
+                # Ensure self.report_file is properly set to a file path
+                # Open the file in write mode before writing to it
+        with open(self.report_file, "wb") as f:
+                tree = ET.ElementTree(root)
+                tree.write(f, encoding="utf-8", xml_declaration=True)
+
+    def write_json_output(self, vulns_dict):
+        json_data = {
+            "total_urls_visited": self.extract_number_of_visited_urls(),
+            "vulnerabilities": []
+        }
+        for log_file, vulnerabilities in vulns_dict.items():
+            description = None
+            remediation_steps = None
+            log_entry = {}
+            if vulnerabilities:
+                description = self.get_vulnerability_description(vulnerabilities[0]['name'])
+                remediation_steps = self.get_remediation_steps(vulnerabilities[0]['name'])
+                remediation_steps = remediation_steps.replace("\n", " ")
+                log_entry = {
+                    "Vulnerability": log_file,
+                    "num_vulnerabilities": len(vulnerabilities),
+                    "description": description,
+                    "remediation steps": remediation_steps,
+                    "vulnerabilities": []
+                }
+                for entry in vulnerabilities:
+                    vuln_entry = {
+                        "url": entry['url'],
+                        "payload": entry['payload']
+                    }
+                    log_entry["vulnerabilities"].append(vuln_entry)
+                if self.include_cyber_threat_intelligence:
+                    keyword = vulnerabilities[0]['name']
+                    cves = self.nvd.search_cve(keyword)
+                    cve_list = []
+                    if cves:
+                        cve = None
+                        for cve in cves:
+                            cve_data = {
+                                "cve_id": cve.id,
+                                "descriptions": [description.value for description in cve.descriptions if
+                                                 description.lang == 'en']
+                            }
+                            cve_list.append(cve_data)
+                        log_entry["recent_cves"] = cve_list
+                        # Adding CWE link
+                        cwe_id = cve.cwe[0].value.replace('CWE-', '') if cve.cwe else None
+                        cwe_url = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html" if cwe_id else None
+                        if cwe_url:
+                            log_entry["cwe_link"] = cwe_url
+                    else:
+                        log_entry["no_cves"] = f"No {log_file} CVE's in the last 4 months"
+            else:
+                log_entry = {
+                    "Vulnerability": log_file,
+                    "num_vulnerabilities": len(vulnerabilities)
+                }
+            json_data["vulnerabilities"].append(log_entry)
+        with open(self.report_file, 'w') as f:
+            json.dump(json_data, f, indent=4, ensure_ascii=False)
+
+    def write_csv_output(self, vulns_dict):
+        with open(self.report_file, 'w', newline='') as csvfile:
+            fieldnames = ['log_file', 'num_vulnerabilities', 'description', 'url', 'payload',
+                          'remediation_steps', 'cwe_link']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for log_file in self.log_files:
+                vulnerabilities = vulns_dict.get(self.clean_filename(log_file), [])
+                for entry in vulnerabilities:
+                    description = self.get_vulnerability_description(entry['name'])
+                    remediation_steps = self.get_remediation_steps(entry['name'])
+                    cwe_link = ""
+                    if self.include_cyber_threat_intelligence:
+                        keyword = entry['name']
+                        cves = self.nvd.search_cve(keyword)
+                        cwe_id = None
+                        if cves:
+                            cve = cves[0]  # Assuming only one CVE is needed
+                            cwe_id = cve.cwe[0].value.replace('CWE-', '') if cve.cwe else None
+                        cwe_link = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html" if cwe_id else ""
+                    writer.writerow({
+                        'log_file': log_file,
+                        'num_vulnerabilities': len(vulnerabilities),
+                        'description': description,
+                        'url': entry['url'],
+                        'payload': entry['payload'],
+                        'remediation_steps': remediation_steps,
+                        'cwe_link': cwe_link
+                    })
+                if not vulnerabilities:
+                    writer.writerow({
+                        'log_file': log_file,
+                        'num_vulnerabilities': 0,
+                        'description': '',
+                        'url': '',
+                        'payload': '',
+                        'remediation_steps': '',
+                        'cwe_link': ''
+                    })
+
 
     def get_vulnerability_description(self, vulnerability_name):
         cleaned_name = vulnerability_name.lower().replace(" vulnerability", "")
@@ -82,162 +342,3 @@ class ReportGenerator:
             return "1. Avoid passing user-controlled data directly into server-side templates.\n2. Implement template sandboxing and secure templating engines to mitigate SSTI vulnerabilities."
         else:
             return "No remediation available"
-
-    def extract_number_of_visited_urls(self):
-        num_lines = sum(1 for line in open(self.visited_urls))
-        return num_lines
-
-    def extract_vulnerabilities(self):
-        vulns_dict = {}
-        for filename in self.log_files:
-            vulns_dict[self.clean_filename(filename)] = []
-            if os.path.isfile(os.path.join(self.log_file_locations, filename)):
-                with open(os.path.join(self.log_file_locations, filename), 'r') as file:
-                    for line in file:
-                        match = re.search(r'WARNING - (.*?) found at: (.*?) with payload: (.*)', line)
-                        if match:
-                            name = match.group(1)
-                            url = match.group(2)
-                            payload = match.group(3)
-                            vulns_dict[self.clean_filename(filename)].append({'name': name, 'url': url, 'payload': payload})
-        return vulns_dict
-
-    def clean_filename(self, filename):
-        filename = filename.replace('_', ' ').replace('.log', '')
-        return filename
-
-    # Function to write data to a text file
-    def write_txt_output(self, vulns_dict):
-        with open(self.report_file, 'w') as f:
-            f.write(f"Total URLs Visited: {self.extract_number_of_visited_urls()}\n\n")
-            for log_file, vulnerabilities in vulns_dict.items():
-                f.write(f"{log_file} - {sum(len(v) for v in vulnerabilities)} vulnerabilities found\n")
-                if vulnerabilities:
-                    f.write(f"Description: {self.get_vulnerability_description(vulnerabilities[0]['name'])}\n")
-                    for entry in vulnerabilities:
-                        if entry:
-                            f.write(f"URL: {entry['url']}\n")
-                            f.write(f"Payload: {entry['payload']}\n")
-                    f.write(f"Remediation Steps:\n{self.get_remediation_steps(vulnerabilities[0]['name'])}\n\n")
-                else:
-                    f.write("No vulnerabilities found.\n\n")
-            f.write("\n")
-
-    def write_html_output(self, vulns_dict):
-        with open(self.report_file, 'w') as f:
-            f.write('<!DOCTYPE html>\n')
-            f.write('<html>\n')
-            f.write('<head>\n')
-            f.write('<title>Vulnerability Report</title>\n')
-            f.write('</head>\n')
-            f.write('<body>\n')
-            f.write(f"<h2>Total URLs Visited: {self.extract_number_of_visited_urls()}</h2>\n\n")
-            for log_file, vulnerabilities in vulns_dict.items():
-                f.write(f"<h3>{log_file} - {len(vulnerabilities)} vulnerabilities found</h3>\n")
-                if vulnerabilities:
-                    f.write(f"<p>Description: {self.get_vulnerability_description(vulnerabilities[0]['name'])}</p>\n")
-                    f.write('<ul>\n')
-                    for entry in vulnerabilities:
-                        f.write('<li>\n')
-                        f.write(f"<p>URL: {entry['url']}</p>\n")
-                        escaped_payload = html.escape(entry['payload'])
-                        f.write(f"<p>&emsp;Payload: {escaped_payload}</p>\n")
-                        f.write('</li>\n')
-                    f.write('</ul>\n')
-                    f.write(f"<p>Remediation Steps:\n{self.get_remediation_steps(vulnerabilities[0]['name'])}</p>\n")
-                f.write("<br>\n")
-            f.write('</body>\n')
-            f.write('</html>\n')
-
-    def write_xml_output(self, vulns_dict):
-        root = ET.Element("report")
-        total_urls = ET.SubElement(root, "total_urls_visited")
-        total_urls.text = str(self.extract_number_of_visited_urls())
-        for log_file, vulnerabilities in vulns_dict.items():
-            log_element = ET.SubElement(root, "log")
-            log_element.set("name", log_file)
-            num_vulnerabilities = ET.SubElement(log_element, "num_vulnerabilities")
-            num_vulnerabilities.text = str(len(vulnerabilities))
-            if vulnerabilities:
-                # Add description element before iterating over vulnerabilities
-                description = ET.SubElement(log_element, "description")
-                description.text = self.get_vulnerability_description(vulnerabilities[0]['name'])
-                for entry in vulnerabilities:
-                    vuln = ET.SubElement(log_element, "vulnerability")
-                    name = ET.SubElement(vuln, "name")
-                    name.text = entry['name']
-                    url = ET.SubElement(vuln, "url")
-                    url.text = entry['url']
-                    payload = ET.SubElement(vuln, "payload")
-                    payload.text = entry['payload']
-                # Add remediation steps element after iterating over vulnerabilities
-                remediation_steps = ET.SubElement(log_element, "remediation_steps")
-                remediation_steps.text = self.get_remediation_steps(vulnerabilities[0]['name'])
-
-        # Ensure self.report_file is properly set to a file path
-        # Open the file in write mode before writing to it
-        with open(self.report_file, "wb") as f:
-            tree = ET.ElementTree(root)
-            tree.write(f, encoding="utf-8", xml_declaration=True)
-
-    def write_json_output(self, vulns_dict):
-        json_data = {
-            "total_urls_visited": self.extract_number_of_visited_urls(),
-            "vulnerabilities": []
-        }
-        for log_file, vulnerabilities in vulns_dict.items():
-            description = None
-            remediation_steps = None
-            log_entry = {}
-            if vulnerabilities:
-                description = self.get_vulnerability_description(vulnerabilities[0]['name'])
-                remediation_steps = self.get_remediation_steps(vulnerabilities[0]['name'])
-                remediation_steps = remediation_steps.replace("\n", " ")
-                log_entry = {
-                    "Vulnerability": log_file,
-                    "num_vulnerabilities": len(vulnerabilities),
-                    "description": description,
-                    "remediation steps": remediation_steps,
-                    "vulnerabilities": []
-                }
-                for entry in vulnerabilities:
-                    vuln_entry = {
-                        "url": entry['url'],
-                        "payload": entry['payload']
-                    }
-                    log_entry["vulnerabilities"].append(vuln_entry)
-            else:
-                log_entry = {
-                    "Vulnerability": log_file,
-                    "num_vulnerabilities": len(vulnerabilities)
-                }
-            json_data["vulnerabilities"].append(log_entry)
-        with open(self.report_file, 'w') as f:
-            json.dump(json_data, f, indent=4, ensure_ascii=False)
-
-    def write_csv_output(self, vulns_dict):
-        with open(self.report_file, 'w', newline='') as csvfile:
-            fieldnames = ['log_file', 'num_vulnerabilities', 'description', 'url', 'payload',
-                          'remediation_steps']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for log_file in self.log_files:
-                vulnerabilities = vulns_dict.get(self.clean_filename(log_file), [])
-                for entry in vulnerabilities:
-                    writer.writerow({
-                        'log_file': log_file,
-                        'num_vulnerabilities': len(vulnerabilities),
-                        'description': self.get_vulnerability_description(entry['name']),
-                        'url': entry['url'],
-                        'payload': entry['payload'],
-                        'remediation_steps': self.get_remediation_steps(entry['name'])
-                    })
-                if not vulnerabilities:
-                    writer.writerow({
-                        'log_file': log_file,
-                        'num_vulnerabilities': 0,
-                        'description': '',
-                        'url': '',
-                        'payload': '',
-                        'remediation_steps': ''
-                    })

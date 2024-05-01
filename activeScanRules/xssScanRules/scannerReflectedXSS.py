@@ -12,14 +12,15 @@ class ScanReflectedXSS(ScanXSS):
     def initialise_payloads(self):
         payloads = [
             r"<scrIpt>alert('XSS')</sCriPt>",
-            r"<img src=x onerror=prompt()>",
+
+        ]
+        """r"<img src=x onerror=prompt()>",
             r'<scrIpt>alert("XSS")</sCriPt>',
             r"<img src=x onerror=console.log(1);>",
             r"<svg onload=alert(1)>",
             r"<b onMouseOver=alert(1);>test</b>",
             r"accesskey='x' onclick='alert(1)' b",
-            r"button onclick='alert(1)'/"
-        ]
+            r"button onclick='alert(1)'/"""
         return payloads
 
     def test_payloads(self, target_url, form_fields):

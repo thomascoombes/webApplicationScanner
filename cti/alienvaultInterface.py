@@ -1,4 +1,5 @@
 from OTXv2 import OTXv2, IndicatorTypes
+from datetime import datetime, timedelta
 
 
 class AlienvaultIntelligence:
@@ -10,8 +11,18 @@ class AlienvaultIntelligence:
         self.otx = OTXv2(api_key, server=otx_server)
 
     def query_keyword(self, keyword):
-        pulses = self.otx.search_pulses(keyword)
-        return(pulses["results"])
+        # Define search parameters
+        search_params = {
+            'searchQuery': keyword,
+            'sort': 'created',  # Sort by creation date (you can choose other options)
+            'limit': 10,  # Number of results per page
+            'page': 1  # Page number of results
+        }
+
+        # Search for pulses matching the query
+        pulses = self.otx.search_pulses(**search_params)["results"]
+
+        return pulses
 
 
     def query_hash(self, hash):

