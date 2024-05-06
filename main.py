@@ -6,6 +6,7 @@ import keyboard
 from nmapScan import NmapScanner
 from spider import Spider
 from reportGenerator import ReportGenerator
+from cti.nvdInterface import NvdIntelligence
 
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
@@ -17,9 +18,6 @@ from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
 
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
-
-from cti.alienvaultInterface import AlienvaultIntelligence
-from cti.nvdInterface import NvdIntelligence
 """
 paused = False  # Define a global variable to track the pause state
 def pause_script():
@@ -52,36 +50,35 @@ def clear_output_directory(output_directory2):
 
 
 def make_test_file(output_directory2):
-    mutillidae_test_urls = ["http://192.168.232.129:80/",
-            "http://192.168.232.129:80/mutillidae/",
-            "http://192.168.232.129:80/mutillidae/index.php?page=home.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=register.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=view-someones-blog.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=arbitrary-file-inclusion.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=text-file-viewer.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=set-background-color.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=html5-storage.php",
-            "http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
-            "http://192.168.232.129:80/mutillidae/index.php?page=capture-data.php"
-            ]
-    less_mutillidae_urls = [
+    less_mutillidae_urls = ["http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
                             "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
                             "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
                             "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
                             "http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php",
-
                             ]
+    mut2_urls = [
+        "http://192.168.232.135/mutillidae/index.php?page=user-info.php",
+        #"http://192.168.232.135/mutillidae/index.php?page=text-file-viewer.php",
+        "http://192.168.232.135/mutillidae/index.php?page=pen-test-tool-lookup.php",
+        "http://192.168.232.135/mutillidae/index.php?page=xml-validator.php"
+    ]
 
     # Define the path to the testURLs.txt file
     file_path2 = os.path.join(output_directory2, "testURLs.txt")
     # Write the URLs to the file
     with open(file_path2, "a") as file:
-        for url in less_mutillidae_urls: #change depending on url subset required
+        for url in mut2_urls: #change depending on url subset required
             file.write(url + "\n")
 
+
+def load_excluded_urls(filename):
+    excluded_urls = []
+    with open(filename, 'r') as file:
+        for line in file:
+            url = line.strip()
+            if url:
+                excluded_urls.append(url)
+    return excluded_urls
 
 
 if __name__ == "__main__":
@@ -96,6 +93,8 @@ if __name__ == "__main__":
                         required=False)
     parser.add_argument("-e", "--exclude", nargs='+', default=[], help="URLs that are out of scope, to exclude from "
                                                                        "scanning", required=False)
+    parser.add_argument("-ef", "--exclude-file", help="File containing URLs to exclude", required=False)
+    parser.add_argument("-sd", "--start-dir", help="Start directory for scanning", required=False)
     parser.add_argument("-H", "--host-os", choices=["unix", "windows"], default="unix",
                         help="Set the host operating system type (Unix or Windows)", required=False)
 
@@ -116,6 +115,10 @@ if __name__ == "__main__":
 
     # Parse the command-line arguments
     args = parser.parse_args()
+    if args.exclude_file:
+        excluded_urls_from_file = load_excluded_urls(args.exclude_file)
+        args.exclude.extend(excluded_urls_from_file)
+
     print("\nStarting Dynamic Application Security Testing\n")
     print("\033[93m     (()__(()")
     print("     /       \\")
@@ -144,7 +147,8 @@ if __name__ == "__main__":
     for exclusion in args.exclude:
         print(f"\t\033[33m{exclusion}\033[0m")
     print(f"\033[33m[+] Host OS: {args.host_os}\033[0m")
-
+    if args.start_dir:
+        print(f"\033[33m[+] Start Directory: {args.start_dir}\033[0m")
     if args.Username is not None and args.Password is not None:
         print("Authentication")
         print("Username:", args.Username)
@@ -153,7 +157,7 @@ if __name__ == "__main__":
         print("Provide a full username password combination")
         args.exit(1)
 
-    print(f"\033[33m[+] Output Format: {args.output_format}\033[0m")
+    print(f"\033[33m[+] Output Format: {args.output_format.upper()}\033[0m")
 
 
     # Create directory for the target if it doesn't exist, clear it if it does exist
@@ -169,20 +173,21 @@ if __name__ == "__main__":
 
 
     #CHANGE depending on how testing is happening
-    visited_urls = output_directory + "/testURLs.txt"
-    #visited_urls = output_directory + "/visited_urls.txt"
+    #visited_urls = output_directory + "/testURLs.txt"
+    visited_urls = output_directory + "/visited_urls.txt"
+
 
 
     # Make objects
-    nmap = NmapScanner(args.target, args.port, args.aggression, log_file=output_directory + "/nmap.log")
-    spider = Spider(args.target, args.port, args.depth, args.exclude, args.Username, args.Password, output_directory=output_directory)
+    nmap = NmapScanner(args.api_key, args.target, args.port, args.aggression, log_file=output_directory + "/nmap.txt")
+    spider = Spider(args.target, args.port, args.depth, args.exclude, args.start_dir, args.Username, args.Password, output_directory=output_directory)
 
     sql_inject = ScanSQLInject(visited_urls=visited_urls, log_file=output_directory + "/SQL_Injection.log")
     command_inject = ScanCommandInject(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/Command_Injection.log")
     verb_tampering = ScanVerbTampering(visited_urls=visited_urls, log_file=output_directory + "/Verb_Tampering.log")
     rfi = ScanRemoteFileInclusion(visited_urls=visited_urls, log_file=output_directory + "/Remote_File_Inclusion.log")
     lfi = ScanLocalFileInclusion(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/Local_File_Inclusion.log")
-    xxe = ScanXXEInject(visited_urls=visited_urls, log_file=output_directory + "/XML_External_Entity_Injection.log")
+    xxe = ScanXXEInject(args.host_os, visited_urls=visited_urls, log_file=output_directory + "/XML_External_Entity_Injection.log")
     ssti = ServerSideTemplateInjectionScanner(visited_urls=visited_urls, log_file=output_directory + "/Server_Side_Template_Injection.log")
     rxss = ScanReflectedXSS(visited_urls=visited_urls, log_file=output_directory + "/Reflected_Cross_Site_Scripting.log")
     sxss = ScanStoredXSS(visited_urls=visited_urls, log_file=output_directory + "/Stored_Cross_Site_Scripting.log")
@@ -191,13 +196,13 @@ if __name__ == "__main__":
     # Start scans
 
     print("\033[1;34m> Starting Nmap Scan\033[0m")
-    #nmap.nmap_web_app()
+    nmap.nmap_web_app()
 
     print("\n\033[1;34m> Starting Spider\033[0m")
     spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    sql_inject.start_scan()
+    #sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
@@ -213,7 +218,7 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Stored XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
-    #rfi.start_scan()
+    rfi.start_scan()
     print(f"\033[36m Finished Remote File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Local File Inclusion scan\033[0m")
@@ -225,15 +230,16 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
-    #xxe.start_scan()
+    xxe.start_scan()
     print(f"\033[36m Finished XXE Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting SSTI scan\033[0m")
-    #ssti.start_scan()
+    ssti.start_scan()
     print(f"\033[36m Finished SSTI scan\033[0m")
 
     RG = ReportGenerator(args.output_format, args.api_key, args.include_cyber_threat_intelligence,
-                         log_file_location=output_directory, report_file=report, visited_urls=visited_urls)
+                         log_file_location=output_directory, report_file=report, visited_urls=visited_urls,
+                         nmap_log=output_directory + "/nmap.txt")
 
     print(f"\n\033[1;34m> Compiling {args.output_format.upper()} Report\033[0m")
     RG.start_report_compilation()

@@ -128,8 +128,8 @@ class ScanSQLInject(ActiveScanner):
                 self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 # Prepare form data with SQL payload
                 form_data = {}
-                for field_name, _ in form_fields:
-                    form_data[field_name] = payload
+                for field_tuple in form_fields:
+                    form_data[field_tuple[0]] = payload
                 try:
                     # Get the form method (post or get)
                     form_method = form_data.get('method', 'post').lower()

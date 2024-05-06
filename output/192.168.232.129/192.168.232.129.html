@@ -4,98 +4,79 @@
 <title>Vulnerability Report</title>
 </head>
 <body>
+<h3>Nmap Log:</h3>
+
+<p>Nmap Version: (7, 94)
+</p>
+<p>Nmap Command: nmap 192.168.232.129 -p 80 -v -sV -sC -T3
+</p>
+<p>Nmap Scan results:
+</p>
+<p>Host: 192.168.232.129
+</p>
+<p>Hostnames: 
+</p>
+<p>Port 80: open - http - Apache httpd 2.2.8
+</p>
+<p>HTTP Title: Metasploitable2 - Linux
+</p>
+<p>http-server-header: Apache/2.2.8 (Ubuntu) DAV/2
+</p>
+<p>Product: Apache httpd
+</p>
+<p>Version: 2.2.8
+</p>
+<p>Extra Info: (Ubuntu) DAV/2
+</p>
 <h2>Total URLs Visited: 4</h2>
 
-<h3>SQL Injection - 4 vulnerabilities found</h3>
-<p>Description: SQL injection is a code injection technique that attackers use to manipulate databases. It allows attackers to execute malicious SQL statements that can extract sensitive data or modify database contents.</p>
-<ul>
-<li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
-<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
-</li>
-<li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=login.php</p>
-<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
-</li>
-<li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=user-info.php</p>
-<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
-</li>
-<li>
-<p>URL: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php</p>
-<p>&emsp;Payload: )%20or%20(&#x27;x&#x27;=&#x27;x</p>
-</li>
-</ul>
-<p>Remediation Steps:
-1. Use parameterized queries or prepared statements to prevent SQL injection attacks.
-2. Validate and sanitize user input to prevent malicious input from reaching the database.</p>
-<p>Recent SQL Injection CVE's:</p>
-<p>CVE ID: CVE-2024-0359</p>
-<p>Description: A vulnerability was found in code-projects Simple Online Hotel Reservation System 1.0. It has been declared as critical. This vulnerability affects unknown code of the file login.php. The manipulation of the argument username/password leads to sql injection. The attack can be initiated remotely. The exploit has been disclosed to the public and may be used. VDB-250126 is the identifier assigned to this vulnerability.</p>
-<p>CVE ID: CVE-2024-0357</p>
-<p>Description: A vulnerability was found in coderd-repos Eva 1.0.0 and classified as critical. Affected by this issue is some unknown functionality of the file /system/traceLog/page of the component HTTP POST Request Handler. The manipulation of the argument property leads to sql injection. The exploit has been disclosed to the public and may be used. The identifier of this vulnerability is VDB-250124.</p>
-<p>CVE ID: CVE-2024-0355</p>
-<p>Description: A vulnerability, which was classified as critical, was found in PHPGurukul Dairy Farm Shop Management System up to 1.1. Affected is an unknown function of the file add-category.php. The manipulation of the argument category leads to sql injection. The exploit has been disclosed to the public and may be used. VDB-250122 is the identifier assigned to this vulnerability.</p>
-<p>Common Weakness Enumeration: <a href='https://cwe.mitre.org/data/definitions/89.html'>https://cwe.mitre.org/data/definitions/89.html</a></p>
-
+<h3>SQL Injection - 0 vulnerabilities found</h3>
 <br>
 <h3>Command Injection - 1 vulnerabilities found</h3>
 <p>Description: Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise.</p>
 <ul>
 <li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=dns-lookup.php</p>
 <p>&emsp;Payload: ;cat /etc/passwd</p>
 </li>
 </ul>
 <p>Remediation Steps:
 1. Use whitelisting to restrict the set of allowed commands and parameters.
 2. Implement proper input validation and sanitization to prevent command injection vulnerabilities.</p>
-<p>Recent Command Injection CVE's:</p>
-<p>CVE ID: CVE-2023-6634</p>
-<p>Description: The LearnPress plugin for WordPress is vulnerable to Command Injection in all versions up to, and including, 4.2.5.7 via the get_content function. This is due to the plugin making use of the call_user_func function with user input. This makes it possible for unauthenticated attackers to execute any public function with one parameter, which could result in remote code execution.</p>
-<p>CVE ID: CVE-2023-51126</p>
-<p>Description: Command injection vulnerability in /usr/www/res.php in FLIR AX8 up to 1.46.16 allows attackers to run arbitrary commands via the value parameter.</p>
-<p>CVE ID: CVE-2023-51972</p>
-<p>Description: Tenda AX1803 v1.0.0.1 was discovered to contain a command injection vulnerability via the function fromAdvSetLanIp.</p>
-<p>Common Weakness Enumeration: <a href='https://cwe.mitre.org/data/definitions/77.html'>https://cwe.mitre.org/data/definitions/77.html</a></p>
-
 <br>
-<h3>Reflected Cross Site Scripting - 2 vulnerabilities found</h3>
-<p>Description: Reflected Cross-Site Scripting (XSS) occurs when an attacker injects malicious scripts into a web application, which are then reflected back to the user's browser. This can lead to client-side code execution and various security risks.</p>
-<ul>
-<li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php</p>
-<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
-</li>
-<li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=login.php</p>
-<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
-</li>
-</ul>
-<p>Remediation Steps:
-1. Encode user input to prevent malicious scripts from executing.
-2. Implement Content Security Policy (CSP) headers to restrict the sources of executable scripts.</p>
-<p>Recent Reflected Cross Site Scripting CVE's:</p>
-<p>CVE ID: CVE-2024-0314</p>
-<p>Description: XSS vulnerability in FireEye Central Management affecting version 9.1.1.956704, which could allow an attacker to modify special HTML elements in the application and cause a reflected XSS, leading to a session hijacking.</p>
-<p>CVE ID: CVE-2023-51064</p>
-<p>Description: QStar Archive Solutions Release RELEASE_3-0 Build 7 Patch 0 was discovered to contain a DOM Based reflected XSS vulnerability within the component qnme-ajax?method=tree_table.</p>
-<p>CVE ID: CVE-2024-22142</p>
-<p>Description: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in Cozmoslabs Profile Builder Pro allows Reflected XSS.This issue affects Profile Builder Pro: from n/a through 3.10.0.
-
-</p>
-<p>Common Weakness Enumeration: <a href='https://cwe.mitre.org/data/definitions/79.html'>https://cwe.mitre.org/data/definitions/79.html</a></p>
-
+<h3>Reflected Cross Site Scripting - 0 vulnerabilities found</h3>
 <br>
 <h3>Stored Cross Site Scripting - 0 vulnerabilities found</h3>
 <br>
-<h3>Remote File Inclusion - 0 vulnerabilities found</h3>
+<h3>Remote File Inclusion - 3 vulnerabilities found</h3>
+<p>Description: Remote file inclusion (RFI) is an attack that allows an attacker to include remote files on a website. This can lead to the execution of arbitrary code and unauthorized access to server resources.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php</p>
+<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=source-viewer.php</p>
+<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F</p>
+<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Avoid dynamically including remote files in web applications.
+2. Use allow list-based input validation to restrict the inclusion of files.</p>
 <br>
-<h3>Local File Inclusion - 2 vulnerabilities found</h3>
+<h3>Local File Inclusion - 3 vulnerabilities found</h3>
 <p>Description: Local file inclusion (LFI) is a type of vulnerability that allows an attacker to include files on a server through the web browser. This can lead to information disclosure and remote code execution.</p>
 <ul>
 <li>
-<p>URL: http://192.168.232.129:80/mutillidae/index.php?page=%2Fetc%2Fpasswd</p>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php</p>
+<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.129/mutillidae/index.php?page=source-viewer.php</p>
 <p>&emsp;Payload: /etc/passwd</p>
 </li>
 <li>
@@ -106,21 +87,6 @@
 <p>Remediation Steps:
 1. Avoid passing user-controlled input directly to file inclusion functions.
 2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities.</p>
-<p>Recent Local File Inclusion CVE's:</p>
-<p>CVE ID: CVE-2024-1644</p>
-<p>Description: Suite CRM version 7.14.2 allows including local php files. This is possible
-
-because the application is vulnerable to LFI.
-
-
-
-</p>
-<p>CVE ID: CVE-2021-24566</p>
-<p>Description: The WooCommerce Currency Switcher FOX WordPress plugin before 1.3.7 was vulnerable to LFI attacks via the "woocs" shortcode.</p>
-<p>CVE ID: CVE-2023-49715</p>
-<p>Description: A unrestricted php file upload vulnerability exists in the import.json.php temporary copy functionality of WWBN AVideo dev master commit 15fed957fb. A specially crafted HTTP request can lead to arbitrary code execution when chained with an LFI vulnerability. An attacker can send a series of HTTP requests to trigger this vulnerability.</p>
-<p>Common Weakness Enumeration: <a href='https://cwe.mitre.org/data/definitions/434.html'>https://cwe.mitre.org/data/definitions/434.html</a></p>
-
 <br>
 <h3>Verb Tampering - 0 vulnerabilities found</h3>
 <br>

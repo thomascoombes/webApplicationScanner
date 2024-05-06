@@ -35,7 +35,7 @@ class ActiveScanner:
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
                     self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
-                    print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
+                    #print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
                     continue
                 # Send form with payloads
                 self.test_payloads(target_url, form_fields)
@@ -54,14 +54,18 @@ class ActiveScanner:
 
     def extract_form_fields(self, html_content):
         form_fields = []
+        if html_content is None:
+            return form_fields  # Return empty list if HTML content is None
         soup = BeautifulSoup(html_content, 'html.parser')
         forms = soup.find_all('form')
         for form in forms:
+            method = form.get('method', 'GET')  # Get the method attribute, defaulting to 'GET'
             fields = form.find_all(['input', 'textarea', 'select'])
             for field in fields:
                 field_name = field.get('name')
                 field_type = field.get('type') or 'text'
-                form_fields.append((field_name, field_type))
+                #field_value = field.get('value')
+                form_fields.append((field_name, field_type, method))  # Append method attribute
         return form_fields
 
     def initialise_payloads(self):

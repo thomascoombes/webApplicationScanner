@@ -1,0 +1,4 @@
+http://192.168.232.135/mutillidae/index.php?page=user-info.php
+http://192.168.232.135/mutillidae/index.php?page=text-file-viewer.php
+http://192.168.232.135/mutillidae/index.php?page=pen-test-tool-lookup.php
+http://192.168.232.135/mutillidae/index.php?page=xml-validator.php

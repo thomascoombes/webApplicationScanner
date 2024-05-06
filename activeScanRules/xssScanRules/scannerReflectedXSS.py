@@ -30,13 +30,19 @@ class ScanReflectedXSS(ScanXSS):
             self.logger.info(f"\tTesting payload: {payload} on {target_url}")
             # Prepare form data with command injection payload
             form_data = {}
-            for field_name, _ in form_fields:
-                form_data[field_name] = payload
+            parameters_added = False
+            for field_tuple in form_fields:
+                field_name = field_tuple[0]
+                if field_name != 'page':  # Skip the 'page' parameter
+                    form_data[field_name] = payload
+
+            #print(form_data)
             try:
                 # Get the form method (post or get)
-                form_method = form_data.get('method', 'post').lower()
+                form_method = form_fields[0][2]
                 # Get the action URL or set it to the target URL if not found
                 action = form_data.get('action', target_url)
+
                 # Extract input fields from the form_data
                 inputs = [key for key in form_data.keys() if key != 'method' and key != 'action']
                 # Prepare post data for submission
@@ -44,7 +50,7 @@ class ScanReflectedXSS(ScanXSS):
                 for input_name in inputs:
                     post_data[input_name] = form_data[input_name]
                 # print(f"form data {form_data}\n post data {post_data}")
-                vulnerability_found = self.check_reflections(action, form_method, post_data)
+                vulnerability_found = self.check_reflections(action, form_method, post_data, form_fields)
                 if vulnerability_found:
                     self.logger.warning(
                         f"Reflected Cross Site Scripting vulnerability found at: {action} with payload: {payload}")
@@ -60,8 +66,7 @@ class ScanReflectedXSS(ScanXSS):
             self.logger.info(f"No Reflected Cross Site Scripting vulnerability found at: {target_url}")
             print(f"\033[32m[+] No Reflected Cross Site Scripting vulnerability found at: {target_url}\033[0m")
 
-    def check_reflections(self, action, form_method, post_data):
-
+    def check_reflections(self, action, form_method, post_data, form_fields):
         # Navigate to the target URL
         self.driver.get(action)
         # Submit the form with the payload
@@ -81,7 +86,7 @@ class ScanReflectedXSS(ScanXSS):
             self.driver.execute_script(script, action)
         else:
             # Construct URL with payload
-            url_with_payload = action + '?' + '&'.join([f'{name}={value}' for name, value in post_data.items()])
+            url_with_payload = action + '&' + '&'.join([f'{name}={value}' for name, value in post_data.items()])
             # print("payloaded url", url_with_payload)
             self.driver.get(url_with_payload)
         # Check for JavaScript pop-up

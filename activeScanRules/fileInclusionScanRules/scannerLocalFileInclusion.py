@@ -90,10 +90,10 @@ class ScanLocalFileInclusion(FileInclusionScanner):
     def initialise_file_patterns(self):
         linux_local_file_patterns = [
             re.compile(r"root:.:0:0"),
-            re.compile(r"^[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+$"),
-            re.compile(r"^.+$"),
-            re.compile(r"<VirtualHost[^>]*>[^<]*</VirtualHost>"),
-            re.compile(r"server\s*{.*?}")
+            #re.compile(r"^[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:[^:]+$"),
+            #re.compile(r"^.+$"),
+            #re.compile(r"<VirtualHost[^>]*>[^<]*</VirtualHost>"),
+            #re.compile(r"server\s*{.*?}")
         ]
         windows_local_file_patterns = [
             re.compile(r"^\[drivers]$"),
@@ -128,7 +128,8 @@ class ScanLocalFileInclusion(FileInclusionScanner):
                 self.logger.info(f"\tTesting payload: {payload} on {base_url} as {modified_url}")
                 # Send HTTP request to the modified URL
                 response = requests.get(modified_url)
-                if self.check_response(response, payload, modified_url, html_content):
+                attack_type = "url"
+                if self.check_response(response, payload, modified_url, html_content, attack_type):
                     potential_vulnerability_found = True
                     break
             except Exception as e:
@@ -142,7 +143,8 @@ class ScanLocalFileInclusion(FileInclusionScanner):
                         f"\tTesting payload with null byte affixed: {payload} on {base_url} as {modified_url}")
                     # Send HTTP request to the modified URL
                     response = requests.get(modified_url)
-                    if self.check_response(response, payload, modified_url, html_content):
+                    attack_type = "url"
+                    if self.check_response(response, payload, modified_url, html_content, attack_type):
                         potential_vulnerability_found = True
                         break
                 except Exception as e:
@@ -154,7 +156,30 @@ class ScanLocalFileInclusion(FileInclusionScanner):
                 f"\tNo local file inclusion vulnerability found in URL parameters at: {base_url}")
             print(f"\033[32m[+] No local file inclusion vulnerability found at: {base_url}\033[0m")
 
-    def check_response(self, response, payload, url, html_content):
+    def test_form_payloads(self, target_url, form_fields, html_content):
+        payloads = self.construct_payloads()
+        potential_vulnerability_found = False
+        proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
+        for payload in payloads:
+            self.logger.info(f"\tTesting payload: {payload} on {target_url}")
+            try:
+                form_data = {}
+                for field_tuple in form_fields:
+                    form_data[field_tuple[0]] = payload
+                response = requests.post(target_url, data=form_data) # , proxies=proxies
+                attack_type = "form"
+                if self.check_response(response, payload, target_url, html_content, attack_type):
+                    potential_vulnerability_found = True
+                    break
+            except Exception as e:
+                self.logger.error(
+                    f"\tAn error occurred while testing form with payload in {target_url}: {e}")
+
+        if not potential_vulnerability_found:
+            self.logger.info(f"\tNo local file inclusion vulnerability found in forms at: {target_url}")
+            print(f"\033[32m[+] No local file inclusion vulnerability found in forms at: {target_url}\033[0m")
+
+    def check_response(self, response, payload, url, html_content, attack_type):
         if response.status_code == 200:
             if response.text != html_content:
                 for pattern in self.initialise_file_patterns():
@@ -162,7 +187,7 @@ class ScanLocalFileInclusion(FileInclusionScanner):
                         self.logger.warning(f"Local file inclusion vulnerability "
                                          f"found at: {url} with payload: {payload}")
                         print(f"\033[31m[+] Local file inclusion vulnerability "
-                              f"found at: {url} with payload: {payload}\033[0m")
+                              f"found at: {url} with payload: {payload} via {attack_type}\033[0m")
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")

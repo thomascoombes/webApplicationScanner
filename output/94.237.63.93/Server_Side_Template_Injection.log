@@ -1,0 +1,6 @@
+INFO - 
+Starting ServerSideTemplateInjectionScanner scan
+INFO - 	Testing payload: {7*7} on http://94.237.63.93:59487/
+INFO - 	Testing payload: ${7*7} on http://94.237.63.93:59487/
+INFO - 	Testing payload: {{7*7}} on http://94.237.63.93:59487/
+WARNING - 	SSTI vulnerability found at: http://94.237.63.93:59487/ with payload: {{7*7}}

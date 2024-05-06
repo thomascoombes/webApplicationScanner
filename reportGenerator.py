@@ -9,7 +9,8 @@ from cti.nvdInterface import NvdIntelligence
 
 #maybe add support for .pdf .md .yaml .xlsx .db
 class ReportGenerator:
-    def __init__(self, output_format=None, api_key=None, include_cyber_threat_intelligence=None, log_file_location=None, report_file=None, visited_urls=None):
+    def __init__(self, output_format=None, api_key=None, include_cyber_threat_intelligence=None,
+                 log_file_location=None, report_file=None, visited_urls=None, nmap_log=None):
         self.output_format = output_format
         self.api_key = api_key
         self.include_cyber_threat_intelligence = include_cyber_threat_intelligence
@@ -20,23 +21,24 @@ class ReportGenerator:
                           "Stored_Cross_Site_Scripting.log", "Remote_File_Inclusion.log", "Local_File_Inclusion.log", "Verb_Tampering.log",
                           "XML_External_Entity_Injection.log", "Server_Side_Template_Injection.log"]
         self.nvd = NvdIntelligence(self.api_key)
+        self.nmap_log=nmap_log
 
     def start_report_compilation(self):
-        vulns = self.extract_vulnerabilities()
+        log_vulnerabilities = self.extract_vulnerabilities()
         if self.output_format == "txt":
-            self.write_txt_output(vulns)
+            self.write_txt_output(log_vulnerabilities)
 
         if self.output_format == "xml":
-            self.write_xml_output(vulns)
+            self.write_xml_output(log_vulnerabilities)
 
         if self.output_format == "html":
-            self.write_html_output(vulns)
+            self.write_html_output(log_vulnerabilities)
 
         if self.output_format == "json":
-            self.write_json_output(vulns)
+            self.write_json_output(log_vulnerabilities)
 
         if self.output_format == "csv":
-            self.write_csv_output(vulns)
+            self.write_csv_output(log_vulnerabilities)
         return
 
     def extract_number_of_visited_urls(self):
@@ -65,6 +67,9 @@ class ReportGenerator:
     # Function to write data to a text file
     def write_txt_output(self, vulns_dict):
         with open(self.report_file, 'w') as f:
+            with open(self.nmap_log, 'r') as nmap_file:
+                for line in nmap_file:
+                    f.write(line)
             f.write(f"Total URLs Visited: {self.extract_number_of_visited_urls()}\n\n")
             for log_file, vulnerabilities in vulns_dict.items():
                 f.write(f"{log_file} - {len(vulnerabilities)} vulnerabilities found\n")
@@ -108,6 +113,10 @@ class ReportGenerator:
             f.write('<title>Vulnerability Report</title>\n')
             f.write('</head>\n')
             f.write('<body>\n')
+            f.write("<h3>Nmap Log:</h3>\n\n")
+            with open(self.nmap_log, 'r') as nmap_file:
+                for line in nmap_file:
+                    f.write(f"<p>{line}</p>\n")
             f.write(f"<h2>Total URLs Visited: {self.extract_number_of_visited_urls()}</h2>\n\n")
             for log_file, vulnerabilities in vulns_dict.items():
                 f.write(f"<h3>{log_file} - {len(vulnerabilities)} vulnerabilities found</h3>\n")
@@ -116,7 +125,7 @@ class ReportGenerator:
                     f.write('<ul>\n')
                     for entry in vulnerabilities:
                         f.write('<li>\n')
-                        f.write(f"<p>URL: {entry['url']}</p>\n")
+                        f.write(f"<p>URL: {entry['url']}</p>\t")
                         escaped_payload = html.escape(entry['payload'])
                         f.write(f"<p>&emsp;Payload: {escaped_payload}</p>\n")
                         f.write('</li>\n')
@@ -147,6 +156,9 @@ class ReportGenerator:
 
     def write_xml_output(self, vulns_dict):
         root = ET.Element("report")
+        nmap_log_element = ET.SubElement(root, "nmap_log")
+        with open(self.nmap_log, 'r') as nmap_file:
+            nmap_log_element.text = "\n".join(nmap_file.readlines())
         total_urls = ET.SubElement(root, "total_urls_visited")
         total_urls.text = str(self.extract_number_of_visited_urls())
         for log_file, vulnerabilities in vulns_dict.items():
@@ -203,6 +215,8 @@ class ReportGenerator:
             "total_urls_visited": self.extract_number_of_visited_urls(),
             "vulnerabilities": []
         }
+        with open(self.nmap_log, 'r') as nmap_file:
+            json_data["nmap_log"] = nmap_file.read()
         for log_file, vulnerabilities in vulns_dict.items():
             description = None
             remediation_steps = None

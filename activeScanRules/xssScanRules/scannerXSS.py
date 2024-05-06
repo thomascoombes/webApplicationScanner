@@ -19,7 +19,7 @@ class ScanXSS(ActiveScanner):
         proxy.proxy_type = ProxyType.MANUAL
         proxy.http_proxy = 'localhost:8080'  # Burp Suite proxy address
         proxy.ssl_proxy = 'localhost:8080'  # Burp Suite proxy address
-        #firefox_options.proxy = proxy # comment out if dont want to intercept requests
+        firefox_options.proxy = proxy # comment out if dont want to intercept requests
 
         # Initialize Firefox WebDriver
         self.driver = webdriver.Firefox(options=firefox_options)
@@ -39,7 +39,7 @@ class ScanXSS(ActiveScanner):
                 # If no form fields are found, skip further processing for this URL
                 if not form_fields:
                     self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
-                    print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
+                    #print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
                     continue
                 # self.test_test_payload()
                 self.test_payloads(target_url, form_fields)

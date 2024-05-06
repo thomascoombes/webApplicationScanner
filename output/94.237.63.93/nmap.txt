@@ -1,0 +1,10 @@
+Nmap Version: (7, 94)
+Nmap Command: nmap 94.237.63.93 -p 59487 -v -sV -sC -T3
+Nmap Scan results:
+Host: 94.237.63.93
+Hostnames: 94-237-63-93.uk-lon1.upcloud.host
+Port 59487: open - http - PHP cli server 5.5 or later
+HTTP Title: SSTI
+Product: PHP cli server
+Version: 5.5 or later
+Extra Info: PHP 7.1.4

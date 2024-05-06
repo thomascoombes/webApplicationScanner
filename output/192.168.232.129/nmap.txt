@@ -1,0 +1,11 @@
+Nmap Version: (7, 94)
+Nmap Command: nmap 192.168.232.129 -p 80 -v -sV -sC -T3
+Nmap Scan results:
+Host: 192.168.232.129
+Hostnames: 
+Port 80: open - http - Apache httpd 2.2.8
+HTTP Title: Metasploitable2 - Linux
+http-server-header: Apache/2.2.8 (Ubuntu) DAV/2
+Product: Apache httpd
+Version: 2.2.8
+Extra Info: (Ubuntu) DAV/2

@@ -8,9 +8,13 @@ import os
 import time
 
 class Spider:
-    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, username=None, password=None, output_directory=None):
+    def __init__(self, target=None, port=None, scan_depth=0, exclusions=None, start_dir=None, username=None, password=None, output_directory=None):
         self.port = port
-        self.target = "http://" + target + ":" + str(self.port) + "/"
+        self.start_dir = start_dir
+        if self.start_dir:
+            self.target = "http://" + target + ":" + str(self.port) + "/" + self.start_dir + "/"
+        else:
+            self.target = "http://" + target + ":" + str(self.port) + "/"
 
         self.max_depth = scan_depth
 
@@ -103,7 +107,7 @@ class Spider:
             if response.history:
                 # If there are redirections, get the final URL after all redirects
                 final_url = response.url
-                print("Redirected to:", final_url, "by", url)
+                #print("Redirected to:", final_url, "by", url)
                 return final_url, response
             else:
                 # If no redirects, return the response object as usual

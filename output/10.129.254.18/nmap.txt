@@ -1,0 +1,5 @@
+Nmap Version: (7, 94)
+Nmap Command: nmap 10.129.254.18 -p 80 -v -sV -sC -T3
+Nmap Scan results:
+Host: 10.129.254.18
+Hostnames: 

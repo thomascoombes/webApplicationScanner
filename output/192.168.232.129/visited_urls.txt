@@ -1,4 +1,3 @@
-http://192.168.232.129:80/
 http://192.168.232.129:80/mutillidae/
 http://192.168.232.129:80/mutillidae/index.php?page=home.php
 http://192.168.232.129:80/mutillidae/index.php?page=login.php

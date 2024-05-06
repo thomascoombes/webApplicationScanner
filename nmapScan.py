@@ -1,58 +1,75 @@
 import nmap
 import sys
-import logging
+
+from cti.nvdInterface import NvdIntelligence
 
 class NmapScanner:
-    def __init__(self, target=None, port=None, aggression_level=None, log_file=None):
+    def __init__(self, api_key=None, target=None, port=None, aggression_level=None, log_file=None):
         self.port = port
         self.aggression_level = aggression_level
         self.target = target
         self.log_file = log_file
-        #logging.basicConfig(filename=self.log_file, level=logging.INFO,
-        #                    format='%(levelname)s - %(message)s')
+        self.api_key = api_key
+        self.nvd = NvdIntelligence(self.api_key)
 
     def nmap_web_app(self):
-        print(self.log_file)
         try:
             nm = nmap.PortScanner()
 
-            print(f"\033[36mNmap Version: {nm.nmap_version()}")
-            logging.info(f"Nmap Version: {nm.nmap_version()}")
-            print("Starting Nmap scan")
+            with open(self.log_file, 'w') as file:
+                file.write(f"Nmap Version: {nm.nmap_version()}\n")
+                print(f"\033[36mNmap Version: {nm.nmap_version()}")
 
-            # Mapping aggression level to -T flag (0-5)
-            aggression_flag = f"-T{self.aggression_level - 1}" if self.aggression_level in range(1, 7) else "-T5"
+                print("Starting Nmap scan")
 
-            # Adding -O and -A flags for aggression levels 4 and 5
-            if self.aggression_level == 5 or self.aggression_level == 6:
-                aggression_flag = aggression_flag + " -O -A"
-                print("Aggression level 4 or 5 detected. Enabling aggressive scan (-O -A).")
+                aggression_flag = f"-T{self.aggression_level - 1}" if self.aggression_level in range(1, 7) else "-T5"
 
-            nmap_command = f"nmap {self.target} -p {self.port} -v -sV -sC {aggression_flag}"
-            # --version-intensity
+                if self.aggression_level == 5 or self.aggression_level == 6:
+                    aggression_flag = aggression_flag + " -O -A"
+                    file.write("Aggression level 4 or 5 detected. Enabling aggressive scan (-O -A).\n")
+                    print("Aggression level 4 or 5 detected. Enabling aggressive scan (-O -A).")
 
-            print("Nmap Command:", nmap_command)
-            logging.info("Nmap Command: %s", nmap_command)
-            result = nm.scan(nmap_command)
-            print("Nmap Scan results:")
-            for host, scan_result in result['scan'].items():
-                print("Host:", host)
-                logging.info("Host: %s", host)
-                if 'hostnames' in scan_result:
-                    print("Hostnames:", ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
-                    logging.info("Hostnames: %s",
-                                 ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
-                for port, port_data in scan_result['tcp'].items():
-                    print(f"Port {port}:", port_data['state'], "-", port_data['name'], "-",
-                          port_data.get('product', ''), port_data.get('version', ''))
-                    logging.info("Port %s: %s - %s - %s %s", port, port_data['state'], port_data['name'],
-                                 port_data.get('product', ''), port_data.get('version', ''))
-                    if 'http-title' in port_data:
-                        print("HTTP Title:", port_data['http-title'])
-                        logging.info("HTTP Title: %s", port_data['http-title'])
+                nmap_command = f"nmap {self.target} -p {self.port} -v -sV -sC {aggression_flag}"
+                file.write("Nmap Command: " + nmap_command + "\n")
+                print(f"Nmap Command: {nmap_command}\n")
+                result = nm.scan(nmap_command)
+                #print(result)
+                file.write("Nmap Scan results:\n")
+                for host, scan_result in result['scan'].items():
+                    print("Host:", host)
+                    file.write("Host: " + host + "\n")
+                    if 'hostnames' in scan_result:
+                        print("Hostnames:", ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
+                        file.write("Hostnames: " + ', '.join(
+                            [hostname['name'] for hostname in scan_result['hostnames']]) + "\n")
+                    for port, port_data in scan_result['tcp'].items():
+                        print(f"Port {port}:", port_data['state'], "-", port_data['name'], "-",
+                              port_data.get('product', ''), port_data.get('version', ''))
+                        file.write(
+                            f"Port {port}: {port_data['state']} - {port_data['name']} - {port_data.get('product', '')} {port_data.get('version', '')}\n")
+                        if port_data.get('script') and 'http-title' in port_data['script']:
+                            print("HTTP Title:", port_data['script']['http-title'])
+                            file.write("HTTP Title: " + port_data['script']['http-title'] + "\n")
+
+                        if port_data.get('script') and 'http-server-header' in port_data['script']:
+                            print("HTTP Title:", port_data['script']['http-server-header'])
+                            file.write("http-server-header: " + port_data['script']['http-server-header'] + "\n")
+
+                        if 'product' in port_data and 'version' in port_data:
+                            print("Product:", port_data['product'])
+                            file.write("Product: " + port_data['product'] + "\n")
+                            print("Version:", port_data['version'])
+                            file.write("Version: " + port_data['version'] + "\n")
+
+                        if 'extrainfo' in port_data:
+                            print("Extra Info:", port_data['extrainfo'])
+                            file.write("Extra Info: " + port_data['extrainfo'] + "\n")
+
+                        if 'cpe' in port_data:
+                            cpe = port_data['cpe']
+                            print(cpe)
+                            #cpes = self.nvd.search_cpe(cpe)
 
         except Exception as e:
-            print(f"Cannot scan {self.target} on port {self.port}: {e}")
+            print(f"\033[31mCannot scan {self.target} on port {self.port}: {e}\033[0m")
             sys.exit()
-
-

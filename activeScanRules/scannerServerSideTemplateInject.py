@@ -1,23 +1,21 @@
 import requests
 import re
 
-
 from activeScanRules.activeScanner import ActiveScanner
 
 class ServerSideTemplateInjectionScanner(ActiveScanner):
     def __init__(self, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
 
-
     def initialise_payloads(self):
         payloads = [
-            [r"{7*7}", re.compile(r"49")],
-            [r" ${7*7}", re.compile(r"49")],
-            [r" {{7*7}}", re.compile(r"49")],
-            [r"${{7*7}}", re.compile(r"49")],
-            [r"#{3*3}", re.compile(r"49")],
-            [r"#{ 7 * 7 }", re.compile(r"49")],
-            [r"<%= 7 * 7 %>", re.compile(r"49")]
+            [r"{7*7}", re.compile("\?<!\d\)49\(?!\d")],
+            [r"${7*7}", re.compile("\?<!\d\)49\(?!\d")],
+            [r"{{7*7}}", re.compile("\?<!\d\)49\(?!\d")],
+            [r"${{7*7}}", re.compile("\?<!\d\)49\(?!\d")],
+            [r"#{3*3}", re.compile("\?<!\d\)49\(?!\d")],
+            [r"#{ 7 * 7 }", re.compile("\?<!\d\)49\(?!\d")],
+            [r"<%= 7 * 7 %>", re.compile("\?<!\d\)49\(?!\d")]
         ]
         return payloads
 
@@ -76,11 +74,11 @@ class ServerSideTemplateInjectionScanner(ActiveScanner):
 
         # Test different mathematical expression to remove false positives
         verification_payload = payload.replace("7*7", "9*9")
-        pattern = re.compile("81")
+        pattern = re.compile("\?<!\d\)81\(?!\d")
         form_data = self.make_form_data(form_fields, verification_payload)
         post_data = self.make_post_data(inputs, form_data)
         try:
-            response = requests.post(action, data=post_data)# , proxies=proxies
+            response = requests.post(action, data=post_data, proxies=proxies)#
             if pattern.search(response.text):
                 return True
         except Exception as e:
@@ -92,7 +90,6 @@ class ServerSideTemplateInjectionScanner(ActiveScanner):
         # logic to fingerprint the template engine
         return
 
-
     # These 2 functions were made so the form data could be made correctly when verifying ssti
     def make_post_data(self, inputs, form_data):
         post_data = {}
@@ -102,8 +99,8 @@ class ServerSideTemplateInjectionScanner(ActiveScanner):
 
     def make_form_data(self, form_fields, payload):
         form_data = {}
-        for field_name, _ in form_fields:
-            form_data[field_name] = payload
+        for field_tuple in form_fields:
+            form_data[field_tuple[0]] = payload
         return form_data
 
 

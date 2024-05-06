@@ -19,6 +19,13 @@ class NvdIntelligence:
         cves.reverse()
         return cves
 
+    def search_cpe(self, cpe):
+        limit=1
+        cpe = nvdlib.searchCVE(cpeName=cpe, limit=limit, key=self.api_key)
+        print("failed")
+        return cpe
+
+
     def initialise_keywords(self, vulnerability_name):
         cleaned_name = vulnerability_name.lower().replace(" vulnerability", "")
         if cleaned_name == "sql injection":

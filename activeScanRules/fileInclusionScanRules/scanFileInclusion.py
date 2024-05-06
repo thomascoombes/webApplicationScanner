@@ -1,4 +1,6 @@
 from urllib.parse import urlparse, parse_qs, urlencode
+from bs4 import BeautifulSoup
+import time
 
 from activeScanRules.activeScanner import ActiveScanner
 
@@ -12,14 +14,29 @@ class FileInclusionScanner(ActiveScanner):
         self.logger.info(f"\nStarting {self.__class__.__name__} scan")
         base_urls = []
         with open(self.targets_file, "r") as file:
-            for target_url in file:
-                target_url = target_url.strip()
-                base_url = self.get_base_url(target_url)
-                url_params = self.extract_url_params(target_url)
-                if base_url not in base_urls and url_params:
-                    html_content = self.get_html_content(base_url)
-                    self.test_payloads(base_url, url_params, html_content)
-                    base_urls.append(base_url)
+            lines = file.readlines()
+        print(f"\033[36m[+] Starting Form Attack\033[0m")
+        for target_url in lines:
+            target_url = target_url.strip()
+            html_content_for_forms = self.get_html_content(target_url)
+            form_fields = self.extract_form_fields(html_content_for_forms)
+            if not form_fields:
+                self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
+                #print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
+                continue
+            self.test_form_payloads(target_url, form_fields, html_content_for_forms)
+        time.sleep(6)
+        print(f"\033[36m[+] Starting URL Attack\033[0m")
+        for target_url in lines:
+            target_url = target_url.strip()
+            base_url = self.get_base_url(target_url)
+            url_params = self.extract_url_params(target_url)
+            if base_url not in base_urls and url_params:
+                html_content = self.get_html_content(base_url)
+                self.test_payloads(base_url, url_params, html_content)
+                base_urls.append(base_url)
+
+
 
     def get_base_url(self, url):
         self.parsed_url = urlparse(url)
@@ -54,5 +71,8 @@ class FileInclusionScanner(ActiveScanner):
     def test_payloads(self, base_url, url_params, html_content):
         raise NotImplementedError("Subclasses must implement test_payloads method")
 
-    def check_response(self, response, payload, url, html_content):
+    def check_response(self, response, payload, url, html_content, attack_type):
         raise NotImplementedError("Subclasses must implement check_response method")
+
+    def test_form_payloads(self, target_url, form_fields, html_content):
+        raise NotImplementedError("Subclasses must implement test_form_payloads method")
