@@ -7,10 +7,10 @@ from activeScanRules.activeScanner import ActiveScanner
 def initialise_mysql_error_messages():
     mysql_error_messages = [
         re.compile("You have an error in your SQL syntax"),
-        re.compile("com.mysql.jdbc.exceptions"),
-        re.compile("org.gjt.mm.mysql"),
-        re.compile("ODBC driver does not support"),
-        re.compile("The used SELECT statements have a different number of columns"),
+        #re.compile("com.mysql.jdbc.exceptions"),
+        #re.compile("org.gjt.mm.mysql"),
+        #re.compile("ODBC driver does not support"),
+        #re.compile("The used SELECT statements have a different number of columns"),
     ]
     return mysql_error_messages
 
@@ -108,7 +108,7 @@ def identify_dbms(response_text):
     elif any(msg.search(response_text) for msg in initialise_generic_sql_error_messages()):
         dbms = "Generic SQL"
     else:
-        return None
+        dbms = None
     return dbms
 
 class ScanSQLInject(ActiveScanner):
@@ -124,6 +124,8 @@ class ScanSQLInject(ActiveScanner):
         with open(self.initialise_payloads(), "r") as payload_file:
             # Initialise a flag to track if any potential vulnerability is found
             potential_vulnerability_found = False
+            proxies = {'http': 'http://127.0.0.1:8080',
+                       'https': 'http://127.0.0.1:8080'}  # for burp testing purposes
             for payload in payload_file:
                 self.logger.info(f"\tTesting payload: {payload} on {target_url}")
                 # Prepare form data with SQL payload
@@ -144,11 +146,11 @@ class ScanSQLInject(ActiveScanner):
 
                     # Check if method is post or get
                     if form_method == 'post':
-                        response = requests.post(action, data=post_data)
+                        response = requests.post(action, data=post_data, proxies=proxies)
                     else:
-                        response = requests.get(action, params=post_data)
+                        response = requests.get(action, params=post_data, proxies=proxies)
 
-                    if self.check_response(response, payload, target_url):
+                    if self.check_response1(response, payload, target_url):
                         potential_vulnerability_found = True
                         break  # Break out of the loop if vulnerability found
 
@@ -159,25 +161,37 @@ class ScanSQLInject(ActiveScanner):
             if not potential_vulnerability_found:
                 self.logger.info(f"\tNo SQL injection vulnerability found at: {target_url}")
                 print(f"\033[32m[+] No SQL injection vulnerability found at: {target_url}\033[0m")
-        #end_time = time.time()
-        #elapsed_time = end_time - start_time
-        #print(f"\033[36mFinished SQLi scan in {elapsed_time:.2f} seconds\033[0m")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection
         if response.status_code == 200:
-            # Determine the DBMS based on the error messages
             dbms = identify_dbms(response.text)
-            if dbms:
+            print(dbms)
+            if dbms is None:
+                return False
+            else:
                 self.logger.warning(f"SQL injection vulnerability found at: {url} with payload: {payload} for {dbms}")
                 print(
                     f"\033[31m[+] SQL injection vulnerability found at: {url} with payload: {payload.strip()} for {dbms}\033[0m")
-            else:
-                self.logger.warning(
-                    f"SQL injection vulnerability found at: {url} with payload: {payload} (DBMS unknown)")
-                print(f"\033[31m[+] SQL injection vulnerability found at: {url} with payload: {payload.strip()} (DBMS unknown)\033[0m")
-            return True
+                return True
         else:
             self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
 
+    def check_response1(self, response, payload, url):
+        # Check if response indicates successful injection
+        patterns = initialise_mysql_error_messages()
+        if response.status_code == 200:
+            for pattern in patterns:
+                match = pattern.search(response.text)
+                if match:
+                    matched_text = match.group()  # Get the matched text
+                    self.logger.warning(
+                        f"SQL injection vulnerability found at: {url} with payload: {payload} for MySQL")
+                    print(
+                        f"\033[31m[+] SQL injection vulnerability found at: {url} with payload: {payload.strip()} for MySQL\033[0m")
+                    return True
+            else:
+                return False
+        else:
+            self.logger.error(f"\tUnexpected response code ({response.status_code}) for {url}")
 
