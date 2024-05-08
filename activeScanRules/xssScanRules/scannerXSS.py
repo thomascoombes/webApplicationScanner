@@ -19,7 +19,7 @@ class ScanXSS(ActiveScanner):
         proxy.proxy_type = ProxyType.MANUAL
         proxy.http_proxy = 'localhost:8080'  # Burp Suite proxy address
         proxy.ssl_proxy = 'localhost:8080'  # Burp Suite proxy address
-        firefox_options.proxy = proxy # comment out if dont want to intercept requests
+        #firefox_options.proxy = proxy # comment out if dont want to intercept requests
 
         # Initialize Firefox WebDriver
         self.driver = webdriver.Firefox(options=firefox_options)

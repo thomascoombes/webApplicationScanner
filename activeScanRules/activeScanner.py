@@ -41,8 +41,10 @@ class ActiveScanner:
                 self.test_payloads(target_url, form_fields)
 
     def get_html_content(self, target_url):
+        proxies = {'http': 'http://127.0.0.1:8080',
+                   'https': 'http://127.0.0.1:8080'}
         try:
-            response = requests.get(target_url)
+            response = requests.get(target_url, proxies=proxies)
             if response.status_code == 200:
                 return response.text
             else:

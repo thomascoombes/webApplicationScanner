@@ -57,10 +57,9 @@ def make_test_file(output_directory2):
                             "http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php",
                             ]
     mut2_urls = [
-        "http://192.168.232.135/mutillidae/index.php?page=user-info.php",
-        #"http://192.168.232.135/mutillidae/index.php?page=text-file-viewer.php",
-        "http://192.168.232.135/mutillidae/index.php?page=pen-test-tool-lookup.php",
-        "http://192.168.232.135/mutillidae/index.php?page=xml-validator.php"
+        "http://192.168.232.135/mutillidae/index.php?page=view-someones-blog.php",
+        "http://192.168.232.135/mutillidae/index.php?page=add-to-your-blog.php"
+        #"http://192.168.232.135/mutillidae/index.php?page=show-log.php"
     ]
 
     # Define the path to the testURLs.txt file
@@ -202,20 +201,20 @@ if __name__ == "__main__":
     spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    #sql_inject.start_scan()
+    sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
     command_inject.start_scan()
     print(f"\033[36m Finished Command Injection scan\033[0m")
 
+    print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
+    sxss.start_scan()
+    print(f"\033[36m Finished Stored XSS scan\033[0m")
+
     print("\n\033[1;34m> Starting Reflected XSS scan\033[0m")
     rxss.start_scan()
     print(f"\033[36m Finished Reflected XSS scan\033[0m")
-
-    print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
-    #sxss.start_scan()
-    print(f"\033[36m Finished Stored XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
     rfi.start_scan()
@@ -226,7 +225,7 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Local File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
-    #verb_tampering.start_scan()
+    verb_tampering.start_scan()
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")

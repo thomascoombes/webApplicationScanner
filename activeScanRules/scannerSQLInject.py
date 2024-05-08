@@ -116,51 +116,67 @@ class ScanSQLInject(ActiveScanner):
         super().__init__(visited_urls, log_file)
 
     def initialise_payloads(self):
-        return "payloads/sqlInjectionPayloads/sqliInjectionPayloads.txt"
+        payloads =  "payloads/sqlInjectionPayloads/sqliInjectionPayloads.txt"
+        payload_list = []
+        with open(payloads, "r") as payload_file:
+            for payload in payloads:
+                payload_list.append(payload)
+        payloads = [
+            r"'"
+            #r";",
+            #r"-- ",
+            #r"\"",
+            #r")",
+            #r"||",
+            #r"&",
+            #r"%20",
+        ]
+        return payloads
 
     def test_payloads(self, target_url, form_fields):
         # start_time = time.time()
         # Open the file containing SQL payloads
-        with open(self.initialise_payloads(), "r") as payload_file:
-            # Initialise a flag to track if any potential vulnerability is found
-            potential_vulnerability_found = False
-            proxies = {'http': 'http://127.0.0.1:8080',
-                       'https': 'http://127.0.0.1:8080'}  # for burp testing purposes
-            for payload in payload_file:
-                self.logger.info(f"\tTesting payload: {payload} on {target_url}")
-                # Prepare form data with SQL payload
-                form_data = {}
-                for field_tuple in form_fields:
-                    form_data[field_tuple[0]] = payload
-                try:
-                    # Get the form method (post or get)
-                    form_method = form_data.get('method', 'post').lower()
-                    # Get the action URL or set it to the target URL if not found
-                    action = form_data.get('action', target_url)
-                    # Extract input fields from the form_data
-                    inputs = [key for key in form_data.keys() if key != 'method' and key != 'action']
-                    # Prepare post data for submission
-                    post_data = {}
-                    for input_name in inputs:
-                        post_data[input_name] = form_data[input_name]
+        payloads = self.initialise_payloads()
+        # Initialise a flag to track if any potential vulnerability is found
+        potential_vulnerability_found = False
+        proxies = {'http': 'http://127.0.0.1:8080',
+                   'https': 'http://127.0.0.1:8080'}  # for burp testing purposes
+        form_method = form_fields[0][2].upper()
 
-                    # Check if method is post or get
-                    if form_method == 'post':
-                        response = requests.post(action, data=post_data, proxies=proxies)
-                    else:
-                        response = requests.get(action, params=post_data, proxies=proxies)
+        for payload in payloads:
+            self.logger.info(f"\tTesting payload: {payload} on {target_url}")
+            # Prepare form data with SQL payload
+            form_data = {}
+            for field_tuple in form_fields:
+                form_data[field_tuple[0]] = payload
+            try:
+                # Get the action URL or set it to the target URL if not found
+                action = form_data.get('action', target_url)
+                # Extract input fields from the form_data
+                inputs = [key for key in form_data.keys() if key != 'method' and key != 'action' and key != 'page']
+                # Prepare post data for submission
+                post_data = {}
+                for input_name in inputs:
+                    post_data[input_name] = form_data[input_name]
 
-                    if self.check_response1(response, payload, target_url):
-                        potential_vulnerability_found = True
-                        break  # Break out of the loop if vulnerability found
+                # Check if method is post or get
+                response = None
+                if form_method == 'POST':
+                    response = requests.post(action, data=post_data, proxies=proxies)
+                elif form_method == 'GET':
+                    response = requests.get(action, params=post_data, proxies=proxies)
 
-                except Exception as e:
-                    self.logger.error(f"\tAn error occurred while sending form with SQL payload to {target_url}: {e}")
+                if self.check_response1(response, payload, target_url):
+                    potential_vulnerability_found = True
+                    break  # Break out of the loop if vulnerability found
 
-            # After testing all payloads, if no potential vulnerability is found, print the message
-            if not potential_vulnerability_found:
-                self.logger.info(f"\tNo SQL injection vulnerability found at: {target_url}")
-                print(f"\033[32m[+] No SQL injection vulnerability found at: {target_url}\033[0m")
+            except Exception as e:
+                self.logger.error(f"\tAn error occurred while sending form with SQL payload to {target_url}: {e}")
+
+        # After testing all payloads, if no potential vulnerability is found, print the message
+        if not potential_vulnerability_found:
+            self.logger.info(f"\tNo SQL injection vulnerability found at: {target_url}")
+            print(f"\033[32m[+] No SQL injection vulnerability found at: {target_url}\033[0m")
 
     def check_response(self, response, payload, url):
         # Check if response indicates successful injection

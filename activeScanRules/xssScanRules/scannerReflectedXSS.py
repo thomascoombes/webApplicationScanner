@@ -97,3 +97,4 @@ class ScanReflectedXSS(ScanXSS):
             return True
         except TimeoutException:
             return False
+

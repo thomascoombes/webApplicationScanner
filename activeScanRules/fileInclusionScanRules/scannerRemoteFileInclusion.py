@@ -131,5 +131,3 @@ class ScanRemoteFileInclusion(FileInclusionScanner):
                         return True
         else:
             self.logger.error(f"Unexpected response code ({response.status_code}) for {url}")
-
-

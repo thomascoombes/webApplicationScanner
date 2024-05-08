@@ -4,7 +4,6 @@ import re
 from activeScanRules.activeScanner import ActiveScanner
 
 class ScanXXEInject(ActiveScanner):
-
     def __init__(self, host_os=None, visited_urls=None, log_file=None):
         super().__init__(visited_urls, log_file)
         self.host_os = host_os
@@ -12,7 +11,6 @@ class ScanXXEInject(ActiveScanner):
     def initialise_local_file_targets(self):
         linux_local_file_targets = [
             ["file:///etc/passwd", re.compile(r"root:.:0:0")]
-
         ]
         windows_local_file_targets = [
             ["file:///c:/Windows/system.ini", re.compile(r"^\[drivers]$")],
@@ -41,7 +39,6 @@ class ScanXXEInject(ActiveScanner):
         for target, pattern in self.initialise_local_file_targets():
             try:
                 payload = self.initialise_xml_message().format(payload=target)
-
                 self.logger.info(f"\tTesting payload: {payload} on {target_url}")
 
                 response = self.send_request_with_payload(payload, target_url, form_fields)
@@ -59,7 +56,6 @@ class ScanXXEInject(ActiveScanner):
             self.logger.info(f"\tNo XXE injection vulnerability found at: {target_url}")
             print(f"\033[32m[+] No xxe injection vulnerability found at: {target_url}\033[0m")
 
-
     def send_request_with_payload(self, payload, target_url, form_fields):
         method = form_fields[0][2].upper()
         proxies = {'http': 'http://127.0.0.1:8080',
@@ -73,7 +69,6 @@ class ScanXXEInject(ActiveScanner):
         response = None
         try:
             if method == "GET":
-
                 xml_field_name, xml_field_type, xml_field_method = form_fields[1]
                 submit_button_name, submit_button_type, submit_button_method = form_fields[2]
                 response = requests.get(target_url, params={xml_field_name: payload, submit_button_name: submit_button_type}, headers=headers, proxies=proxies) #,

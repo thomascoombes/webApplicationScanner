@@ -30,7 +30,28 @@
 </p>
 <h2>Total URLs Visited: 166</h2>
 
-<h3>SQL Injection - 0 vulnerabilities found</h3>
+<h3>SQL Injection - 5 vulnerabilities found</h3>
+<p>Description: SQL injection is a code injection technique that attackers use to manipulate databases. It allows attackers to execute malicious SQL statements that can extract sensitive data or modify database contents.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=login.php</p>	<p>&emsp;Payload: &#x27; for MySQL</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php</p>	<p>&emsp;Payload: &#x27; for MySQL</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=register.php</p>	<p>&emsp;Payload: &#x27; for MySQL</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=view-someones-blog.php</p>	<p>&emsp;Payload: &#x27; for MySQL</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php</p>	<p>&emsp;Payload: &#x27; for MySQL</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use parameterized queries or prepared statements to prevent SQL injection attacks.
+2. Validate and sanitize user input to prevent malicious input from reaching the database.</p>
 <br>
 <h3>Command Injection - 1 vulnerabilities found</h3>
 <p>Description: Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise.</p>
@@ -165,7 +186,472 @@
 1. Avoid passing user-controlled input directly to file inclusion functions.
 2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities.</p>
 <br>
-<h3>Verb Tampering - 0 vulnerabilities found</h3>
+<h3>Verb Tampering - 153 vulnerabilities found</h3>
+<p>Description: Verb tampering is a type of attack that involves modifying HTTP request methods (verbs) to bypass security controls or access unauthorized resources.</p>
+<ul>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=home.php&popUpNotificationCode=HPH0</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=login.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?popUpNotificationCode=L1H2&page=/owaspbwa/mutillidae-git/home.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/set-up-database.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=captured-data.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=register.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=sqlmap-targets.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=view-someones-blog.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=pen-test-tool-lookup.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=pen-test-tool-lookup-ajax.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-user-account.php</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=dns-lookup.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=set-background-color.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=html5-storage.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=capture-data.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=arbitrary-file-inclusion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=back-button-discussion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=styling-frame.php&page-to-frame=styling.php%3Fpage-title%3DStyling+with+Mutillidae</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=password-generator.php&username=anonymous</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=site-footer-xss-discussion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-lookup-dns-record.php</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=repeater.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=view-user-privilege-level.php&iv=6bc24fc1ab650b25b4114e93a98f1eba</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=privilege-escalation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=credits.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=secret-administrative-pages.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=directory-browsing.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=user-agent-impersonation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=upload-file.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=phpmyadmin.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=robots-txt.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=framing.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/framer.html</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=credits.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=ssl-misconfiguration.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/?page=source-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-hello-world.php</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=framer.html</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=documentation/change-log.html</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=installation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=documentation/vulnerabilities.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=hackers-for-charity.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=usage-instructions.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=/owaspbwa/mutillidae-git/home.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=./documentation/vulnerabilities.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=php-errors.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=home.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=login.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=1</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=10</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=11</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=12</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=13</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=25</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=48</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=show-log.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=captured-data.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-info.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=30</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=add-to-your-blog.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=14</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=register.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=sqlmap-targets.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=view-someones-blog.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=pen-test-tool-lookup.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=26</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=pen-test-tool-lookup-ajax.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-user-account.php?wsdl</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=browser-info.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=18</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=dns-lookup.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=20</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=text-file-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=16</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=40</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-info-xpath.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=49</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=set-background-color.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=html5-storage.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=23</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=42</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=capture-data.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=document-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=21</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=41</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=arbitrary-file-inclusion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-poll.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=back-button-discussion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=19</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=styling-frame.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=50</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=password-generator.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=site-footer-xss-discussion.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-lookup-dns-record.php?wsdl</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=repeater.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=31</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=32</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=view-user-privilege-level.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=xml-validator.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=36</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=source-viewer.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=privilege-escalation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=client-side-control-challenge.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=51</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=credits.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.owasp.org</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=secret-administrative-pages.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=27</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=28</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=29</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=44</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=directory-browsing.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=9</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-agent-impersonation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=45</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=upload-file.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=46</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=phpinfo.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/index.php?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=robots-txt.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=43</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=framing.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=22</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=ssl-misconfiguration.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/webservices/soap/ws-hello-world.php?wsdl</p>	<p>&emsp;Payload: PUT</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=installation.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=documentation/vulnerabilities.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=hackers-for-charity.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=usage-instructions.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=./documentation/vulnerabilities.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=php-errors.php</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/mutillidae/styles/global.css</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/preferences?hl=en</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/advanced_search?hl=en-GB&authuser=0</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/intl/en/ads/</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/services/</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/intl/en/about.html</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/intl/en/policies/privacy/</p>	<p>&emsp;Payload: POST</p>
+</li>
+<li>
+<p>URL: http://192.168.232.135:80/intl/en/policies/terms/</p>	<p>&emsp;Payload: POST</p>
+</li>
+</ul>
+<p>Remediation Steps:
+1. Use secure HTTP methods (e.g., GET, POST) and avoid using less common methods.
+2. Implement access controls and proper authorization mechanisms to restrict access to sensitive resources.</p>
 <br>
 <h3>XML External Entity Injection - 1 vulnerabilities found</h3>
 <p>Description: No description available</p>

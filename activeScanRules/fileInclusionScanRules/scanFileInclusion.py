@@ -36,8 +36,6 @@ class FileInclusionScanner(ActiveScanner):
                 self.test_payloads(base_url, url_params, html_content)
                 base_urls.append(base_url)
 
-
-
     def get_base_url(self, url):
         self.parsed_url = urlparse(url)
         return self.parsed_url.scheme + "://" + self.parsed_url.netloc + self.parsed_url.path
@@ -54,7 +52,6 @@ class FileInclusionScanner(ActiveScanner):
         modified_query = urlencode(self.modified_params)
         modified_url = target_url.split('?')[0] + '?' + modified_query
         return modified_url
-
 
     def initialise_payload_prefixes(self):
         raise NotImplementedError("Subclasses must implement initialise_payload_prefixes method")
