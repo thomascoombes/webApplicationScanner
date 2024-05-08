@@ -1,4 +1,0 @@
-http://192.168.232.129/mutillidae/index.php?page=arbitrary-file-inclusion.php
-http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php
-http://192.168.232.129/mutillidae/index.php?page=source-viewer.php
-http://192.168.232.129/mutillidae/index.php?page=dns-lookup.php

@@ -1,3 +1,0 @@
-Nmap Version: (7, 94)
-Nmap Command: nmap 192.168.232.135/mutillidae -p 80 -v -sV -sC -T3
-Nmap Scan results:

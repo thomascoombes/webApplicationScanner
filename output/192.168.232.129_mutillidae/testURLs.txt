@@ -1,4 +1,0 @@
-http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php
-http://192.168.232.129:80/mutillidae/index.php?page=login.php
-http://192.168.232.129:80/mutillidae/index.php?page=user-info.php
-http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php

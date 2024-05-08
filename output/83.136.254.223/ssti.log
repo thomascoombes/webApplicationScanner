@@ -1,6 +1,0 @@
-2024-04-13 14:00:05,067 - INFO - 
-Starting ServerSideTemplateInjectionScanner scan
-2024-04-13 14:00:05,130 - INFO - 	Testing payload: {7*7} on http://83.136.254.223:38963/
-2024-04-13 14:00:05,202 - INFO - 	Testing payload:  ${7*7} on http://83.136.254.223:38963/
-2024-04-13 14:00:05,273 - INFO - 	Testing payload:  {{7*7}} on http://83.136.254.223:38963/
-2024-04-13 14:00:05,348 - WARNING - 	Potential ssti vulnerability found at: http://83.136.254.223:38963/ with payload  {{7*7}}
