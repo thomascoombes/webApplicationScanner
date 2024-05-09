@@ -48,7 +48,6 @@ def clear_output_directory(output_directory2):
     else:
         print("Output directory does not exist.")
 
-
 def make_test_file(output_directory2):
     less_mutillidae_urls = ["http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
                             "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
@@ -155,7 +154,6 @@ if __name__ == "__main__":
     elif args.Username is not None or args.Password is not None:
         print("Provide a full username password combination")
         args.exit(1)
-
     print(f"\033[33m[+] Output Format: {args.output_format.upper()}\033[0m")
 
 
@@ -169,12 +167,9 @@ if __name__ == "__main__":
     # make a test file with a smaller subset of urls
     make_test_file(output_directory)
 
-
-
     #CHANGE depending on how testing is happening
     #visited_urls = output_directory + "/testURLs.txt"
     visited_urls = output_directory + "/visited_urls.txt"
-
 
 
     # Make objects
@@ -193,7 +188,6 @@ if __name__ == "__main__":
 
     print("")
     # Start scans
-
     print("\033[1;34m> Starting Nmap Scan\033[0m")
     nmap.nmap_web_app()
 
@@ -201,15 +195,15 @@ if __name__ == "__main__":
     spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    sql_inject.start_scan()
+    #sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
-    command_inject.start_scan()
+    #command_inject.start_scan()
     print(f"\033[36m Finished Command Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
-    sxss.start_scan()
+    #sxss.start_scan()
     print(f"\033[36m Finished Stored XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Reflected XSS scan\033[0m")
@@ -217,23 +211,23 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Reflected XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
-    rfi.start_scan()
+    #rfi.start_scan()
     print(f"\033[36m Finished Remote File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Local File Inclusion scan\033[0m")
-    lfi.start_scan()
+    #lfi.start_scan()
     print(f"\033[36m Finished Local File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
-    verb_tampering.start_scan()
+    #verb_tampering.start_scan()
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
-    xxe.start_scan()
+    #xxe.start_scan()
     print(f"\033[36m Finished XXE Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting SSTI scan\033[0m")
-    ssti.start_scan()
+    #ssti.start_scan()
     print(f"\033[36m Finished SSTI scan\033[0m")
 
     RG = ReportGenerator(args.output_format, args.api_key, args.include_cyber_threat_intelligence,

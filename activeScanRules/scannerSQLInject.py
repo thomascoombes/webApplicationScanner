@@ -162,9 +162,9 @@ class ScanSQLInject(ActiveScanner):
                 # Check if method is post or get
                 response = None
                 if form_method == 'POST':
-                    response = requests.post(action, data=post_data, proxies=proxies)
+                    response = requests.post(action, data=post_data)
                 elif form_method == 'GET':
-                    response = requests.get(action, params=post_data, proxies=proxies)
+                    response = requests.get(action, params=post_data) #, proxies=proxies
 
                 if self.check_response1(response, payload, target_url):
                     potential_vulnerability_found = True

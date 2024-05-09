@@ -38,10 +38,6 @@ class NmapScanner:
                 for host, scan_result in result['scan'].items():
                     print("Host:", host)
                     file.write("Host: " + host + "\n")
-                    if 'hostnames' in scan_result:
-                        print("Hostnames:", ', '.join([hostname['name'] for hostname in scan_result['hostnames']]))
-                        file.write("Hostnames: " + ', '.join(
-                            [hostname['name'] for hostname in scan_result['hostnames']]) + "\n")
                     for port, port_data in scan_result['tcp'].items():
                         print(f"Port {port}:", port_data['state'], "-", port_data['name'], "-",
                               port_data.get('product', ''), port_data.get('version', ''))
