@@ -1,12 +1,9 @@
 import argparse
 import os
-import signal
-import keyboard
 
 from nmapScan import NmapScanner
 from spider import Spider
 from reportGenerator import ReportGenerator
-from cti.nvdInterface import NvdIntelligence
 
 from activeScanRules.scannerSQLInject import ScanSQLInject
 from activeScanRules.scannerCommandInject import ScanCommandInject
@@ -18,22 +15,7 @@ from activeScanRules.xssScanRules.scannerStoredXSS import ScanStoredXSS
 
 from activeScanRules.fileInclusionScanRules.scannerLocalFileInclusion import ScanLocalFileInclusion
 from activeScanRules.fileInclusionScanRules.scannerRemoteFileInclusion import ScanRemoteFileInclusion
-"""
-paused = False  # Define a global variable to track the pause state
-def pause_script():
-    global paused
-    if not paused:
-        print("Script paused. Press 'p' to resume.")
-        paused = True
-    else:
-        print("Resuming script...")
-        paused = False
 
-def listen_for_pause():
-    # Listen for 'p' key press
-    keyboard.add_hotkey('p', pause_script)
-    print("Press 'p' to pause/resume the script.")
-"""
 def clear_output_directory(output_directory2):
     if output_directory2 and os.path.exists(output_directory2):
         for filename in os.listdir(output_directory2):
@@ -47,26 +29,6 @@ def clear_output_directory(output_directory2):
                 print(f"Failed to delete {file_path}: {e}")
     else:
         print("Output directory does not exist.")
-
-def make_test_file(output_directory2):
-    less_mutillidae_urls = ["http://192.168.232.129:80/mutillidae/?page=add-to-your-blog.php",
-                            "http://192.168.232.129:80/mutillidae/index.php?page=dns-lookup.php",
-                            "http://192.168.232.129:80/mutillidae/index.php?page=login.php",
-                            "http://192.168.232.129:80/mutillidae/index.php?page=user-info.php",
-                            "http://192.168.232.129/mutillidae/index.php?page=text-file-viewer.php",
-                            ]
-    mut2_urls = [
-        "http://192.168.232.135/mutillidae/index.php?page=view-someones-blog.php",
-        "http://192.168.232.135/mutillidae/index.php?page=add-to-your-blog.php"
-        #"http://192.168.232.135/mutillidae/index.php?page=show-log.php"
-    ]
-
-    # Define the path to the testURLs.txt file
-    file_path2 = os.path.join(output_directory2, "testURLs.txt")
-    # Write the URLs to the file
-    with open(file_path2, "a") as file:
-        for url in mut2_urls: #change depending on url subset required
-            file.write(url + "\n")
 
 
 def load_excluded_urls(filename):
@@ -104,7 +66,7 @@ if __name__ == "__main__":
                         required=False)
     # maybe add support for .pdf .md .yaml .xlsx .db if there is time
     parser.add_argument("-of", "--output-format", choices=["txt", "html", "xml", "json", "csv"], default="txt",
-                        help="Set the output format (txt, html, xml, json, csv)", required=False)
+                        help="Set the output format (txt, html, xml, json)", required=False)
     #add argument for including threat intel & api key
     parser.add_argument("-cti", "--include-cyber-threat-intelligence", action="store_true", help="Include Cyber Threat Intelligence \(CTI\) in the scan")
     parser.add_argument("-api", "--api-key", default=None, help="Set the API key to reach NVD cyber threat intelligence feed",
@@ -164,11 +126,8 @@ if __name__ == "__main__":
     output_directory = target_directory
     clear_output_directory(output_directory)
     report = output_directory + "/" + args.target.replace("://", "_").replace("/", "_") + "." + args.output_format
-    # make a test file with a smaller subset of urls
-    make_test_file(output_directory)
 
-    #CHANGE depending on how testing is happening
-    #visited_urls = output_directory + "/testURLs.txt"
+
     visited_urls = output_directory + "/visited_urls.txt"
 
 
@@ -195,15 +154,15 @@ if __name__ == "__main__":
     spider.spider()
 
     print("\n\033[1;34m> Starting SQL Injection scan\033[0m")
-    #sql_inject.start_scan()
+    sql_inject.start_scan()
     print(f"\033[36m Finished SQL Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Command Injection scan\033[0m")
-    #command_inject.start_scan()
+    command_inject.start_scan()
     print(f"\033[36m Finished Command Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting Stored XSS scan\033[0m")
-    #sxss.start_scan()
+    sxss.start_scan()
     print(f"\033[36m Finished Stored XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Reflected XSS scan\033[0m")
@@ -211,23 +170,23 @@ if __name__ == "__main__":
     print(f"\033[36m Finished Reflected XSS scan\033[0m")
 
     print("\n\033[1;34m> Starting Remote File Inclusion scan\033[0m")
-    #rfi.start_scan()
+    rfi.start_scan()
     print(f"\033[36m Finished Remote File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Local File Inclusion scan\033[0m")
-    #lfi.start_scan()
+    lfi.start_scan()
     print(f"\033[36m Finished Local File Inclusion scan\033[0m")
 
     print("\n\033[1;34m> Starting Verb Tampering scan\033[0m")
-    #verb_tampering.start_scan()
+    verb_tampering.start_scan()
     print(f"\033[36m Finished Verb Tampering scan\033[0m")
 
     print("\n\033[1;34m> Starting XXE Injection scan\033[0m")
-    #xxe.start_scan()
+    xxe.start_scan()
     print(f"\033[36m Finished XXE Injection scan\033[0m")
 
     print("\n\033[1;34m> Starting SSTI scan\033[0m")
-    #ssti.start_scan()
+    ssti.start_scan()
     print(f"\033[36m Finished SSTI scan\033[0m")
 
     RG = ReportGenerator(args.output_format, args.api_key, args.include_cyber_threat_intelligence,

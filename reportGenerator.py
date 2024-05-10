@@ -1,6 +1,5 @@
 import os
 import json
-import csv
 import re
 import xml.etree.ElementTree as ET
 import html
@@ -36,9 +35,6 @@ class ReportGenerator:
 
         if self.output_format == "json":
             self.write_json_output(log_vulnerabilities)
-
-        if self.output_format == "csv":
-            self.write_csv_output(log_vulnerabilities)
         return
 
     def extract_number_of_visited_urls(self):
@@ -267,46 +263,6 @@ class ReportGenerator:
             json_data["vulnerabilities"].append(log_entry)
         with open(self.report_file, 'w') as f:
             json.dump(json_data, f, indent=4, ensure_ascii=False)
-
-    def write_csv_output(self, vulns_dict):
-        with open(self.report_file, 'w', newline='') as csvfile:
-            fieldnames = ['log_file', 'num_vulnerabilities', 'description', 'url', 'payload',
-                          'remediation_steps', 'cwe_link']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for log_file in self.log_files:
-                vulnerabilities = vulns_dict.get(self.clean_filename(log_file), [])
-                for entry in vulnerabilities:
-                    description = self.get_vulnerability_description(entry['name'])
-                    remediation_steps = self.get_remediation_steps(entry['name'])
-                    cwe_link = ""
-                    if self.include_cyber_threat_intelligence:
-                        keyword = entry['name']
-                        cves = self.nvd.search_cve(keyword)
-                        cwe_id = None
-                        if cves:
-                            cve = cves[0]  # Assuming only one CVE is needed
-                            cwe_id = cve.cwe[0].value.replace('CWE-', '') if cve.cwe else None
-                        cwe_link = f"https://cwe.mitre.org/data/definitions/{cwe_id}.html" if cwe_id else ""
-                    writer.writerow({
-                        'log_file': log_file,
-                        'num_vulnerabilities': len(vulnerabilities),
-                        'description': description,
-                        'url': entry['url'],
-                        'payload': entry['payload'],
-                        'remediation_steps': remediation_steps,
-                        'cwe_link': cwe_link
-                    })
-                if not vulnerabilities:
-                    writer.writerow({
-                        'log_file': log_file,
-                        'num_vulnerabilities': 0,
-                        'description': '',
-                        'url': '',
-                        'payload': '',
-                        'remediation_steps': '',
-                        'cwe_link': ''
-                    })
 
 
     def get_vulnerability_description(self, vulnerability_name):

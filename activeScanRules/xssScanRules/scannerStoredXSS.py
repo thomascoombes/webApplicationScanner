@@ -54,7 +54,7 @@ class ScanStoredXSS(ScanXSS):
                 self.logger.info(f"\tNo forms found on {target_url}. Skipping...")
                 #print(f"\033[36m[+] No forms found on {target_url}. Skipping...\033[0m")
                 continue
-            print(f"Sending safe value to {target_url} and spidering application")
+            #print(f"Sending safe value to {target_url} and spidering application")
             potentially_vulnerable_urls = self.send_safe_value(target_url, form_fields)
 
             if len(potentially_vulnerable_urls) != 0:
@@ -62,10 +62,10 @@ class ScanStoredXSS(ScanXSS):
                 if vulnerable_urls is not None:
                     for url in vulnerable_urls:
                         self.logger.warning(
-                            f"Reflected Cross Site Scripting vulnerability found at: "
+                            f"Stored Cross Site Scripting vulnerability found at: "
                             f"{url} with payload: <scrIpt>alert('XSS')</sCriPt>")
                         print(
-                            f"\033[31m[+] Reflected Cross Site Scripting vulnerability found at: "
+                            f"\033[31m[+] Stored Cross Site Scripting vulnerability found at: "
                             f"{url} with payload: {payload}\033[0m")
             #else:
             #    self.logger.info(f"No Stored Cross Site Scripting vulnerabilities found")
@@ -73,6 +73,7 @@ class ScanStoredXSS(ScanXSS):
 
     def send_safe_value(self, target_url, form_fields):
         safe_value = self.generate_random_safe_value()
+        self.logger.info(f"\tSending safe value: {safe_value} to {target_url}")
         method = form_fields[0][2].upper()
         form_data = {}
         for field_tuple in form_fields:
@@ -102,6 +103,7 @@ class ScanStoredXSS(ScanXSS):
         #print(len(urls))
         potentially_vulnerable_urls = []
         for url in urls: # for each url
+            self.logger.info(f"\tChecking: {url} for safe value")
             url = url.strip()
             try:
                 response = self.get_html_content(url) # get response content
@@ -116,7 +118,7 @@ class ScanStoredXSS(ScanXSS):
                 pass
         return potentially_vulnerable_urls
 
-    def search_forms_for_safe_value(self, response, url):
+    def search_forms_for_safe_value(self, response, url): # not implemented
         form_fields = self.extract_form_fields(response)
         if form_fields:
             # Check if the form has a <select> element
@@ -145,6 +147,7 @@ class ScanStoredXSS(ScanXSS):
                    'https': 'http://127.0.0.1:8080'}
 
         payload = "<scrIpt>alert(\"XSS\")</sCriPt>"
+        self.logger.info(f"\tSending payload: {payload} to {target_url}")
         method = form_fields[0][2].upper()
         form_data = {}
         for field_tuple in form_fields:
@@ -173,6 +176,7 @@ class ScanStoredXSS(ScanXSS):
         vulnerable_urls = []
         self.start_driver()
         for url in potentially_vulnerable_urls:
+            self.logger.info(f"\tSearching: {url} for reflections")
             url = url.strip()
             self.driver.get(url)
             try:
